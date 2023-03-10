@@ -13,6 +13,6 @@ public class LaserController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+
     }
 }
