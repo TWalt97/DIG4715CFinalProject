@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class LaserController : MonoBehaviour
 {
-    public gam
+    
     // Start is called before the first frame update
     void Start()
     {
