@@ -8,13 +8,11 @@ public class PlayerController : MonoBehaviour
     public float speed = 15f;
     float horizontal;
     float vertical;
-    // update
     public Transform orientation;
     Vector3 moveDirection;
     public float groundDrag;
     public float playerHeight;
     public LayerMask whatisGround;
-
 
     // jump
     public bool isGrounded;
@@ -34,10 +32,6 @@ public class PlayerController : MonoBehaviour
     void Update()
     {
         // move
-        /*horizontal = Input.GetAxis("Horizontal") * Time.deltaTime * speed;
-        vertical = Input.GetAxis("Vertical") * Time.deltaTime * speed;
-        transform.Translate(horizontal, 0, vertical);*/
-        //update
         isGrounded = Physics.Raycast(transform.position, Vector3.down, playerHeight * 0.5f + 0.2f, whatisGround);
         MyInput();
         SpeedControl();
@@ -46,13 +40,6 @@ public class PlayerController : MonoBehaviour
         else
         {
             rb.drag = 0;
-        }
-
-        // jump
-        if (Input.GetButtonDown("Jump") && isGrounded)
-        {
-            rb.AddForce(new Vector3(0, 5, 0), ForceMode.Impulse);
-            isGrounded = false;
         }
     }
 
@@ -81,16 +68,6 @@ public class PlayerController : MonoBehaviour
         {
             Vector3 limitedVel = flatVel.normalized * speed;
             rb.velocity = new Vector3(limitedVel.x, rb.velocity.y, limitedVel.z);
-        }
-    }
-
-    // jump 
-    private void OnCollisionEnter(Collision collision)
-    {
-        // check ground
-        if (collision.gameObject.tag == "Ground")
-        {
-            isGrounded = true;
         }
     }
 }
