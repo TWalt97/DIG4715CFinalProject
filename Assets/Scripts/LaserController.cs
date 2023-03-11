@@ -36,7 +36,6 @@ public class LaserController : MonoBehaviour
 
         if (aiming == true && Input.GetKeyDown(KeyCode.Mouse0))
         {
-            Debug.Log("Pew pew");
             Shoot();
         }
     }
@@ -47,6 +46,7 @@ public class LaserController : MonoBehaviour
         if (Physics.Raycast(zoomCamera.transform.position, zoomCamera.transform.forward, out hit, range))
         {
             Debug.Log(hit.transform.name);
+            Debug.Log("Pew pew");
         }
     }
 }
