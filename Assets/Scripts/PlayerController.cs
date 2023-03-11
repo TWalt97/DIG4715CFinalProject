@@ -26,19 +26,15 @@ public class PlayerController : MonoBehaviour
         rb.freezeRotation = true;
     }
 
-    //update
-    private void MyInput()
-    {
-        horizontal = 
-    }
-
     // Update is called once per frame
     void Update()
     {
         // move
-        horizontal = Input.GetAxis("Horizontal") * Time.deltaTime * speed;
+        /*horizontal = Input.GetAxis("Horizontal") * Time.deltaTime * speed;
         vertical = Input.GetAxis("Vertical") * Time.deltaTime * speed;
-        transform.Translate(horizontal, 0, vertical);
+        transform.Translate(horizontal, 0, vertical);*/
+        //update
+        MyInput();
 
         // jump
         if (Input.GetButtonDown("Jump") && isGrounded)
@@ -46,6 +42,13 @@ public class PlayerController : MonoBehaviour
             rb.AddForce(new Vector3(0, 5, 0), ForceMode.Impulse);
             isGrounded = false;
         }  
+    }
+
+    //update
+    private void MyInput()
+    {
+        horizontal = Input.GetAxisRaw("Horizontal");
+        vertical = Input.GetAxisRaw("Vertical");
     }
 
     // jump 
