@@ -43,8 +43,9 @@ public class LaserController : MonoBehaviour
     void Shoot()
     {
         RaycastHit hit;
-        if Physics.Raycast(zoomCamera.transform.position, zoomCamera.transform.forward, out hit, range)
+        if (Physics.Raycast(zoomCamera.transform.position, zoomCamera.transform.forward, out hit, range))
         {
+            Debug.Log(hit.transform.name);
         }
     }
 }
