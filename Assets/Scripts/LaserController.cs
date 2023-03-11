@@ -21,7 +21,7 @@ public class LaserController : MonoBehaviour
             mainCamera.SetActive(false);
             zoomCamera.SetActive(true);
         }
-        else
+        if (Input.GetKeyUp(KeyCode.Mouse1))
         {
             mainCamera.SetActive(true);
             mainCamera.SetActive(false);
