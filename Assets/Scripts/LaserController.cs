@@ -6,6 +6,7 @@ public class LaserController : MonoBehaviour
 {
     public GameObject mainCamera;
     public GameObject zoomCamera;
+    public GameObject crosshair;
     bool aiming;
     // Start is called before the first frame update
     void Start()
@@ -20,12 +21,14 @@ public class LaserController : MonoBehaviour
         {
             mainCamera.SetActive(false);
             zoomCamera.SetActive(true);
+            crosshair.SetActive(true);
             aiming = true;
         }
         if (Input.GetKeyUp(KeyCode.Mouse1))
         {
             mainCamera.SetActive(true);
             zoomCamera.SetActive(false);
+            crosshair.SetActive(false);
             aiming = false;
         }
     }
