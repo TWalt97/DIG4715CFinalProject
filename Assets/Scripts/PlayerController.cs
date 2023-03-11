@@ -13,7 +13,7 @@ public class PlayerController : MonoBehaviour
     Vector3 moveDirection;
 
     // jump
-    public bool isGrounded = true;
+    //public bool isGrounded = true;
 
     // rigidbody
     Rigidbody rb;
@@ -37,11 +37,16 @@ public class PlayerController : MonoBehaviour
         MyInput();
 
         // jump
-        if (Input.GetButtonDown("Jump") && isGrounded)
+        /*if (Input.GetButtonDown("Jump") && isGrounded)
         {
             rb.AddForce(new Vector3(0, 5, 0), ForceMode.Impulse);
             isGrounded = false;
-        }  
+        }*/  
+    }
+
+    private void FixedUpdate()
+    {
+        MovePlayer();
     }
 
     //update
@@ -51,13 +56,19 @@ public class PlayerController : MonoBehaviour
         vertical = Input.GetAxisRaw("Vertical");
     }
 
+    private void MovePlayer()
+    {
+        moveDirection = orientation.forward * vertical + orientation.right * horizontal;
+        rb.AddForce(moveDirection.normalized * speed * 10f, ForceMode.Force);
+    }
+
     // jump 
-    private void OnCollisionEnter(Collision collision)
+    /*private void OnCollisionEnter(Collision collision)
     {
         // check ground
         if (collision.gameObject.tag == "Ground")
         {
             isGrounded = true;
         }
-    }
+    }*/
 }
