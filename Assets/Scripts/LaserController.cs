@@ -16,7 +16,7 @@ public class LaserController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (aiming == true)
+        if (Input.GetKeyDown(KeyCode.Mouse1))
         {
             mainCamera.SetActive(false);
             zoomCamera.SetActive(true);
