@@ -20,6 +20,7 @@ public class PlayerController : MonoBehaviour
     public float jumpCooldown;
     public float airMultiplier;
     bool readyToJump;
+    public KeyCode jumpKey = KeyCode.Space;
 
     // rigidbody
     Rigidbody rb;
@@ -57,6 +58,12 @@ public class PlayerController : MonoBehaviour
     {
         horizontal = Input.GetAxisRaw("Horizontal");
         vertical = Input.GetAxisRaw("Vertical");
+
+        // jump
+        if (Input.GetKey(jumpKey) && readyToJump && isGrounded)
+        {
+            
+        }
     }
 
     private void MovePlayer()
