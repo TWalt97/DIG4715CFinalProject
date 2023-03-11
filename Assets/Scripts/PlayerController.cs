@@ -49,11 +49,11 @@ public class PlayerController : MonoBehaviour
         }
 
         // jump
-        /*if (Input.GetButtonDown("Jump") && isGrounded)
+        if (Input.GetButtonDown("Jump") && isGrounded)
         {
             rb.AddForce(new Vector3(0, 5, 0), ForceMode.Impulse);
             isGrounded = false;
-        }*/  
+        }
     }
 
     private void FixedUpdate()
@@ -85,12 +85,12 @@ public class PlayerController : MonoBehaviour
     }
 
     // jump 
-    /*private void OnCollisionEnter(Collision collision)
+    private void OnCollisionEnter(Collision collision)
     {
         // check ground
         if (collision.gameObject.tag == "Ground")
         {
             isGrounded = true;
         }
-    }*/
+    }
 }
