@@ -36,6 +36,7 @@ public class LaserController : MonoBehaviour
 
         if (aiming == true && Input.GetKeyDown(KeyCode.Mouse0))
         {
+            Debug.Log("Pew pew");
             Shoot();
         }
     }
