@@ -45,8 +45,11 @@ public class LaserController : MonoBehaviour
         RaycastHit hit;
         if (Physics.Raycast(zoomCamera.transform.position, zoomCamera.transform.forward, out hit, range))
         {
-            Debug.Log(hit.transform.name);
-            Debug.Log("Pew pew");
+            DestructibleObject destructibleObject = hit.transform.GetComponent<DestructibleObject>();
+            if (destructibleObject != null)
+            {
+                destructibleObject.TakeDamage(1);
+            }
         }
     }
 }
