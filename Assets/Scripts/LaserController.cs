@@ -42,6 +42,6 @@ public class LaserController : MonoBehaviour
 
     void Shoot()
     {
-
+        
     }
 }
