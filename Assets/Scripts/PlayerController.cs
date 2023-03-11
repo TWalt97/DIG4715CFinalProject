@@ -16,11 +16,14 @@ public class PlayerController : MonoBehaviour
 
     // jump
     bool isGrounded;
-    public float jumpForce;
+    /*public float jumpForce;
     public float jumpCooldown;
     public float airMultiplier;
     bool readyToJump;
-    public KeyCode jumpKey = KeyCode.Space;
+    public KeyCode jumpKey = KeyCode.Space;*/
+    public Vector3 jump;
+    public float jumpForce = 2.0f;
+    public bool grounded;
 
     // rigidbody
     Rigidbody rb;
@@ -31,6 +34,7 @@ public class PlayerController : MonoBehaviour
         // rigidbody
         rb = GetComponent<Rigidbody>();
         rb.freezeRotation = true;
+        jump = new Vector3(0.0f, 2.0f, 0.0f);
     }
 
     // Update is called once per frame
@@ -46,6 +50,12 @@ public class PlayerController : MonoBehaviour
         {
             rb.drag = 0;
         }
+
+        if(Input.GetKeyDown(KeyCode.Space) && grounded)
+        {
+            rb.AddForce(jump * jumpForce, ForceMode.Impulse);
+            grounded = false;
+        }
     }
 
     private void FixedUpdate()
@@ -60,12 +70,12 @@ public class PlayerController : MonoBehaviour
         vertical = Input.GetAxisRaw("Vertical");
 
         // jump
-        if (Input.GetKey(jumpKey) && readyToJump && isGrounded)
+        /*if (Input.GetKey(jumpKey) && readyToJump && isGrounded)
         {
             readyToJump = false;
             Jump();
             Invoke(nameof(ResetJump), jumpCooldown);
-        }
+        }*/
     }
 
     private void MovePlayer()
@@ -87,7 +97,7 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    private void Jump()
+    /*private void Jump()
     {
         rb.velocity = new Vector3(rb.velocity.x, 0f, rb.velocity.z);
         rb.AddForce(transform.up * jumpForce, ForceMode.Impulse);
@@ -96,5 +106,10 @@ public class PlayerController : MonoBehaviour
     private void ResetJump()
     {
         readyToJump = true;
+    }*/
+
+    void OnCollisionStay()
+    {
+        isGrounded = true;
     }
 }
