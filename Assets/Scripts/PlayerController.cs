@@ -40,6 +40,7 @@ public class PlayerController : MonoBehaviour
         //update
         isGrounded = Physics.Raycast(transform.position, Vector3.down, playerHeight * 0.5f + 0.2f, whatisGround);
         MyInput();
+        SpeedControl();
         if (isGrounded)
             rb.drag = groundDrag;
         else
@@ -75,7 +76,7 @@ public class PlayerController : MonoBehaviour
 
     private void SpeedControl()
     {
-        Vector3 flatVel = new Vector3(rb.velocity.x, 0f, rb,velocity.z);
+        Vector3 flatVel = new Vector3(rb.velocity.x, 0f, rb.velocity.z);
         if (flatVel.magnitude > speed)
         {
             Vector3 limitedVel = flatVel.normalized * speed;
