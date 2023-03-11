@@ -26,6 +26,7 @@ public class LaserController : MonoBehaviour
             zoomCamera.SetActive(true);
             crosshair.SetActive(true);
             aiming = true;
+            zoomCamera.transform.rotation = mainCamera.transform.rotation;
         }
         if (Input.GetKeyUp(KeyCode.Mouse1))
         {
@@ -33,6 +34,7 @@ public class LaserController : MonoBehaviour
             zoomCamera.SetActive(false);
             crosshair.SetActive(false);
             aiming = false;
+            mainCamera.transform.rotation = zoomCamera.transform.rotation;
         }
 
         if (aiming == true && Input.GetKeyDown(KeyCode.Mouse0))
