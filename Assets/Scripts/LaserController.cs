@@ -10,6 +10,7 @@ public class LaserController : MonoBehaviour
     bool aiming;
 
     public float range;
+    public ParticleSystem laserParticle;
     // Start is called before the first frame update
     void Start()
     {
@@ -42,6 +43,7 @@ public class LaserController : MonoBehaviour
 
     void Shoot()
     {
+        laserParticle.Play();
         RaycastHit hit;
         if (Physics.Raycast(zoomCamera.transform.position, zoomCamera.transform.forward, out hit, range))
         {
