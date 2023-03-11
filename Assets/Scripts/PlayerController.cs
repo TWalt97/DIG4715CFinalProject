@@ -38,8 +38,9 @@ public class PlayerController : MonoBehaviour
         vertical = Input.GetAxis("Vertical") * Time.deltaTime * speed;
         transform.Translate(horizontal, 0, vertical);*/
         //update
-        isGrounded = Physics.Raycast(transform.position, Vector3.down, playerHeight * )
+        isGrounded = Physics.Raycast(transform.position, Vector3.down, playerHeight * 0.5f + 0.2f, whatisGround);
         MyInput();
+        
 
         // jump
         /*if (Input.GetButtonDown("Jump") && isGrounded)
