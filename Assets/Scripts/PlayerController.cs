@@ -26,8 +26,8 @@ public class PlayerController : MonoBehaviour
     void Update()
     {
         // move
-        horizontal = Input.GetAxis("Horizontal");
-        vertical = Input.GetAxis("Vertical");
+        horizontal = Input.GetAxis("Horizontal") * Time.deltaTime * speed;
+        vertical = Input.GetAxis("Vertical") * Time.deltaTime * speed;
         transform.Translate(horizontal, 0, vertical);
 
         // jump
