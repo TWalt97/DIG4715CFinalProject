@@ -81,10 +81,7 @@ public class PlayerController : MonoBehaviour
     private void MovePlayer()
     {
         moveDirection = orientation.forward * vertical + orientation.right * horizontal;
-        if (isGrounded)
-            rb.AddForce(moveDirection.normalized * speed * 10f, ForceMode.Force);
-        else if (!isGrounded)
-            rb.AddForce(moveDirection.normalized * speed * 10f * airMultiplier, ForceMode.Force);
+        rb.AddForce(moveDirection.normalized * speed * 10f, ForceMode.Force);
     }
 
     private void SpeedControl()
