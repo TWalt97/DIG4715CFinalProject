@@ -96,5 +96,5 @@ public class PlayerController : MonoBehaviour
     private void ResetJump()
     {
         readyToJump = true;
-    }    
+    }
 }
