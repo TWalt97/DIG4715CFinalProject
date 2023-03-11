@@ -54,7 +54,7 @@ public class PlayerController : MonoBehaviour
         if(Input.GetKeyDown(KeyCode.Space) && grounded)
         {
             rb.AddForce(jump * jumpForce, ForceMode.Impulse);
-            grounded = false;
+            isGrounded = false;
         }
     }
 
@@ -81,7 +81,10 @@ public class PlayerController : MonoBehaviour
     private void MovePlayer()
     {
         moveDirection = orientation.forward * vertical + orientation.right * horizontal;
-        rb.AddForce(moveDirection.normalized * speed * 10f, ForceMode.Force);
+        if (isGrounded)
+            rb.AddForce(moveDirection.normalized * speed * 10f, ForceMode.Force);
+        else if (!isGrounded)
+            rb.AddForce(moveDirection.normalized * speed * 10f * airMultiplier, ForceMode.Force);
     }
 
     private void SpeedControl()
