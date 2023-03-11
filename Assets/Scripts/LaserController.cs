@@ -31,5 +31,15 @@ public class LaserController : MonoBehaviour
             crosshair.SetActive(false);
             aiming = false;
         }
+
+        if (aiming == true && Input.GetKeyDown(KeyCode.Mouse0))
+        {
+            Shoot();
+        }
+    }
+
+    void Shoot()
+    {
+        
     }
 }
