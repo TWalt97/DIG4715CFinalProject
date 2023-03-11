@@ -15,7 +15,11 @@ public class PlayerController : MonoBehaviour
     public LayerMask whatisGround;
 
     // jump
-    public bool isGrounded;
+    bool isGrounded;
+    public float jumpForce;
+    public float jumpCooldown;
+    public float airMultiplier;
+    bool readyToJump;
 
     // rigidbody
     Rigidbody rb;
@@ -69,5 +73,16 @@ public class PlayerController : MonoBehaviour
             Vector3 limitedVel = flatVel.normalized * speed;
             rb.velocity = new Vector3(limitedVel.x, rb.velocity.y, limitedVel.z);
         }
+    }
+
+    private void Jump()
+    {
+        rb.velocity = new Vector3(rb.velocity.x, 0f, rb.velocity.z);
+        rb.AddForce(transform.up * jumpForce, ForceMode.Impulse);
+    }
+
+    private void ResetJump()
+    {
+        readyToJump = true;
     }
 }
