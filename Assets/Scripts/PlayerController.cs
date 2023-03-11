@@ -8,10 +8,6 @@ public class PlayerController : MonoBehaviour
     public float speed = 15f;
     float horizontal;
     float vertical;
-    // changes
-    public Transform orientation;
-    public Transform player;
-    public Transform playerObj;
 
     // jump
     public bool isGrounded = true;
@@ -24,28 +20,15 @@ public class PlayerController : MonoBehaviour
     {
         // rigidbody
         rb = GetComponent<Rigidbody>();
-
-        // update
-        Cursor.lockState = CursorLockMode.Locked;
-        Cursor.visible = false;
     }
 
     // Update is called once per frame
     void Update()
     {
-        // update
-        Vector3 viewDir = player.position - new Vector3(transform.position.x, player.position.y, transform.position.z);
-        orientation.forward = viewDir.normalized;
         // move
         horizontal = Input.GetAxis("Horizontal");
         vertical = Input.GetAxis("Vertical");
-        //transform.Translate(horizontal, 0, vertical);
-        //update
-        Vector3 inputDir = orientation.forward * vertical + orientation.right * horizontal;
-        if (inputDir != Vector3.zero)
-        {
-            playerObj.forward = Vector3.Slerp(playerObj.forward, inputDir.normalized, Time.deltaTime * speed);
-        }
+        transform.Translate(horizontal, 0, vertical);
 
         // jump
         if (Input.GetButtonDown("Jump") && isGrounded)
