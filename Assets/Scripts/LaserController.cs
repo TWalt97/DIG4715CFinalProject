@@ -8,6 +8,8 @@ public class LaserController : MonoBehaviour
     public GameObject zoomCamera;
     public GameObject crosshair;
     bool aiming;
+
+    public float range;
     // Start is called before the first frame update
     void Start()
     {
@@ -40,6 +42,6 @@ public class LaserController : MonoBehaviour
 
     void Shoot()
     {
-        
+
     }
 }
