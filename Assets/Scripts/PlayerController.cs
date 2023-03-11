@@ -8,6 +8,9 @@ public class PlayerController : MonoBehaviour
     public float speed = 15f;
     float horizontal;
     float vertical;
+    // update
+    public Transform orientation;
+    Vector3 moveDirection;
 
     // jump
     public bool isGrounded = true;
@@ -20,6 +23,13 @@ public class PlayerController : MonoBehaviour
     {
         // rigidbody
         rb = GetComponent<Rigidbody>();
+        rb.freezeRotation = true;
+    }
+
+    //update
+    private void MyInput()
+    {
+        horizontal = 
     }
 
     // Update is called once per frame
