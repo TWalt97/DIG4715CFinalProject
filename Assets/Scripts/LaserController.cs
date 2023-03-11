@@ -20,13 +20,13 @@ public class LaserController : MonoBehaviour
         {
             mainCamera.SetActive(false);
             zoomCamera.SetActive(true);
-            Debug.Log("RMB down");
+            aiming = true;
         }
         if (Input.GetKeyUp(KeyCode.Mouse1))
         {
             mainCamera.SetActive(true);
-            mainCamera.SetActive(false);
-            Debug.Log("RMB up");
+            zoomCamera.SetActive(false);
+            aiming = false;
         }
     }
 }
