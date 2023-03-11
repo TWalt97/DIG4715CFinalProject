@@ -73,6 +73,16 @@ public class PlayerController : MonoBehaviour
         rb.AddForce(moveDirection.normalized * speed * 10f, ForceMode.Force);
     }
 
+    private void SpeedControl()
+    {
+        Vector3 flatVel = new Vector3(rb.velocity.x, 0f, rb,velocity.z);
+        if (flatVel.magnitude > speed)
+        {
+            Vector3 limitedVel = flatVel.normalized * speed;
+            rb.velocity = new Vector3(limitedVel.x, rb.velocity.y, limitedVel.z);
+        }
+    }
+
     // jump 
     /*private void OnCollisionEnter(Collision collision)
     {
