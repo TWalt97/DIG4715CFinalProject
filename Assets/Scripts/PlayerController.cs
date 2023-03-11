@@ -11,9 +11,13 @@ public class PlayerController : MonoBehaviour
     // update
     public Transform orientation;
     Vector3 moveDirection;
+    public float drag;
+    public float playerHeight;
+    public LayerMask whatisGround;
+
 
     // jump
-    //public bool isGrounded = true;
+    public bool isGrounded;
 
     // rigidbody
     Rigidbody rb;
@@ -34,6 +38,7 @@ public class PlayerController : MonoBehaviour
         vertical = Input.GetAxis("Vertical") * Time.deltaTime * speed;
         transform.Translate(horizontal, 0, vertical);*/
         //update
+        isGrounded = Physics.Raycast(transform.position, Vector3.down, playerHeight * )
         MyInput();
 
         // jump
