@@ -62,14 +62,19 @@ public class PlayerController : MonoBehaviour
         // jump
         if (Input.GetKey(jumpKey) && readyToJump && isGrounded)
         {
-            
+            readyToJump = false;
+            Jump();
+            Invoke(nameof(ResetJump), jumpCooldown);
         }
     }
 
     private void MovePlayer()
     {
         moveDirection = orientation.forward * vertical + orientation.right * horizontal;
-        rb.AddForce(moveDirection.normalized * speed * 10f, ForceMode.Force);
+        if (isGrounded)
+            rb.AddForce(moveDirection.normalized * speed * 10f, ForceMode.Force);
+        else if (!isGrounded)
+            rb.AddForce(moveDirection.normalized * speed * 10f * airMultiplier, ForceMode.Force);
     }
 
     private void SpeedControl()
