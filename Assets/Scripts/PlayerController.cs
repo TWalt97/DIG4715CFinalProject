@@ -8,6 +8,10 @@ public class PlayerController : MonoBehaviour
     public float speed = 15f;
     float horizontal;
     float vertical;
+    // changes
+    public Transform orientation;
+    public Transform player;
+    public Transform playerObj;
 
     // jump
     public bool isGrounded = true;
