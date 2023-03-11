@@ -11,7 +11,7 @@ public class PlayerController : MonoBehaviour
     // update
     public Transform orientation;
     Vector3 moveDirection;
-    public float drag;
+    public float groundDrag;
     public float playerHeight;
     public LayerMask whatisGround;
 
@@ -40,7 +40,12 @@ public class PlayerController : MonoBehaviour
         //update
         isGrounded = Physics.Raycast(transform.position, Vector3.down, playerHeight * 0.5f + 0.2f, whatisGround);
         MyInput();
-        
+        if (isGrounded)
+            rb.drag = groundDrag;
+        else
+        {
+            rb.drag = 0;
+        }
 
         // jump
         /*if (Input.GetButtonDown("Jump") && isGrounded)
