@@ -34,7 +34,7 @@ public class PlayerController : MonoBehaviour
     void Update()
     {
         // update
-        Vector3 viewDir = player.position - new Vector3(transform.x, player.position.y, transform.position.z);
+        Vector3 viewDir = player.position - new Vector3(transform.position.x, player.position.y, transform.position.z);
         orientation.forward = viewDir.normalized;
         // move
         horizontal = Input.GetAxis("Horizontal");
