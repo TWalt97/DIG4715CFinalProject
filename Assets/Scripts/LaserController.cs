@@ -22,15 +22,15 @@ public class LaserController : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Mouse1))
         {
-            //mainCamera.SetActive(false);
-            //zoomCamera.SetActive(true);
+            mainCamera.SetActive(false);
+            zoomCamera.SetActive(true);
             crosshair.SetActive(true);
             aiming = true;
         }
         if (Input.GetKeyUp(KeyCode.Mouse1))
         {
-            //mainCamera.SetActive(true);
-            //zoomCamera.SetActive(false);
+            mainCamera.SetActive(true);
+            zoomCamera.SetActive(false);
             crosshair.SetActive(false);
             aiming = false;
         }
