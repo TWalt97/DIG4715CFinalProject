@@ -6,6 +6,7 @@ public class LaserController : MonoBehaviour
 {
     public GameObject mainCamera;
     public GameObject zoomCamera;
+    public GameObject orientation;
     public GameObject crosshair;
     bool aiming;
 
@@ -30,7 +31,7 @@ public class LaserController : MonoBehaviour
             zoomCamera.SetActive(true);
             crosshair.SetActive(true);
             aiming = true;
-            zoomCamera.transform.rotation = mainCamera.transform.rotation;
+            orientation.transform.rotation = mainCamera.transform.rotation;
         }
         if (Input.GetKeyUp(KeyCode.Mouse1))
         {
@@ -38,7 +39,7 @@ public class LaserController : MonoBehaviour
             zoomCamera.SetActive(false);
             crosshair.SetActive(false);
             aiming = false;
-            mainCamera.transform.rotation = zoomCamera.transform.rotation;
+            mainCamera.transform.rotation = orientation.transform.rotation;
         }
 
         //Requires the player to press LMB while aiming
