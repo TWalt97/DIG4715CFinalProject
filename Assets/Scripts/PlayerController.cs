@@ -6,19 +6,16 @@ public class PlayerController : MonoBehaviour
 {
     // move
     public float speed = 15f;
-    float horizontal;
-    float vertical;
-
-    // jump
-    public bool isGrounded = true;
 
     // rigidbody
     Rigidbody rb;
 
-    // Start is called before the first frame update
-    void Start()
+    // jump
+    public bool isGrounded;
+    public float jumpForce = 100f;
+
+    private void Start()
     {
-        // rigidbody
         rb = GetComponent<Rigidbody>();
     }
 
@@ -26,25 +23,21 @@ public class PlayerController : MonoBehaviour
     void Update()
     {
         // move
-        horizontal = Input.GetAxis("Horizontal") * Time.deltaTime * speed;
-        vertical = Input.GetAxis("Vertical") * Time.deltaTime * speed;
-        transform.Translate(horizontal, 0, vertical);
+        float horizontal = Input.GetAxis("Horizontal");
+        float vertical = Input.GetAxis("Vertical");
+        rb.velocity = new Vector3(horizontal * speed, rb.velocity.y, vertical * speed);
 
         // jump
         if (Input.GetButtonDown("Jump") && isGrounded)
         {
-            rb.AddForce(new Vector3(0, 5, 0), ForceMode.Impulse);
+            rb.AddForce(new Vector3(0, jumpForce, 0), ForceMode.Impulse);
             isGrounded = false;
-        }  
+        }
     }
 
-    // jump 
     private void OnCollisionEnter(Collision collision)
     {
-        // check ground
-        if (collision.gameObject.tag == "Ground")
-        {
-            isGrounded = true;
-        }
+        // Jump
+        isGrounded = true;
     }
 }
