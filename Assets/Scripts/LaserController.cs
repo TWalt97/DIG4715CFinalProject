@@ -41,6 +41,7 @@ public class LaserController : MonoBehaviour
             mainCamera.transform.rotation = zoomCamera.transform.rotation;
         }
 
+        //Requires the player to press LMB while aiming
         if (aiming == true && Input.GetKeyDown(KeyCode.Mouse0))
         {
             Shoot();
