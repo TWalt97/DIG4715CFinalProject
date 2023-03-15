@@ -14,6 +14,7 @@ public class LaserController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        //This might not be the best place to hide and lock the cursor, so it can be moved to any other script.
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
     }
@@ -21,6 +22,8 @@ public class LaserController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        //Changes the camera to the "zoomed camera" and makes the crosshair UI element active
+        //Likely a cleaner way to do this
         if (Input.GetKeyDown(KeyCode.Mouse1))
         {
             mainCamera.SetActive(false);
