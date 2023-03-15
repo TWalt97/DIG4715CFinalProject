@@ -23,9 +23,9 @@ public class PlayerController : MonoBehaviour
     void Update()
     {
         // move
-        float horizontal = Input.GetAxis("Horizontal") * Time.deltaTime * speed;
-        float vertical = Input.GetAxis("Vertical") * Time.deltaTime * speed;
-        transform.Translate(horizontal, 0, vertical);
+        float horizontal = Input.GetAxis("Horizontal");
+        float vertical = Input.GetAxis("Vertical");
+        rb.velocity = new Vector3(horizontal * speed, rb.velocity.y, vertical * speed);
 
         // jump
         if (Input.GetButtonDown("Jump") && isGrounded)
