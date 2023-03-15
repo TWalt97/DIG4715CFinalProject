@@ -159,8 +159,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   target: {fileID: 85901582}
-  playerA: {fileID: 85901575}
-  playerB: {fileID: 1630380941}
+  normal: {fileID: 0}
+  shrink: {fileID: 0}
 --- !u!114 &85901577
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -669,6 +669,7 @@ GameObject:
   m_Component:
   - component: {fileID: 457434691}
   - component: {fileID: 457434690}
+  - component: {fileID: 457434692}
   m_Layer: 0
   m_Name: Directional Light
   m_TagString: Untagged
@@ -753,6 +754,26 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 50, y: -30, z: 0}
+--- !u!114 &457434692
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 457434689}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 474bcb49853aa07438625e644c072ee6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Version: 1
+  m_UsePipelineSettings: 1
+  m_AdditionalLightsShadowResolutionTier: 2
+  m_LightLayerMask: 1
+  m_CustomShadowLayers: 0
+  m_ShadowLayerMask: 1
+  m_LightCookieSize: {x: 1, y: 1}
+  m_LightCookieOffset: {x: 0, y: 0}
 --- !u!1 &509340850
 GameObject:
   m_ObjectHideFlags: 0
@@ -2079,7 +2100,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 914197987}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 20, y: 5, z: -30}
+  m_LocalPosition: {x: 20, y: 5, z: -29.9}
   m_LocalScale: {x: 20, y: 10, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -8517,7 +8538,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1608390722}
-  m_LocalRotation: {x: 0.12408214, y: -0.046844322, z: 0.005864454, w: 0.99114823}
+  m_LocalRotation: {x: 0.12408214, y: -0.04684429, z: 0.00586445, w: 0.99114823}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -8621,8 +8642,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   target: {fileID: 85901582}
-  playerA: {fileID: 85901575}
-  playerB: {fileID: 1630380941}
+  normal: {fileID: 0}
+  shrink: {fileID: 0}
 --- !u!114 &1630380944
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9417,7 +9438,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: d6c2e3b333f5a7349889dace0f3ea383, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
