@@ -45,15 +45,6 @@ public class Glow : MonoBehaviour
                 // ability in use again
                 StartCoroutine(Ability(isGlowing));
             }
-            /*if (Input.GetKeyUp(KeyCode.E))
-            {
-                Debug.Log("Release E");
-                // activate playerA
-                normal.SetActive(true);
-
-                // deactivate playerB
-                glow.SetActive(false);
-            }*/
         }
     }
 
