@@ -6,95 +6,79 @@ public class PlayerController : MonoBehaviour
 {
     // move
     public float speed = 15f;
-    float horizontal;
-    float vertical;
-    public Transform orientation;
-    Vector3 moveDirection;
-    public float groundDrag;
-    public float playerHeight;
-    public LayerMask whatisGround;
-
-    // jump
-    bool isGrounded;
-    public float jumpForce;
-    public float jumpCooldown;
-    public float airMultiplier;
-    bool readyToJump;
-    public KeyCode jumpKey = KeyCode.Space;
+    /*public bool walking;
+    public Transform playerTrans;*/
 
     // rigidbody
     Rigidbody rb;
 
-    // Start is called before the first frame update
-    void Start()
+    // jump
+    public bool isGrounded;
+    public float jumpForce = 100f;
+
+    private void Start()
     {
-        // rigidbody
         rb = GetComponent<Rigidbody>();
-        rb.freezeRotation = true;
     }
+
+    // Start is called before the first frame update
+    /*void FixedUpdate()
+    {
+        if (Input.GetKey(KeyCode.W))
+        {
+            rb.velocity = transform.forward * speed * Time.deltaTime;
+        }
+        if (Input.GetKey(KeyCode.S))
+        {
+            rb.velocity = -transform.forward * speed * Time.deltaTime;
+        }
+    }*/
 
     // Update is called once per frame
     void Update()
     {
         // move
-        isGrounded = Physics.Raycast(transform.position, Vector3.down, playerHeight * 0.5f + 0.2f, whatisGround);
-        MyInput();
-        SpeedControl();
-        if (isGrounded)
-            rb.drag = groundDrag;
-        else
+        /*if (Input.GetKeyDown(KeyCode.W))
         {
-            rb.drag = 0;
+            walking = true;
+            //steps1.SetActive(true);
         }
-    }
+        if (Input.GetKeyUp(KeyCode.W))
+        {
+            walking = false;
+            //steps1.SetActive(false);
+        }
+        if (Input.GetKeyDown(KeyCode.S))
+        {
+            //steps1.SetActive(true);
+        }
+        if (Input.GetKeyUp(KeyCode.S))
+        {
+            //steps1.SetActive(false);
+        }
+        if (Input.GetKey(KeyCode.A))
+        {
+            playerTrans.Rotate(0, -speed * Time.deltaTime, 0);
+        }
+        if (Input.GetKey(KeyCode.D))
+        {
+            playerTrans.Rotate(0, speed * Time.deltaTime, 0);
+        }*/
 
-    private void FixedUpdate()
-    {
-        MovePlayer();
-    }
-
-    //update
-    private void MyInput()
-    {
-        horizontal = Input.GetAxisRaw("Horizontal");
-        vertical = Input.GetAxisRaw("Vertical");
+        float horizontal = Input.GetAxis("Horizontal") * Time.deltaTime * speed;
+        float vertical = Input.GetAxis("Vertical") * Time.deltaTime * speed;
+        transform.Translate(horizontal, 0, vertical);
 
         // jump
-        if (Input.GetKey(jumpKey) && readyToJump && isGrounded)
+        if (Input.GetButtonDown("Jump") && isGrounded)
         {
-            readyToJump = false;
-            Jump();
-            Invoke(nameof(ResetJump), jumpCooldown);
+            rb.AddForce(new Vector3(0, jumpForce, 0), ForceMode.Impulse);
+            isGrounded = false;
         }
     }
 
-    private void MovePlayer()
+    private void OnCollisionEnter(Collision collision)
     {
-        moveDirection = orientation.forward * vertical + orientation.right * horizontal;
-        if (isGrounded)
-            rb.AddForce(moveDirection.normalized * speed * 10f, ForceMode.Force);
-        else if (!isGrounded)
-            rb.AddForce(moveDirection.normalized * speed * 10f * airMultiplier, ForceMode.Force);
-    }
-
-    private void SpeedControl()
-    {
-        Vector3 flatVel = new Vector3(rb.velocity.x, 0f, rb.velocity.z);
-        if (flatVel.magnitude > speed)
-        {
-            Vector3 limitedVel = flatVel.normalized * speed;
-            rb.velocity = new Vector3(limitedVel.x, rb.velocity.y, limitedVel.z);
-        }
-    }
-
-    private void Jump()
-    {
-        rb.velocity = new Vector3(rb.velocity.x, 0f, rb.velocity.z);
-        rb.AddForce(transform.up * jumpForce, ForceMode.Impulse);
-    }
-
-    private void ResetJump()
-    {
-        readyToJump = true;
+        isGrounded = true;
     }
 }

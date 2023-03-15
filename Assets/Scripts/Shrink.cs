@@ -6,7 +6,7 @@ public class Shrink : MonoBehaviour
 {
     // move
     public Transform target;
-    
+
     // player gameobjects
     public GameObject playerA;
     public GameObject playerB;
@@ -23,7 +23,7 @@ public class Shrink : MonoBehaviour
 
     // Update is called once per frame
     void Update()
-    { 
+    {
         var targetPosition = new Vector3(target.position.x, transform.position.y, target.position.z);
         transform.position = Vector3.MoveTowards(transform.position, targetPosition, playerController.speed);
 
