@@ -50,6 +50,7 @@ public class LaserController : MonoBehaviour
 
     void Shoot()
     {
+        //laserParticle is actually just the laser, currently located as a child of the camera itself
         laserParticle.Play();
         RaycastHit hit;
         if (Physics.Raycast(zoomCamera.transform.position, zoomCamera.transform.forward, out hit, range))
