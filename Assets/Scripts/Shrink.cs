@@ -8,8 +8,8 @@ public class Shrink : MonoBehaviour
     public Transform target;
 
     // player gameobjects
-    public GameObject playerA;
-    public GameObject playerB;
+    public GameObject normal;
+    public GameObject shrink;
 
     // player
     private PlayerController playerController;
@@ -31,19 +31,19 @@ public class Shrink : MonoBehaviour
         {
             Debug.Log("Pressing left control");
             // activate playerB
-            playerB.SetActive(true);
+            shrink.SetActive(true);
 
             // deactivate playerA
-            playerA.SetActive(false);
+            normal.SetActive(false);
         }
         if (Input.GetKeyUp(KeyCode.LeftControl))
         {
             Debug.Log("Release left control");
             // activate playerA
-            playerA.SetActive(true);
+            normal.SetActive(true);
 
             // deactivate playerB
-            playerB.SetActive(false);
+            shrink.SetActive(false);
         }
     }
 }
