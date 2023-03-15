@@ -20,6 +20,7 @@ public class ZoomCameraController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        //This stuff makes the camera move based on mouse movement, orientation is an empty 
         float mouseX = Input.GetAxisRaw("Mouse X") * Time.deltaTime * sensX;
         float mouseY = Input.GetAxisRaw("Mouse Y") * Time.deltaTime * sensY;
 
