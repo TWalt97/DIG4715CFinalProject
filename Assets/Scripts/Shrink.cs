@@ -15,7 +15,7 @@ public class Shrink : MonoBehaviour
     public float normalSize = 2f;
 
     // speed for when we shrink
-    public float shrinkSpeed = 5f;
+    //public float shrinkSpeed = 5f;
 
     // awake
     void Awake()
@@ -34,7 +34,6 @@ public class Shrink : MonoBehaviour
 
             // shrink size
             playerController.transform.localScale = new Vector3 (shrinkSize, shrinkSize, shrinkSize);
-            GetComponentInParent<Rigidbody>().AddForce(Vector3.down * shrinkSpeed, ForceMode.Impulse); 
         }
 
         // normal
