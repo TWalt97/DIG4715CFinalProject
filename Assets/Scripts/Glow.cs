@@ -4,15 +4,10 @@ using UnityEngine;
 
 public class Glow : MonoBehaviour
 {
-    // move
-    public Transform target;
-
     // player gameobjects
-    public GameObject normal;
     public GameObject glow;
-
-    // player
-    private PlayerController playerController;
+    public Material glowOn;
+    public Material glowOff;
 
     // ability to be active for 5 seconds
     public float isGlowing = 10f;
@@ -22,19 +17,9 @@ public class Glow : MonoBehaviour
     public float cooldownTime = 10f;
     private float nextFireTime = 0;
 
-    // awake
-    void Awake()
-    {
-        // player
-        playerController = GameObject.FindObjectOfType<PlayerController>();
-    }
-
     // Update is called once per frame
     void Update()
     {
-        var targetPosition = new Vector3(target.position.x, transform.position.y, target.position.z);
-        transform.position = Vector3.MoveTowards(transform.position, targetPosition, playerController.speed);
-
         if (Time.time > nextFireTime)
         {
             if (Input.GetKey(KeyCode.E) && !glowBool)
@@ -57,20 +42,16 @@ public class Glow : MonoBehaviour
 
         // activate glow
         glow.SetActive(true);
-
-        // deactivate normal
-        normal.SetActive(false);
+        GetComponentInChildren<MeshRenderer>().material = glowOn;
 
         yield return new WaitForSeconds(isGlowing);
 
         // set glow to false
         glowBool = false;
 
-        // activate normal
-        normal.SetActive(true);
-
         // deactivate glow
         glow.SetActive(false);
+        GetComponentInChildren<MeshRenderer>().material = glowOff;
 
         Debug.Log("Glow ended");
     }
