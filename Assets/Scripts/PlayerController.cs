@@ -16,9 +16,12 @@ public class PlayerController : MonoBehaviour
     public CharacterController controller;
     public Camera cam;
     public GameObject zoomCam;
+    public LayerMask aimColliderLayerMask;
 
     float currentAngle;
     float currentAngleVelocity;
+
+    public GameObject laserParticle;
 
     private void Awake()
     {
@@ -56,7 +59,8 @@ public class PlayerController : MonoBehaviour
         Ray ray = Camera.main.ScreenPointToRay(screenCenterPoint);
         if (Physics.Raycast(ray, out RaycastHit raycastHit, 999f, aimColliderLayerMask))
         {
-            debugTransform.position = raycastHit.point;
+            Vector3 directionToTarget = (raycastHit.point - laserParticle.transform.position);
+            laserParticle.transform.forward = directionToTarget;
             mouseWorldPosition = raycastHit.point;
         }
 
