@@ -15,6 +15,7 @@ public class PlayerController : MonoBehaviour
 
     public CharacterController controller;
     public Camera cam;
+    public GameObject zoomCam;
 
     float currentAngle;
     float currentAngleVelocity;
