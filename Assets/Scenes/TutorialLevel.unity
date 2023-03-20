@@ -708,7 +708,7 @@ MonoBehaviour:
   gravity: 9.8
   gravityMultiplier: 2
   groundedGravity: -0.5
-  jumpHeight: 3
+  jumpHeight: 20
   controller: {fileID: 247924087}
   cam: {fileID: 1301907555}
   zoomCam: {fileID: 1931471357}
@@ -809,13 +809,13 @@ CharacterController:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Height: 4
+  m_Height: 4.2
   m_Radius: 1.1
   m_SlopeLimit: 45
   m_StepOffset: 0.3
-  m_SkinWidth: 0.08
-  m_MinMoveDistance: 0.001
-  m_Center: {x: 0, y: 1, z: 0}
+  m_SkinWidth: 0.0001
+  m_MinMoveDistance: 0
+  m_Center: {x: 0, y: 0.9, z: 0}
 --- !u!1 &341567806
 GameObject:
   m_ObjectHideFlags: 3
@@ -13668,7 +13668,7 @@ CapsuleCollider:
   m_GameObject: {fileID: 2091297870}
   m_Material: {fileID: 13400000, guid: a32ffde8ba4bccb41813cac2185d53b4, type: 2}
   m_IsTrigger: 0
-  m_Enabled: 1
+  m_Enabled: 0
   m_Radius: 0.5
   m_Height: 2
   m_Direction: 1

@@ -32,6 +32,7 @@ public class PlayerController : MonoBehaviour
 
     private void Update()
     {
+        
         HandleMovement();
         HandleGravityAndJump();
     }
@@ -76,6 +77,7 @@ public class PlayerController : MonoBehaviour
 
     void HandleGravityAndJump()
     {
+        Debug.Log(controller.isGrounded);
         //apply groundedGravity when the Player is Grounded
         if (controller.isGrounded && velocityY < 0f)
             velocityY = groundedGravity;
