@@ -32,9 +32,12 @@ public class PlayerController : MonoBehaviour
 
     private void Update()
     {
-        
         HandleMovement();
         HandleGravityAndJump();
+        if (Input.GetKey("escape"))
+        {
+            Application.Quit();
+        }
     }
 
     private void HandleMovement()
