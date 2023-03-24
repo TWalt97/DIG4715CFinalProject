@@ -5,21 +5,13 @@ using UnityEngine;
 public class BallController : MonoBehaviour
 {
     Rigidbody rb;
-    public int force;
+    public int speed;
     Vector3 ballDir = new Vector3(1, -0.75f, 0);
     // Start is called before the first frame update
     void Start()
     {
         rb = GetComponent<Rigidbody>();
-        rb.AddForce(ballDir * force);
-    }
-
-    // Update is called once per frame
-    void OnCollisionEnter(Collision other)
-    {
-        if (other.gameObject.GetComponent<PlayerController>() != null)
-        {
-            Debug.Log("You dead");
-        }
+        //Starting force of the ball
+        rb.AddForce(ballDir * speed);
     }
 }
