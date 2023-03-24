@@ -1,6 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
+using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class PlayerController : MonoBehaviour
 {
@@ -23,11 +26,24 @@ public class PlayerController : MonoBehaviour
 
     public GameObject laserParticle;
 
+    public int winObject = 0;
+    public TextMeshProUGUI winText;
+
+    // win/lose
+    public bool gameOver = false;
+    public TextMeshProUGUI timeText;
+    public float timer;
+
     private void Awake()
     {
         //getting reference for components on the Player
         controller = GetComponent<CharacterController>();
         cam = Camera.main;
+    }
+
+    void Start()
+    {
+        winText.text = "Win: " + winObject.ToString();
     }
 
     private void Update()
@@ -37,6 +53,27 @@ public class PlayerController : MonoBehaviour
         if (Input.GetKey("escape"))
         {
             Application.Quit();
+        }
+
+        timer -= Time.deltaTime;
+        if (timer <= 0)
+        {
+            timer = 0;
+        }
+        timeText.text = timer.ToString("F2");
+
+        // win
+        if ((timer != 0) && (winObject == 1))
+        {
+            gameOver = true;
+            SceneManager.LoadScene("Win");
+        }
+
+        // lose
+        if ((timer == 0) && (winObject == 0))
+        {
+            gameOver = true;
+            SceneManager.LoadScene("Lose");
         }
     }
 
@@ -94,5 +131,15 @@ public class PlayerController : MonoBehaviour
         //applying gravity when Player is not grounded
         velocityY -= gravity * gravityMultiplier * Time.deltaTime;
         controller.Move(Vector3.up * velocityY * Time.deltaTime);
+    }
+
+    void OnTriggerEnter(Collider collider)
+    {
+        if (collider.CompareTag("winObject"))
+        {
+            Destroy(collider.gameObject);
+            winObject += 1;
+            winText.text = "Win: " + winObject.ToString();
+        }
     }
 }
