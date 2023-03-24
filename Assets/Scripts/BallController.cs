@@ -15,8 +15,11 @@ public class BallController : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
+    void OnCollisionEnter(Collision other)
     {
-        
+        if (other.gameObject.GetComponent<PlayerController>() != null)
+        {
+            Debug.Log("You dead");
+        }
     }
 }
