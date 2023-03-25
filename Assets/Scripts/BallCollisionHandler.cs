@@ -4,6 +4,11 @@ using UnityEngine;
 
 public class BallCollisionHandler : MonoBehaviour
 {
+    private void Update() 
+    {
+        BallController ballController = GetComponentInParent<BallController>();
+        transform.position = ballController.transform.position;
+    }
     private void OnTriggerEnter(Collider other)
         {
             if (other.GetComponent<PlayerController>() != null)

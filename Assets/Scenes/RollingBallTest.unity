@@ -135,7 +135,7 @@ GameObject:
   - component: {fileID: 44923768}
   - component: {fileID: 44923767}
   - component: {fileID: 44923766}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Cube
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -644,7 +644,7 @@ GameObject:
   - component: {fileID: 474341160}
   - component: {fileID: 474341159}
   - component: {fileID: 474341158}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Player
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1116,7 +1116,7 @@ GameObject:
   - component: {fileID: 870930321}
   - component: {fileID: 870930320}
   - component: {fileID: 870930319}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Normal
   m_TagString: Normal
   m_Icon: {fileID: 0}
@@ -1207,6 +1207,64 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 870930317}
   m_Mesh: {fileID: 10208, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!1 &991657432
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 991657433}
+  - component: {fileID: 991657434}
+  - component: {fileID: 991657435}
+  m_Layer: 0
+  m_Name: BallCollider
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &991657433
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 991657432}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1996580966}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!135 &991657434
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 991657432}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 0.5
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &991657435
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 991657432}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a26aa5c0ebca76746bd762b0a7b97dd4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1043952032
 GameObject:
   m_ObjectHideFlags: 0
@@ -1314,7 +1372,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1173094364}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: FollowTarget
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1610,7 +1668,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1526131808}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Orientation
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1909,7 +1967,7 @@ GameObject:
   - component: {fileID: 1604550011}
   - component: {fileID: 1604550009}
   - component: {fileID: 1604550010}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: LaserParticle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -7218,7 +7276,7 @@ GameObject:
   - component: {fileID: 1996580963}
   - component: {fileID: 1996580962}
   - component: {fileID: 1996580967}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Ball
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -7315,7 +7373,8 @@ Transform:
   m_LocalPosition: {x: -116.3, y: 30.7, z: 0}
   m_LocalScale: {x: 15, y: 15, z: 15}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 991657433}
   m_Father: {fileID: 0}
   m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -7331,7 +7390,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 44a86096865de6b4fa74fa7ac83fc416, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  force: 250
+  speed: 250
 --- !u!1 &2011544756
 GameObject:
   m_ObjectHideFlags: 0
@@ -7343,7 +7402,7 @@ GameObject:
   - component: {fileID: 2011544757}
   - component: {fileID: 2011544759}
   - component: {fileID: 2011544758}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Point Light
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -7801,7 +7860,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2097277526}
-  m_LocalRotation: {x: 0.0302041, y: 0.7561899, z: -0.034992225, w: 0.65271753}
+  m_LocalRotation: {x: 0.030204097, y: 0.7561898, z: -0.034992214, w: 0.6527176}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
