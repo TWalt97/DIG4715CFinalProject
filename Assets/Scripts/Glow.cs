@@ -4,16 +4,16 @@ using UnityEngine;
 
 public class Glow : MonoBehaviour
 {
-    // player gameobjects
+    [Header("Player")]
     public GameObject glow;
     public Material glowOn;
     public Material glowOff;
 
-    // ability to be active for 5 seconds
+    [Header("How Long You Glow For")]
     public float isGlowing = 10f;
     public bool glowBool = false;
 
-    // cooldown
+    [Header("Cooldown")]
     public float cooldownTime = 10f;
     private float nextFireTime = 0;
 

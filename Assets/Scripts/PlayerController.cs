@@ -7,16 +7,23 @@ using UnityEngine.SceneManagement;
 
 public class PlayerController : MonoBehaviour
 {
+    [Header("Speed")]
     public float speed = 15f;
     public float rotationSmoothTime;
 
+    [Header("Gravity")]
     public float gravity = 9.8f;
     public float gravityMultiplier = 2;
     public float groundedGravity = -0.5f;
+
+    [Header("Jump Height")]
     public float jumpHeight = 3f;
     float velocityY;
 
+    [Header("Reference the CharacterController on Player")]
     public CharacterController controller;
+
+    [Header("Reference the Camera")]
     public Camera cam;
     public GameObject zoomCam;
     public LayerMask aimColliderLayerMask;
@@ -24,13 +31,16 @@ public class PlayerController : MonoBehaviour
     float currentAngle;
     float currentAngleVelocity;
 
+    [Header("Laser")]
     public GameObject laserParticle;
 
     public int winObject = 0;
     public TextMeshProUGUI winText;
 
-    // win/lose
+    [Header("Game Over State")]
     public bool gameOver = false;
+
+    [Header("Timer")]
     public TextMeshProUGUI timeText;
     public float timer;
 
