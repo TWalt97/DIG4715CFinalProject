@@ -9,6 +9,8 @@ public class PlayerController : MonoBehaviour
 {
     [Header("Speed")]
     public float speed = 15f;
+    [Header("Speed After Lose")]
+    public float newSpeed = 15f;
     public float rotationSmoothTime;
 
     [Header("Gravity")]
@@ -43,6 +45,13 @@ public class PlayerController : MonoBehaviour
     [Header("Timer")]
     public TextMeshProUGUI timeText;
     public float timer;
+    [Header("Timer After Lose")]
+    public float newTime;
+
+    [Header("Lose State")]
+    public GameObject loseText;
+    [Header("How Long Lose is Displayed")]
+    public float LoseTime;
 
     private void Awake()
     {
@@ -54,6 +63,7 @@ public class PlayerController : MonoBehaviour
     void Start()
     {
         winText.text = "Win: " + winObject.ToString();
+        loseText.SetActive(false);
     }
 
     private void Update()
@@ -82,9 +92,20 @@ public class PlayerController : MonoBehaviour
         // lose
         if ((timer == 0) && (winObject == 0))
         {
-            gameOver = true;
-            SceneManager.LoadScene("Lose");
+            StartCoroutine(LoseState(LoseTime));
         }
+    }
+
+    IEnumerator LoseState(float LoseTime)
+    {
+        gameOver = true;
+        loseText.SetActive(true);
+        speed = 0;
+        yield return new WaitForSeconds(LoseTime);
+        transform.position = new Vector3(-0.6300001f, 2.7f, -0.3499999f);
+        speed = newSpeed;
+        loseText.SetActive(false);
+        timer = newTime;
     }
 
     private void HandleMovement()
