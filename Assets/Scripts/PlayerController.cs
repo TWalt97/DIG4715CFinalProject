@@ -55,6 +55,8 @@ public class PlayerController : MonoBehaviour
     [Header("How Long Lose is Displayed")]
     public float LoseTime;
 
+    bool timerActive = true;
+
     private void Awake()
     {
         //getting reference for components on the Player
@@ -78,8 +80,12 @@ public class PlayerController : MonoBehaviour
         {
             Application.Quit();
         }
-
-        timer -= Time.deltaTime;
+        //bool to activate and deactive timer
+        //only runs while timerActive == true
+        if (timerActive == true)
+        {
+            timer -= Time.deltaTime;
+        }
         if (timer < 0)
         {
             timer = 0;
@@ -92,28 +98,51 @@ public class PlayerController : MonoBehaviour
             WinCondition();
         }*/
         // win
-        if ((timer != 0) && (winObject == 1))
+        //If timer is above zero, win object collected and timer is active teleport the player, activate win text, run WinCondition after 0.5s
+        if ((timer > 0) && (winObject == 1) && (timerActive == true))
         {
-            StartCoroutine(WinState(LoseTime));
+            transform.position = new Vector3(-0.6300001f, 2.7f, -0.3499999f);
+            winText.SetActive(true);
+            Invoke("WinCondition", 0.5f);
         }
 
         // lose
-        if ((timer == 0) && (winObject == 0))
+        if ((timer == 0) && (winObject == 0) && (timerActive == true))
         {
-            StartCoroutine(LoseState(LoseTime));
+            transform.position = new Vector3(-0.6300001f, 2.7f, -0.3499999f);
+            loseText.SetActive(true);
+            Invoke("LoseCondition", 0.5f);
+            //StartCoroutine(LoseState(LoseTime));
         }
     }
 
-    IEnumerator WinState(float LoseTime)
+    //Method to disable timer
+    //Also starts coroutine to remove text after delay
+    void WinCondition()
     {
-        gameOver = true;
-        winText.SetActive(true);
-        speed = 0;
-        yield return new WaitForSeconds(LoseTime);
-        transform.position = new Vector3(-0.6300001f, 2.7f, -0.3499999f);
-        speed = newSpeed;
-        winText.SetActive(false);
-        timeText.enabled = false;
+        timerActive = false;
+        StartCoroutine(TextRemove(winText, 4f));
+    }
+
+    void LoseCondition()
+    {
+        timerActive = false;
+        StartCoroutine(LoseReset(loseText, 4f));
+    }
+
+    IEnumerator LoseReset(GameObject text, float delay)
+    {
+        yield return new WaitForSeconds(delay);
+        text.SetActive(false);
+        timerActive = true;
+        timer = newTime;
+    }
+
+    //Sets specified gameobject to inactive after specified delay
+    IEnumerator TextRemove(GameObject text, float delay)
+    {
+        yield return new WaitForSeconds(delay);
+        text.SetActive(false);
     }
 
     IEnumerator LoseState(float LoseTime)
