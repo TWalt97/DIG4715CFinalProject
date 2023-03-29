@@ -4,11 +4,13 @@ using UnityEngine;
 
 public class LightScript : MonoBehaviour
 {
+    [Header("Point Light")]
     public GameObject directionLight;
-    // ability to be active for 5 seconds
+
+    [Header("Active Light Time")]
     public float isLight = 10f;
 
-    // cooldown
+    [Header("Cooldown")]
     public float cooldownTime = 10f;
     public float nextFireTime = 0;
 

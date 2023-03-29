@@ -4,18 +4,12 @@ using UnityEngine;
 
 public class Shrink : MonoBehaviour
 {
-
-    // player
+    [Header("Player")]
     private PlayerController playerController;
 
-    // shrink size
+    [Header("Size")]
     public float shrinkSize = 1f;
-
-    // normal size
     public float normalSize = 2f;
-
-    // speed for when we shrink
-    //public float shrinkSpeed = 5f;
 
     // awake
     void Awake()
