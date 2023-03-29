@@ -37,7 +37,7 @@ public class PlayerController : MonoBehaviour
     public GameObject laserParticle;
 
     public int winObject = 0;
-    public TextMeshProUGUI winText;
+    public TextMeshProUGUI winObjectText;
 
     [Header("Game Over State")]
     public bool gameOver = false;
@@ -50,6 +50,8 @@ public class PlayerController : MonoBehaviour
 
     [Header("Lose State")]
     public GameObject loseText;
+    [Header("Win State")]
+    public GameObject winText;
     [Header("How Long Lose is Displayed")]
     public float LoseTime;
 
@@ -62,31 +64,37 @@ public class PlayerController : MonoBehaviour
 
     void Start()
     {
-        winText.text = "Win: " + winObject.ToString();
+        winObjectText.text = "Win: " + winObject.ToString();
         loseText.SetActive(false);
+        winText.SetActive(false);
     }
 
     private void Update()
     {
         HandleMovement();
         HandleGravityAndJump();
+
         if (Input.GetKey("escape"))
         {
             Application.Quit();
         }
 
         timer -= Time.deltaTime;
-        if (timer <= 0)
+        if (timer < 0)
         {
             timer = 0;
         }
         timeText.text = timer.ToString("F2");
 
         // win
+        /*if (winObject == 1)
+        {
+            WinCondition();
+        }*/
+        // win
         if ((timer != 0) && (winObject == 1))
         {
-            gameOver = true;
-            SceneManager.LoadScene("Win");
+            StartCoroutine(WinState(LoseTime));
         }
 
         // lose
@@ -94,6 +102,18 @@ public class PlayerController : MonoBehaviour
         {
             StartCoroutine(LoseState(LoseTime));
         }
+    }
+
+    IEnumerator WinState(float LoseTime)
+    {
+        gameOver = true;
+        winText.SetActive(true);
+        speed = 0;
+        yield return new WaitForSeconds(LoseTime);
+        transform.position = new Vector3(-0.6300001f, 2.7f, -0.3499999f);
+        speed = newSpeed;
+        winText.SetActive(false);
+        timeText.enabled = false;
     }
 
     IEnumerator LoseState(float LoseTime)
@@ -148,7 +168,6 @@ public class PlayerController : MonoBehaviour
 
     void HandleGravityAndJump()
     {
-        Debug.Log(controller.isGrounded);
         //apply groundedGravity when the Player is Grounded
         if (controller.isGrounded && velocityY < 0f)
             velocityY = groundedGravity;
@@ -170,7 +189,7 @@ public class PlayerController : MonoBehaviour
         {
             Destroy(collider.gameObject);
             winObject += 1;
-            winText.text = "Win: " + winObject.ToString();
+            winObjectText.text = "Win: " + winObject.ToString();
         }
     }
 }
