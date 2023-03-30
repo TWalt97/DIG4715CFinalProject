@@ -4,6 +4,7 @@ using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using UnityEngine.InputSystem;
 
 public class PlayerController : MonoBehaviour
 {
@@ -47,6 +48,7 @@ public class PlayerController : MonoBehaviour
     public float timer;
     [Header("Timer After Lose")]
     public float newTime;
+    bool timerActive = true;
 
     [Header("Lose State")]
     public GameObject loseText;
@@ -55,7 +57,8 @@ public class PlayerController : MonoBehaviour
     [Header("How Long Lose is Displayed")]
     public float LoseTime;
 
-    bool timerActive = true;
+    [Header("Movement Controller")]
+    public InputAction playerControls;
 
     private void Awake()
     {
@@ -69,6 +72,16 @@ public class PlayerController : MonoBehaviour
         winObjectText.text = "Win: " + winObject.ToString();
         loseText.SetActive(false);
         winText.SetActive(false);
+    }
+
+    private void OnEnable()
+    {
+        playerControls.Enable();
+    }
+
+    private void OnDisable()
+    {
+        playerControls.Disable();
     }
 
     private void Update()
@@ -159,9 +172,11 @@ public class PlayerController : MonoBehaviour
 
     private void HandleMovement()
     {
-        float horizontal = Input.GetAxisRaw("Horizontal");
+        /*float horizontal = Input.GetAxisRaw("Horizontal");
         float vertical = Input.GetAxisRaw("Vertical");
-        Vector3 direction = new Vector3(horizontal, 0f, vertical).normalized;
+        Vector3 direction = new Vector3(horizontal, 0f, vertical).normalized;*/
+
+        Vector3 direction = playerControls.ReadValue<Vector3>();
 
         if (direction.magnitude >= 0.1f)
         {

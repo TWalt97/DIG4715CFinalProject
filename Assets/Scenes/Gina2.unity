@@ -726,6 +726,79 @@ MonoBehaviour:
   loseText: {fileID: 405477423}
   winText: {fileID: 473723025}
   LoseTime: 5
+  playerControls:
+    m_Name: Player Controls
+    m_Type: 0
+    m_ExpectedControlType: 
+    m_Id: 1115f63f-99bb-44b3-94c7-ba7c71875c18
+    m_Processors: 
+    m_Interactions: 
+    m_SingletonActionBindings:
+    - m_Name: 3D Vector
+      m_Id: 7855e4eb-9adb-4dc4-873b-196ccd3badaf
+      m_Path: 3DVector
+      m_Interactions: 
+      m_Processors: 
+      m_Groups: 
+      m_Action: Player Controls
+      m_Flags: 4
+    - m_Name: up
+      m_Id: c9719826-83d9-4508-b53f-38796e1e2575
+      m_Path: <XInputController>/leftStick/up
+      m_Interactions: 
+      m_Processors: 
+      m_Groups: 
+      m_Action: Player Controls
+      m_Flags: 8
+    - m_Name: down
+      m_Id: 25b198f0-fe84-478e-9dbf-b7f2e811b97f
+      m_Path: <XInputController>/leftStick/down
+      m_Interactions: 
+      m_Processors: 
+      m_Groups: 
+      m_Action: Player Controls
+      m_Flags: 8
+    - m_Name: left
+      m_Id: 5c411485-51f6-4894-bca1-95ef29e2e17b
+      m_Path: <XInputController>/leftStick/left
+      m_Interactions: 
+      m_Processors: 
+      m_Groups: 
+      m_Action: Player Controls
+      m_Flags: 8
+    - m_Name: right
+      m_Id: 522947e2-76b8-4cba-bba0-5643e6bc9e69
+      m_Path: <XInputController>/leftStick/right
+      m_Interactions: 
+      m_Processors: 
+      m_Groups: 
+      m_Action: Player Controls
+      m_Flags: 8
+    - m_Name: forward
+      m_Id: 09493086-3e45-48f0-bef3-0de79b3bd5dc
+      m_Path: <XInputController>/leftStick/up
+      m_Interactions: 
+      m_Processors: 
+      m_Groups: 
+      m_Action: Player Controls
+      m_Flags: 8
+    - m_Name: backward
+      m_Id: 98a2f304-67cd-4a46-8ab3-306646cda607
+      m_Path: <XInputController>/leftStick/down
+      m_Interactions: 
+      m_Processors: 
+      m_Groups: 
+      m_Action: Player Controls
+      m_Flags: 8
+    - m_Name: 
+      m_Id: ebbc32da-6a68-4e2e-9583-4e4ddd06a725
+      m_Path: <XInputController>/buttonSouth
+      m_Interactions: 
+      m_Processors: 
+      m_Groups: 
+      m_Action: Player Controls
+      m_Flags: 0
+    m_Flags: 0
 --- !u!114 &247924082
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -805,9 +878,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   directionLight: {fileID: 457434689}
-  isLight: 10
-  cooldownTime: 20
-  nextFireTime: 10
+  isLight: 30
+  cooldownTime: 50
+  nextFireTime: 30
 --- !u!143 &247924087
 CharacterController:
   m_ObjectHideFlags: 0
@@ -4286,6 +4359,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1086559879}
   - component: {fileID: 1086559878}
+  - component: {fileID: 1086559880}
   m_Layer: 0
   m_Name: ThidPersonCamera
   m_TagString: Untagged
@@ -4415,6 +4489,22 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1086559880
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1086559877}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fb7194dc27b9df64c8beca7482ee8e0d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  PlayerIndex: -1
+  AutoEnableInputs: 1
+  XYAxis: {fileID: -5630151704836100654, guid: ca9f5fa95ffab41fb9a615ab714db018, type: 3}
+  ZAxis: {fileID: 0}
 --- !u!1 &1088288193
 GameObject:
   m_ObjectHideFlags: 0
@@ -4581,7 +4671,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1103424821}
-  m_LocalRotation: {x: 0.0302041, y: 0.7561899, z: -0.034992225, w: 0.65271753}
+  m_LocalRotation: {x: 0.030204097, y: 0.7561898, z: -0.034992214, w: 0.6527176}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
