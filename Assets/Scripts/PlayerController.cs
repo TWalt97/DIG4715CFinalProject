@@ -57,10 +57,13 @@ public class PlayerController : MonoBehaviour
 
     bool timerActive = true;
 
+    Animator animator;
+
     private void Awake()
     {
         //getting reference for components on the Player
         controller = GetComponent<CharacterController>();
+        animator = GetComponentInChildren<Animator>();
         cam = Camera.main;
     }
 
@@ -163,6 +166,15 @@ public class PlayerController : MonoBehaviour
         float vertical = Input.GetAxisRaw("Vertical");
         Vector3 direction = new Vector3(horizontal, 0f, vertical).normalized;
 
+        if (vertical != 0 || horizontal != 0)
+        {
+            animator.SetBool("Walk", true);
+        }
+        else
+        {
+            animator.SetBool("Walk", false);
+        }
+
         if (direction.magnitude >= 0.1f)
         {
             //compute rotation
@@ -200,11 +212,13 @@ public class PlayerController : MonoBehaviour
         //apply groundedGravity when the Player is Grounded
         if (controller.isGrounded && velocityY < 0f)
             velocityY = groundedGravity;
+            animator.SetBool("Jump", false);
 
         //When Grounded and Jump Button is Pressed, set veloctiyY with the formula below
         if (controller.isGrounded && Input.GetKeyDown(KeyCode.Space))
         {
             velocityY = Mathf.Sqrt(jumpHeight * 2f * gravity);
+            animator.SetBool("Jump", true);
         }
 
         //applying gravity when Player is not grounded

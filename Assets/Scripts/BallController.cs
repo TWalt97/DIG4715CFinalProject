@@ -6,7 +6,7 @@ public class BallController : MonoBehaviour
 {
     Rigidbody rb;
     public int speed;
-    Vector3 ballDir = new Vector3(1, -0.75f, 0);
+    Vector3 ballDir = new Vector3(0, -0.75f, 1);
     // Start is called before the first frame update
     void Start()
     {

@@ -6,6 +6,8 @@ public class BallTeleporter : MonoBehaviour
 {
     public GameObject ball;
     public Transform startPos;
+    int randomValue;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -16,7 +18,7 @@ public class BallTeleporter : MonoBehaviour
     {
         if (other.GetComponent<Collider>() != null)
         {
-            other.transform.position = startPos.position;
+            other.transform.position = new Vector3(Random.Range(startPos.position.x + 12, startPos.position.x - 12), startPos.position.y, startPos.position.z);
         }
     }
 }
