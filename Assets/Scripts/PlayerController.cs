@@ -76,6 +76,9 @@ public class PlayerController : MonoBehaviour
         winObjectText.text = "Win: " + winObject.ToString();
         loseText.SetActive(false);
         winText.SetActive(false);
+
+        Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = false;
     }
 
     void OnJump()

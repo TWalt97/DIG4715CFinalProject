@@ -43,17 +43,26 @@
                 },
                 {
                     "name": "Aim",
-                    "type": "Button",
+                    "type": "Value",
                     "id": "b87ddf84-18e2-47f9-9847-9b02f1e45f06",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": true
+                },
+                {
+                    "name": "Escape",
+                    "type": "Button",
+                    "id": "25c9063d-3208-4450-bf23-53d271fea6b5",
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
                 },
                 {
-                    "name": "Escape",
+                    "name": "Shoot",
                     "type": "Button",
-                    "id": "25c9063d-3208-4450-bf23-53d271fea6b5",
+                    "id": "3f332eaa-0c72-412d-9b44-a1e363ccc0a9",
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "",
@@ -190,6 +199,28 @@
                     "processors": "",
                     "groups": "Keyboard and Mouse",
                     "action": "Escape",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "5e820c82-9d4b-415e-a1aa-cf992c9a3339",
+                    "path": "<Mouse>/leftButton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard and Mouse",
+                    "action": "Shoot",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "2698e0f8-be75-40a5-8a11-e95421e9e382",
+                    "path": "",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Shoot",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

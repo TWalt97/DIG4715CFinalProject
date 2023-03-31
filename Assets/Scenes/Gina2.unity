@@ -423,7 +423,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 194677970}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: FollowTarget
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -685,7 +685,7 @@ GameObject:
   - component: {fileID: 247924085}
   - component: {fileID: 247924087}
   - component: {fileID: 247924088}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Player
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -706,7 +706,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 15
   newSpeed: 15
-  rotationSmoothTime: 0
+  rotationSmoothTime: 0.3
   jumpHeight: 10
   controller: {fileID: 247924087}
   cam: {fileID: 1301907555}
@@ -790,6 +790,9 @@ MonoBehaviour:
   crosshair: {fileID: 980077996}
   range: 100
   laserParticle: {fileID: 1454969343}
+  layerMask:
+    serializedVersion: 2
+    m_Bits: 1
 --- !u!114 &247924086
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2524,7 +2527,7 @@ GameObject:
   - component: {fileID: 736743767}
   - component: {fileID: 736743769}
   - component: {fileID: 736743768}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Point Light
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4646,7 +4649,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1103424821}
-  m_LocalRotation: {x: 0.029562106, y: 0.7679466, z: -0.03553626, w: 0.6388438}
+  m_LocalRotation: {x: 0.029562097, y: 0.76794654, z: -0.03553625, w: 0.6388438}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -4742,7 +4745,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1186706459}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Orientation
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5743,7 +5746,7 @@ MonoBehaviour:
   m_BlendUpdateMethod: 1
   m_DefaultBlend:
     m_Style: 1
-    m_Time: 0.5
+    m_Time: 1
     m_CustomCurve:
       serializedVersion: 2
       m_Curve: []
@@ -6613,7 +6616,7 @@ GameObject:
   - component: {fileID: 1454969341}
   - component: {fileID: 1454969343}
   - component: {fileID: 1454969342}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: LaserParticle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -11707,7 +11710,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1553952874}
-  m_LocalRotation: {x: 0.05274856, y: 0.76614887, z: -0.06340841, w: 0.63734835}
+  m_LocalRotation: {x: 0.052748557, y: 0.76614887, z: -0.06340841, w: 0.63734835}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -14345,7 +14348,7 @@ GameObject:
   - component: {fileID: 2091297873}
   - component: {fileID: 2091297872}
   - component: {fileID: 2091297871}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Normal
   m_TagString: Normal
   m_Icon: {fileID: 0}
@@ -14448,7 +14451,7 @@ GameObject:
   - component: {fileID: 2110588153}
   - component: {fileID: 2110588152}
   - component: {fileID: 2110588151}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Cube
   m_TagString: Untagged
   m_Icon: {fileID: 0}

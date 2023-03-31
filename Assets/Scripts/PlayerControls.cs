@@ -65,17 +65,26 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
                 },
                 {
                     ""name"": ""Aim"",
-                    ""type"": ""Button"",
+                    ""type"": ""Value"",
                     ""id"": ""b87ddf84-18e2-47f9-9847-9b02f1e45f06"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": true
+                },
+                {
+                    ""name"": ""Escape"",
+                    ""type"": ""Button"",
+                    ""id"": ""25c9063d-3208-4450-bf23-53d271fea6b5"",
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
                 },
                 {
-                    ""name"": ""Escape"",
+                    ""name"": ""Shoot"",
                     ""type"": ""Button"",
-                    ""id"": ""25c9063d-3208-4450-bf23-53d271fea6b5"",
+                    ""id"": ""3f332eaa-0c72-412d-9b44-a1e363ccc0a9"",
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """",
@@ -214,6 +223,28 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
                     ""action"": ""Escape"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""5e820c82-9d4b-415e-a1aa-cf992c9a3339"",
+                    ""path"": ""<Mouse>/leftButton"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard and Mouse"",
+                    ""action"": ""Shoot"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""2698e0f8-be75-40a5-8a11-e95421e9e382"",
+                    ""path"": """",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Shoot"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -256,6 +287,7 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
         m_Movement_Glow = m_Movement.FindAction("Glow", throwIfNotFound: true);
         m_Movement_Aim = m_Movement.FindAction("Aim", throwIfNotFound: true);
         m_Movement_Escape = m_Movement.FindAction("Escape", throwIfNotFound: true);
+        m_Movement_Shoot = m_Movement.FindAction("Shoot", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -321,6 +353,7 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
     private readonly InputAction m_Movement_Glow;
     private readonly InputAction m_Movement_Aim;
     private readonly InputAction m_Movement_Escape;
+    private readonly InputAction m_Movement_Shoot;
     public struct MovementActions
     {
         private @PlayerControls m_Wrapper;
@@ -331,6 +364,7 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
         public InputAction @Glow => m_Wrapper.m_Movement_Glow;
         public InputAction @Aim => m_Wrapper.m_Movement_Aim;
         public InputAction @Escape => m_Wrapper.m_Movement_Escape;
+        public InputAction @Shoot => m_Wrapper.m_Movement_Shoot;
         public InputActionMap Get() { return m_Wrapper.m_Movement; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -358,6 +392,9 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
                 @Escape.started -= m_Wrapper.m_MovementActionsCallbackInterface.OnEscape;
                 @Escape.performed -= m_Wrapper.m_MovementActionsCallbackInterface.OnEscape;
                 @Escape.canceled -= m_Wrapper.m_MovementActionsCallbackInterface.OnEscape;
+                @Shoot.started -= m_Wrapper.m_MovementActionsCallbackInterface.OnShoot;
+                @Shoot.performed -= m_Wrapper.m_MovementActionsCallbackInterface.OnShoot;
+                @Shoot.canceled -= m_Wrapper.m_MovementActionsCallbackInterface.OnShoot;
             }
             m_Wrapper.m_MovementActionsCallbackInterface = instance;
             if (instance != null)
@@ -380,6 +417,9 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
                 @Escape.started += instance.OnEscape;
                 @Escape.performed += instance.OnEscape;
                 @Escape.canceled += instance.OnEscape;
+                @Shoot.started += instance.OnShoot;
+                @Shoot.performed += instance.OnShoot;
+                @Shoot.canceled += instance.OnShoot;
             }
         }
     }
@@ -410,5 +450,6 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
         void OnGlow(InputAction.CallbackContext context);
         void OnAim(InputAction.CallbackContext context);
         void OnEscape(InputAction.CallbackContext context);
+        void OnShoot(InputAction.CallbackContext context);
     }
 }

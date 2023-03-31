@@ -9,17 +9,20 @@ public class LaserController : MonoBehaviour
     public GameObject zoomCamera;
     public GameObject orientation;
     public GameObject crosshair;
-    bool aiming;
+    bool aiming = false;
 
     public float range;
     public ParticleSystem laserParticle;
 
     private PlayerControls playerControls;
+    public LayerMask layerMask;
 
     private void Awake()
     {
         playerControls = new PlayerControls();
     }
+
+
     private void OnEnable()
     {
         playerControls.Enable();
@@ -29,36 +32,20 @@ public class LaserController : MonoBehaviour
     {
         playerControls.Disable();
     }
-    void Start()
-    {
-        //This might not be the best place to hide and lock the cursor, so it can be moved to any other script.
-        Cursor.lockState = CursorLockMode.Locked;
-        Cursor.visible = false;
-    }
 
     void OnAim()
     {
-        aiming = true;
-        mainCamera.SetActive(false);
-        zoomCamera.SetActive(true);
-        crosshair.SetActive(true);
-        orientation.transform.rotation = mainCamera.transform.rotation;
-        Debug.Log("OnAim");
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        //Changes the camera to the "zoomed camera" and makes the crosshair UI element active
-        //Likely a cleaner way to do this
+        Debug.Log(aiming);
+        aiming = !aiming;
         if (aiming == true)
         {
+            Debug.Log("Aiming is true");
             mainCamera.SetActive(false);
             zoomCamera.SetActive(true);
             crosshair.SetActive(true);
             orientation.transform.rotation = mainCamera.transform.rotation;
         }
-        if (Input.GetKeyUp(KeyCode.Mouse1))
+        else
         {
             mainCamera.SetActive(true);
             zoomCamera.SetActive(false);
@@ -66,11 +53,34 @@ public class LaserController : MonoBehaviour
             aiming = false;
             mainCamera.transform.rotation = orientation.transform.rotation;
         }
+    }
 
-        //Requires the player to press LMB while aiming
-        if (aiming == true && Input.GetKeyDown(KeyCode.Mouse0))
+    void OnShoot()
+    {
+        if (aiming == true)
         {
             Shoot();
+        }
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+        if (aiming == true)
+        {
+            Debug.Log("Aiming is true");
+            mainCamera.SetActive(false);
+            zoomCamera.SetActive(true);
+            crosshair.SetActive(true);
+            orientation.transform.rotation = mainCamera.transform.rotation;
+        }
+        else
+        {
+            mainCamera.SetActive(true);
+            zoomCamera.SetActive(false);
+            crosshair.SetActive(false);
+            aiming = false;
+            mainCamera.transform.rotation = orientation.transform.rotation;
         }
     }
 
@@ -80,7 +90,7 @@ public class LaserController : MonoBehaviour
 
         laserParticle.Play();
         RaycastHit hit;
-        if (Physics.Raycast(laserParticle.transform.position, laserParticle.transform.forward, out hit, range))
+        if (Physics.Raycast(laserParticle.transform.position, laserParticle.transform.forward, out hit, range, layerMask))
         {
             DestructibleObject destructibleObject = hit.transform.GetComponent<DestructibleObject>();
             if (destructibleObject != null)
