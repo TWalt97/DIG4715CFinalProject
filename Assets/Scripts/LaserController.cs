@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class LaserController : MonoBehaviour
 {
@@ -12,7 +13,22 @@ public class LaserController : MonoBehaviour
 
     public float range;
     public ParticleSystem laserParticle;
-    // Start is called before the first frame update
+
+    private PlayerControls playerControls;
+
+    private void Awake()
+    {
+        playerControls = new PlayerControls();
+    }
+    private void OnEnable()
+    {
+        playerControls.Enable();
+    }
+
+    private void OnDisable()
+    {
+        playerControls.Disable();
+    }
     void Start()
     {
         //This might not be the best place to hide and lock the cursor, so it can be moved to any other script.
@@ -20,17 +36,26 @@ public class LaserController : MonoBehaviour
         Cursor.visible = false;
     }
 
+    void OnAim()
+    {
+        aiming = true;
+        mainCamera.SetActive(false);
+        zoomCamera.SetActive(true);
+        crosshair.SetActive(true);
+        orientation.transform.rotation = mainCamera.transform.rotation;
+        Debug.Log("OnAim");
+    }
+
     // Update is called once per frame
     void Update()
     {
         //Changes the camera to the "zoomed camera" and makes the crosshair UI element active
         //Likely a cleaner way to do this
-        if (Input.GetKeyDown(KeyCode.Mouse1))
+        if (aiming == true)
         {
             mainCamera.SetActive(false);
             zoomCamera.SetActive(true);
             crosshair.SetActive(true);
-            aiming = true;
             orientation.transform.rotation = mainCamera.transform.rotation;
         }
         if (Input.GetKeyUp(KeyCode.Mouse1))

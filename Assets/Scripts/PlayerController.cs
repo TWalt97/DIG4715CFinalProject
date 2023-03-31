@@ -15,13 +15,13 @@ public class PlayerController : MonoBehaviour
     public float rotationSmoothTime;
 
     [Header("Gravity")]
-    public float gravity = 9.8f;
-    public float gravityMultiplier = 2;
-    public float groundedGravity = -0.5f;
+    private Vector3 playerVelocity;
+    private bool groundedPlayer;
+    private bool jumpPressed = false;
+    private float gravityValue = -9.81f;
 
     [Header("Jump Height")]
     public float jumpHeight = 3f;
-    float velocityY;
 
     [Header("Reference the CharacterController on Player")]
     public CharacterController controller;
@@ -58,13 +58,17 @@ public class PlayerController : MonoBehaviour
     public float LoseTime;
 
     [Header("Movement Controller")]
-    public InputAction playerControls;
+    //public InputAction playerControls;
+
+    private PlayerControls playerControls;
+
 
     private void Awake()
     {
         //getting reference for components on the Player
         controller = GetComponent<CharacterController>();
         cam = Camera.main;
+        playerControls = new PlayerControls();
     }
 
     void Start()
@@ -72,6 +76,48 @@ public class PlayerController : MonoBehaviour
         winObjectText.text = "Win: " + winObject.ToString();
         loseText.SetActive(false);
         winText.SetActive(false);
+    }
+
+    void OnJump()
+    {
+
+        if(controller.velocity.y == 0)
+        {
+            jumpPressed = true;
+        }
+    }
+
+    void MovementJump()
+    {
+        groundedPlayer = controller.isGrounded;
+        if(groundedPlayer)
+        {
+            playerVelocity.y = 0.0f;
+        }
+
+        if(jumpPressed && groundedPlayer)
+        {
+            playerVelocity.y += Mathf.Sqrt(jumpHeight * -1 * gravityValue);
+            jumpPressed = false;
+        }
+
+        playerVelocity.y += gravityValue * Time.deltaTime;
+        controller.Move(playerVelocity * Time.deltaTime);
+    }
+
+    void OnEscape()
+    {
+        Application.Quit();
+    }
+
+    void OnGlow()
+    {
+        //Glow goes here
+    }
+
+    void OnShrink()
+    {
+        //Shrink goes here
     }
 
     private void OnEnable()
@@ -86,15 +132,11 @@ public class PlayerController : MonoBehaviour
 
     private void Update()
     {
+        MovementJump();
+
         HandleMovement();
         HandleGravityAndJump();
 
-        if (Input.GetKey("escape"))
-        {
-            Application.Quit();
-        }
-        //bool to activate and deactive timer
-        //only runs while timerActive == true
         if (timerActive == true)
         {
             timer -= Time.deltaTime;
@@ -176,12 +218,12 @@ public class PlayerController : MonoBehaviour
         float vertical = Input.GetAxisRaw("Vertical");
         Vector3 direction = new Vector3(horizontal, 0f, vertical).normalized;*/
 
-        Vector3 direction = playerControls.ReadValue<Vector3>();
+        Vector3 direction = playerControls.Movement.Move.ReadValue<Vector2>();
 
         if (direction.magnitude >= 0.1f)
         {
             //compute rotation
-            float targetAngle = Mathf.Atan2(direction.x, direction.z) * Mathf.Rad2Deg + cam.transform.eulerAngles.y;
+            float targetAngle = Mathf.Atan2(direction.x, direction.y) * Mathf.Rad2Deg + cam.transform.eulerAngles.y;
             currentAngle = Mathf.SmoothDampAngle(currentAngle, targetAngle, ref currentAngleVelocity, rotationSmoothTime);
             transform.rotation = Quaternion.Euler(0, currentAngle, 0);
 
@@ -212,6 +254,7 @@ public class PlayerController : MonoBehaviour
 
     void HandleGravityAndJump()
     {
+        /*
         //apply groundedGravity when the Player is Grounded
         if (controller.isGrounded && velocityY < 0f)
             velocityY = groundedGravity;
@@ -225,6 +268,7 @@ public class PlayerController : MonoBehaviour
         //applying gravity when Player is not grounded
         velocityY -= gravity * gravityMultiplier * Time.deltaTime;
         controller.Move(Vector3.up * velocityY * Time.deltaTime);
+        */
     }
 
     void OnTriggerEnter(Collider collider)
@@ -236,4 +280,5 @@ public class PlayerController : MonoBehaviour
             winObjectText.text = "Win: " + winObject.ToString();
         }
     }
+
 }
