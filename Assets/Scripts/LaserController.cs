@@ -6,28 +6,35 @@ public class LaserController : MonoBehaviour
 {
     public GameObject mainCamera;
     public GameObject zoomCamera;
+    public GameObject orientation;
     public GameObject crosshair;
     bool aiming;
 
     public float range;
     public ParticleSystem laserParticle;
+    Animator animator;
+    bool shootingCooldown = false;
     // Start is called before the first frame update
     void Start()
     {
+        //This might not be the best place to hide and lock the cursor, so it can be moved to any other script.
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
+        animator = GetComponentInChildren<Animator>();
     }
 
     // Update is called once per frame
     void Update()
     {
+        //Changes the camera to the "zoomed camera" and makes the crosshair UI element active
+        //Likely a cleaner way to do this
         if (Input.GetKeyDown(KeyCode.Mouse1))
         {
             mainCamera.SetActive(false);
             zoomCamera.SetActive(true);
             crosshair.SetActive(true);
             aiming = true;
-            zoomCamera.transform.rotation = mainCamera.transform.rotation;
+            orientation.transform.rotation = mainCamera.transform.rotation;
         }
         if (Input.GetKeyUp(KeyCode.Mouse1))
         {
@@ -35,20 +42,28 @@ public class LaserController : MonoBehaviour
             zoomCamera.SetActive(false);
             crosshair.SetActive(false);
             aiming = false;
-            mainCamera.transform.rotation = zoomCamera.transform.rotation;
+            mainCamera.transform.rotation = orientation.transform.rotation;
         }
 
+        //Requires the player to press LMB while aiming
         if (aiming == true && Input.GetKeyDown(KeyCode.Mouse0))
         {
-            Shoot();
+            if (shootingCooldown == false)
+            {
+                Shoot();
+            }
+            
         }
     }
 
     void Shoot()
     {
-        laserParticle.Play();
+        //laserParticle is actually just the laser, currently located as a child of the camera itself
+        animator.SetBool("Shoot", true);
+        Invoke("ResetAnim", 0.5f);
+        shootingCooldown = true;
         RaycastHit hit;
-        if (Physics.Raycast(zoomCamera.transform.position, zoomCamera.transform.forward, out hit, range))
+        if (Physics.Raycast(laserParticle.transform.position, laserParticle.transform.forward, out hit, range))
         {
             DestructibleObject destructibleObject = hit.transform.GetComponent<DestructibleObject>();
             if (destructibleObject != null)
@@ -56,5 +71,12 @@ public class LaserController : MonoBehaviour
                 destructibleObject.TakeDamage(1);
             }
         }
+    }
+
+    void ResetAnim()
+    {
+        animator.SetBool("Shoot", false);
+        shootingCooldown = false;
+        laserParticle.Play();
     }
 }

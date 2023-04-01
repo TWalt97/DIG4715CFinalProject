@@ -4,46 +4,51 @@ using UnityEngine;
 
 public class Shrink : MonoBehaviour
 {
-    // move
-    public Transform target;
-
-    // player gameobjects
-    public GameObject normal;
-    public GameObject shrink;
-
-    // player
+    [Header("Player")]
     private PlayerController playerController;
+
+    [Header("Size")]
+    public float shrinkSize = 1f;
+    public float normalSize = 2f;
+
+    Animator animator;
 
     // awake
     void Awake()
     {
         // player
         playerController = GameObject.FindObjectOfType<PlayerController>();
+        animator = GetComponentInChildren<Animator>();
     }
 
     // Update is called once per frame
     void Update()
     {
-        var targetPosition = new Vector3(target.position.x, transform.position.y, target.position.z);
-        transform.position = Vector3.MoveTowards(transform.position, targetPosition, playerController.speed);
-
+        // shrink
         if (Input.GetKeyDown(KeyCode.LeftControl))
         {
             Debug.Log("Pressing left control");
-            // activate playerB
-            shrink.SetActive(true);
 
-            // deactivate playerA
-            normal.SetActive(false);
+            // shrink size
+            playerController.transform.localScale = new Vector3 (shrinkSize, shrinkSize, shrinkSize);
+            animator.SetBool("Shrink", true);
+            Invoke("ResetAnim", 0.5f);
         }
+
+        // normal
         if (Input.GetKeyUp(KeyCode.LeftControl))
         {
             Debug.Log("Release left control");
-            // activate playerA
-            normal.SetActive(true);
 
-            // deactivate playerB
-            shrink.SetActive(false);
+            // return to normal size
+            playerController.transform.localScale = new Vector3 (normalSize, normalSize, normalSize);
+            animator.SetBool("Shrink", true);
+            Invoke("ResetAnim", 0.5f);
         }
+    }
+
+    void ResetAnim()
+    {
+        animator.SetBool("Shrink", false);
     }
 }
