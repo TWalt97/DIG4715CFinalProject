@@ -11,11 +11,14 @@ public class Shrink : MonoBehaviour
     public float shrinkSize = 1f;
     public float normalSize = 2f;
 
+    Animator animator;
+
     // awake
     void Awake()
     {
         // player
         playerController = GameObject.FindObjectOfType<PlayerController>();
+        animator = GetComponentInChildren<Animator>();
     }
 
     // Update is called once per frame
@@ -28,6 +31,8 @@ public class Shrink : MonoBehaviour
 
             // shrink size
             playerController.transform.localScale = new Vector3 (shrinkSize, shrinkSize, shrinkSize);
+            animator.SetBool("Shrink", true);
+            Invoke("ResetAnim", 0.5f);
         }
 
         // normal
@@ -37,6 +42,13 @@ public class Shrink : MonoBehaviour
 
             // return to normal size
             playerController.transform.localScale = new Vector3 (normalSize, normalSize, normalSize);
+            animator.SetBool("Shrink", true);
+            Invoke("ResetAnim", 0.5f);
         }
+    }
+
+    void ResetAnim()
+    {
+        animator.SetBool("Shrink", false);
     }
 }
