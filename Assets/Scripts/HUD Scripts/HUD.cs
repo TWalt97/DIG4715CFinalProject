@@ -6,7 +6,7 @@ using TMPro;
 
 public class HUD : MonoBehaviour
 {
-    public PlayerController player;
+    // public PlayerController player;
 
     private bool isAiming = false;
     private bool isCooldown = false;
@@ -16,7 +16,10 @@ public class HUD : MonoBehaviour
 
     private float glowCooldownTimer = 0.0f;
     private float abilityCooldownTimer = 0.0f;
+    // private float charWidth = 0.3f;
 
+    [SerializeField]
+    private TextMeshProUGUI levelTimerText;
     [SerializeField]
     private TextMeshProUGUI glowAbilityTimerText;
     [SerializeField]
@@ -37,7 +40,7 @@ public class HUD : MonoBehaviour
     // Start is called before the first frame update
     void Awake()
     {
-        player = GetComponent<PlayerController>();
+        // player = GetComponent<PlayerController>();
 
         laserButtonBorder.interactable = false;
         laserButtonBackground.interactable = false;
@@ -51,6 +54,8 @@ public class HUD : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        // CenterText();
+
         // Shrinking
         if (Input.GetKeyDown(KeyCode.LeftControl))
         {
@@ -111,6 +116,12 @@ public class HUD : MonoBehaviour
             ApplyCooldown();
         }
     }
+
+    // void CenterText()
+    // {
+    //     string levelTimer = player.timer.toString("00.00");
+    //     levelTimerText.SetText($"<mspace={charWidth}em>{levelTimer}");
+    // }
 
     void UseAbility(Button button)
     {
