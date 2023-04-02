@@ -225,14 +225,14 @@ public class PlayerController : MonoBehaviour
 
         Vector3 direction = playerControls.Movement.Move.ReadValue<Vector2>();
 
-        if (vertical != 0 || horizontal != 0)
+        /*f (vertical != 0 || horizontal != 0)
         {
             animator.SetBool("Walk", true);
         }
         else
         {
             animator.SetBool("Walk", false);
-        }
+        }*/
 
         if (direction.magnitude >= 0.1f)
         {
