@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class LaserController : MonoBehaviour
 {
@@ -8,35 +9,43 @@ public class LaserController : MonoBehaviour
     public GameObject zoomCamera;
     public GameObject orientation;
     public GameObject crosshair;
-    bool aiming;
+    bool aiming = false;
 
     public float range;
     public ParticleSystem laserParticle;
-    Animator animator;
-    bool shootingCooldown = false;
-    // Start is called before the first frame update
-    void Start()
+
+    private PlayerControls playerControls;
+    public LayerMask layerMask;
+
+    private void Awake()
     {
-        //This might not be the best place to hide and lock the cursor, so it can be moved to any other script.
-        Cursor.lockState = CursorLockMode.Locked;
-        Cursor.visible = false;
-        animator = GetComponentInChildren<Animator>();
+        playerControls = new PlayerControls();
     }
 
-    // Update is called once per frame
-    void Update()
+
+    private void OnEnable()
     {
-        //Changes the camera to the "zoomed camera" and makes the crosshair UI element active
-        //Likely a cleaner way to do this
-        if (Input.GetKeyDown(KeyCode.Mouse1))
+        playerControls.Enable();
+    }
+
+    private void OnDisable()
+    {
+        playerControls.Disable();
+    }
+
+    void OnAim()
+    {
+        Debug.Log(aiming);
+        aiming = !aiming;
+        if (aiming == true)
         {
+            Debug.Log("Aiming is true");
             mainCamera.SetActive(false);
             zoomCamera.SetActive(true);
             crosshair.SetActive(true);
-            aiming = true;
             orientation.transform.rotation = mainCamera.transform.rotation;
         }
-        if (Input.GetKeyUp(KeyCode.Mouse1))
+        else
         {
             mainCamera.SetActive(true);
             zoomCamera.SetActive(false);
@@ -44,26 +53,44 @@ public class LaserController : MonoBehaviour
             aiming = false;
             mainCamera.transform.rotation = orientation.transform.rotation;
         }
+    }
 
-        //Requires the player to press LMB while aiming
-        if (aiming == true && Input.GetKeyDown(KeyCode.Mouse0))
+    void OnShoot()
+    {
+        if (aiming == true)
         {
-            if (shootingCooldown == false)
-            {
-                Shoot();
-            }
-            
+            Shoot();
+        }
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+        if (aiming == true)
+        {
+            Debug.Log("Aiming is true");
+            mainCamera.SetActive(false);
+            zoomCamera.SetActive(true);
+            crosshair.SetActive(true);
+            orientation.transform.rotation = mainCamera.transform.rotation;
+        }
+        else
+        {
+            mainCamera.SetActive(true);
+            zoomCamera.SetActive(false);
+            crosshair.SetActive(false);
+            aiming = false;
+            mainCamera.transform.rotation = orientation.transform.rotation;
         }
     }
 
     void Shoot()
     {
         //laserParticle is actually just the laser, currently located as a child of the camera itself
-        animator.SetBool("Shoot", true);
-        Invoke("ResetAnim", 0.5f);
-        shootingCooldown = true;
+
+        laserParticle.Play();
         RaycastHit hit;
-        if (Physics.Raycast(laserParticle.transform.position, laserParticle.transform.forward, out hit, range))
+        if (Physics.Raycast(laserParticle.transform.position, laserParticle.transform.forward, out hit, range, layerMask))
         {
             DestructibleObject destructibleObject = hit.transform.GetComponent<DestructibleObject>();
             if (destructibleObject != null)
@@ -71,12 +98,5 @@ public class LaserController : MonoBehaviour
                 destructibleObject.TakeDamage(1);
             }
         }
-    }
-
-    void ResetAnim()
-    {
-        animator.SetBool("Shoot", false);
-        shootingCooldown = false;
-        laserParticle.Play();
     }
 }
