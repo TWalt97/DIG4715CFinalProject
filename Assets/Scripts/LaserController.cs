@@ -40,7 +40,6 @@ public class LaserController : MonoBehaviour
         aiming = !aiming;
         if (aiming == true)
         {
-            Debug.Log("Aiming is true");
             mainCamera.SetActive(false);
             zoomCamera.SetActive(true);
             crosshair.SetActive(true);
@@ -73,7 +72,6 @@ public class LaserController : MonoBehaviour
             mainCamera.SetActive(false);
             zoomCamera.SetActive(true);
             crosshair.SetActive(true);
-            orientation.transform.rotation = mainCamera.transform.rotation;
         }
         else
         {
@@ -81,7 +79,6 @@ public class LaserController : MonoBehaviour
             zoomCamera.SetActive(false);
             crosshair.SetActive(false);
             aiming = false;
-            mainCamera.transform.rotation = orientation.transform.rotation;
         }
     }
 
