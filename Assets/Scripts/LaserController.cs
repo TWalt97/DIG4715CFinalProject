@@ -37,7 +37,6 @@ public class LaserController : MonoBehaviour
 
     void OnAim()
     {
-        Debug.Log(aiming);
         aiming = !aiming;
         if (aiming == true)
         {
@@ -71,7 +70,6 @@ public class LaserController : MonoBehaviour
     {
         if (aiming == true)
         {
-            Debug.Log("Aiming is true");
             mainCamera.SetActive(false);
             zoomCamera.SetActive(true);
             crosshair.SetActive(true);
