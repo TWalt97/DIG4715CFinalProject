@@ -16,10 +16,12 @@ public class LaserController : MonoBehaviour
 
     private PlayerControls playerControls;
     public LayerMask layerMask;
+    Animator animator;
 
     private void Awake()
     {
         playerControls = new PlayerControls();
+        animator = GetComponentInChildren<Animator>();
     }
 
 
@@ -59,7 +61,8 @@ public class LaserController : MonoBehaviour
     {
         if (aiming == true)
         {
-            Shoot();
+            Invoke("Shoot", 0.5f);
+            animator.SetBool("Shoot", true);
         }
     }
 
@@ -98,5 +101,6 @@ public class LaserController : MonoBehaviour
                 destructibleObject.TakeDamage(1);
             }
         }
+        animator.SetBool("Shoot", false);
     }
 }

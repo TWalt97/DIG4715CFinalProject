@@ -85,7 +85,7 @@ public class PlayerController : MonoBehaviour
 
     void OnJump()
     {
-
+        Debug.Log("Jump pressed");
         if(controller.velocity.y == 0)
         {
             jumpPressed = true;
@@ -98,11 +98,13 @@ public class PlayerController : MonoBehaviour
         if(groundedPlayer)
         {
             playerVelocity.y = 0.0f;
+            animator.SetBool("Jump", false);
         }
 
         if(jumpPressed && groundedPlayer)
         {
             playerVelocity.y += Mathf.Sqrt(jumpHeight * -1 * gravityValue);
+            animator.SetBool("Jump", true);
             jumpPressed = false;
         }
 
@@ -138,7 +140,6 @@ public class PlayerController : MonoBehaviour
     private void Update()
     {
         MovementJump();
-
         HandleMovement();
         HandleGravityAndJump();
 
@@ -219,20 +220,17 @@ public class PlayerController : MonoBehaviour
 
     private void HandleMovement()
     {
-        /*float horizontal = Input.GetAxisRaw("Horizontal");
-        float vertical = Input.GetAxisRaw("Vertical");
-        Vector3 direction = new Vector3(horizontal, 0f, vertical).normalized;*/
 
         Vector3 direction = playerControls.Movement.Move.ReadValue<Vector2>();
 
-        /*f (vertical != 0 || horizontal != 0)
+        if (direction.x != 0 || direction.y != 0)
         {
             animator.SetBool("Walk", true);
         }
         else
         {
             animator.SetBool("Walk", false);
-        }*/
+        }
 
         if (direction.magnitude >= 0.1f)
         {
