@@ -19,6 +19,7 @@ public class PlayerController : MonoBehaviour
     private bool groundedPlayer;
     private bool jumpPressed = false;
     private float gravityValue = -9.81f;
+    private float charWidth = 0.9f;
 
     [Header("Jump Height")]
     public float jumpHeight = 3f;
@@ -151,7 +152,9 @@ public class PlayerController : MonoBehaviour
         {
             timer = 0;
         }
-        timeText.text = timer.ToString("F2");
+        // timeText.text = timer.ToString("F2");
+
+        CenterText();
 
         // win
         /*if (winObject == 1)
@@ -175,6 +178,12 @@ public class PlayerController : MonoBehaviour
             Invoke("LoseCondition", 0.5f);
             //StartCoroutine(LoseState(LoseTime));
         }
+    }
+
+    void CenterText()
+    {
+        string timerStr = timer.ToString("00.00");
+        timeText.SetText($"<mspace={charWidth}em>{timerStr}");
     }
 
     //Method to disable timer
