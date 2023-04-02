@@ -78,7 +78,6 @@ public class PlayerController : MonoBehaviour
         winText.SetActive(false);
 
         Cursor.lockState = CursorLockMode.Locked;
-        Cursor.visible = false;
     }
 
     void OnJump()
