@@ -8,6 +8,10 @@ public class PauseUi : MonoBehaviour
 
     public GameObject pauseMenuUI;
 
+    public GameObject mainPauseScreen;
+    public GameObject creditsScreen;
+    public GameObject howToPlayScreen;
+
     bool paused = false;
     //public GameObject ResumeButtonMenuUI;
 
@@ -24,6 +28,10 @@ public class PauseUi : MonoBehaviour
                 pauseMenuUI.SetActive(true);
                 Cursor.lockState = CursorLockMode.None;
                 Cursor.visible = true;
+
+                mainPauseScreen.SetActive(true);
+                creditsScreen.SetActive(false);
+                howToPlayScreen.SetActive(false);
             }
             else
             {
