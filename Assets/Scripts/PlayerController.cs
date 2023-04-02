@@ -138,11 +138,15 @@ public class PlayerController : MonoBehaviour
         playerControls.Disable();
     }
 
-    private void Update()
+    private void FixedUpdate()
     {
         MovementJump();
         HandleMovement();
         HandleGravityAndJump();
+    }
+    private void Update()
+    {
+
 
         if (timerActive == true)
         {
@@ -269,7 +273,7 @@ public class PlayerController : MonoBehaviour
             worldAimTarget.y = transform.position.y;
             Vector3 aimDirection = (worldAimTarget - transform.position).normalized;
 
-            transform.forward = Vector3.Lerp(transform.forward, aimDirection, Time.deltaTime * 20f);
+            //transform.forward = Vector3.Lerp(transform.forward, aimDirection, Time.deltaTime * 20f);
         }
     }
 
