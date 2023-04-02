@@ -7,12 +7,37 @@ public class PauseUi : MonoBehaviour
     public static bool GameIsPaused = false;
 
     public GameObject pauseMenuUI;
+
+    bool paused = false;
     //public GameObject ResumeButtonMenuUI;
 
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.P) && !GameIsPaused)
+        if (Input.GetKeyDown(KeyCode.P))
+        {
+            paused = !paused;
+            if (paused == true)
+            {
+                Time.timeScale = 0;
+                AudioListener.pause = true;
+                pauseMenuUI.SetActive(true);
+                Cursor.lockState = CursorLockMode.None;
+                Cursor.visible = true;
+            }
+            else
+            {
+                Time.timeScale = 1;
+                AudioListener.pause = false;
+                pauseMenuUI.SetActive(false);
+                Cursor.lockState = CursorLockMode.Locked;
+                Cursor.visible = false;
+            }
+        }
+
+
+        //The original version of pause, temporarily commenting it out until we find a fix.
+        /*if (Input.GetKeyDown(KeyCode.P) && !GameIsPaused)
         {
             Cursor.lockState = CursorLockMode.None;
             if (GameIsPaused)
@@ -23,7 +48,7 @@ public class PauseUi : MonoBehaviour
             {
                 Pause();
             }
-        }
+        }*/
     }
 
     // resume game
