@@ -27,6 +27,7 @@ public class Shrink : MonoBehaviour
         // shrink
         if (Input.GetKeyDown(KeyCode.LeftControl))
         {
+            AudioManager.Instance.PlaySFX("Shrink");
             Debug.Log("Pressing left control");
 
             // shrink size
