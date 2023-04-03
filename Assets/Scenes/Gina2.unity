@@ -889,6 +889,7 @@ MonoBehaviour:
   winObject: 0
   winObjectText: {fileID: 1395530237}
   gameOver: 0
+  dead: 0
   timeText: {fileID: 2063202153}
   timer: 60
   newTime: 60
@@ -977,9 +978,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   directionLight: {fileID: 457434689}
-  isLight: 30
-  cooldownTime: 50
-  nextFireTime: 30
+  isLight: 10
+  cooldownTime: 20
+  nextFireTime: 10
 --- !u!143 &247924087
 CharacterController:
   m_ObjectHideFlags: 0
@@ -5887,7 +5888,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1120720687}
-  m_LocalRotation: {x: 0.04114679, y: 0.7671755, z: -0.049462065, w: 0.6382023}
+  m_LocalRotation: {x: 0.041146785, y: 0.7671755, z: -0.04946207, w: 0.6382023}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -13657,7 +13658,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1553952874}
-  m_LocalRotation: {x: 0.05274856, y: 0.76614887, z: -0.06340841, w: 0.63734835}
+  m_LocalRotation: {x: 0.052748557, y: 0.76614887, z: -0.06340841, w: 0.63734835}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -14479,6 +14480,7 @@ MonoBehaviour:
   mainPauseScreen: {fileID: 1435260585}
   creditsScreen: {fileID: 1124743578}
   howToPlayScreen: {fileID: 59882423}
+  HUDOverlay: {fileID: 0}
 --- !u!1 &1709853855
 GameObject:
   m_ObjectHideFlags: 0
