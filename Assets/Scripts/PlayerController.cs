@@ -171,7 +171,7 @@ public class PlayerController : MonoBehaviour
         if ((timer > 0) && (winObject == 1) && (timerActive == true))
         {
             transform.position = new Vector3(-0.6300001f, 2.7f, -0.3499999f);
-            winText.SetActive(true);
+            //winText.SetActive(true);
             Invoke("WinCondition", 0.5f);
         }
 
@@ -179,7 +179,7 @@ public class PlayerController : MonoBehaviour
         if (((timer == 0) && (winObject == 0) && (timerActive == true)) || dead == true)
         {
             transform.position = new Vector3(-0.6300001f, 2.7f, -0.3499999f);
-            loseText.SetActive(true);
+            //loseText.SetActive(true);
             Invoke("LoseCondition", 0.5f);
             //StartCoroutine(LoseState(LoseTime));
         }
@@ -195,42 +195,44 @@ public class PlayerController : MonoBehaviour
     //Also starts coroutine to remove text after delay
     void WinCondition()
     {
-        timerActive = false;
-        StartCoroutine(TextRemove(winText, 4f));
+        SceneManager.LoadScene("Win");
+        // timerActive = false;
+        // StartCoroutine(TextRemove(winText, 4f));
     }
 
     void LoseCondition()
     {
-        timerActive = false;
-        StartCoroutine(LoseReset(loseText, 4f));
+        SceneManager.LoadScene("Lose");
+        // timerActive = false;
+        // StartCoroutine(LoseReset(loseText, 4f));
     }
 
-    IEnumerator LoseReset(GameObject text, float delay)
-    {
-        yield return new WaitForSeconds(delay);
-        text.SetActive(false);
-        timerActive = true;
-        timer = newTime;
-    }
+    // IEnumerator LoseReset(GameObject text, float delay)
+    // {
+    //     // yield return new WaitForSeconds(delay);
+    //     // text.SetActive(false);
+    //     // timerActive = true;
+    //     // timer = newTime;
+    // }
 
     //Sets specified gameobject to inactive after specified delay
-    IEnumerator TextRemove(GameObject text, float delay)
-    {
-        yield return new WaitForSeconds(delay);
-        text.SetActive(false);
-    }
+    // IEnumerator TextRemove(GameObject text, float delay)
+    // {
+    //     // yield return new WaitForSeconds(delay);
+    //     // text.SetActive(false);
+    // }
 
-    IEnumerator LoseState(float LoseTime)
-    {
-        gameOver = true;
-        loseText.SetActive(true);
-        speed = 0;
-        yield return new WaitForSeconds(LoseTime);
-        transform.position = new Vector3(-0.6300001f, 2.7f, -0.3499999f);
-        speed = newSpeed;
-        loseText.SetActive(false);
-        timer = newTime;
-    }
+    // IEnumerator LoseState(float LoseTime)
+    // {
+    //     // gameOver = true;
+    //     // loseText.SetActive(true);
+    //     // speed = 0;
+    //     // yield return new WaitForSeconds(LoseTime);
+    //     // transform.position = new Vector3(-0.6300001f, 2.7f, -0.3499999f);
+    //     // speed = newSpeed;
+    //     // loseText.SetActive(false);
+    //     // timer = newTime;
+    // }
 
     private void HandleMovement()
     {
