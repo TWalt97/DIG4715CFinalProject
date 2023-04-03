@@ -170,7 +170,8 @@ public class PlayerController : MonoBehaviour
         //If timer is above zero, win object collected and timer is active teleport the player, activate win text, run WinCondition after 0.5s
         if ((timer > 0) && (winObject == 1) && (timerActive == true))
         {
-            transform.position = new Vector3(-0.6300001f, 2.7f, -0.3499999f);
+            AudioManager.Instance.PlaySFX("WinSound");
+            //transform.position = new Vector3(-0.6300001f, 2.7f, -0.3499999f);
             //winText.SetActive(true);
             Invoke("WinCondition", 0.5f);
         }
@@ -178,8 +179,9 @@ public class PlayerController : MonoBehaviour
         // lose
         if (((timer == 0) && (winObject == 0) && (timerActive == true)) || dead == true)
         {
-            transform.position = new Vector3(-0.6300001f, 2.7f, -0.3499999f);
+            //transform.position = new Vector3(-0.6300001f, 2.7f, -0.3499999f);
             //loseText.SetActive(true);
+            AudioManager.Instance.PlaySFX("LoseSound");
             Invoke("LoseCondition", 0.5f);
             //StartCoroutine(LoseState(LoseTime));
         }
