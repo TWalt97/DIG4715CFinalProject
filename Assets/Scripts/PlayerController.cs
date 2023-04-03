@@ -43,6 +43,7 @@ public class PlayerController : MonoBehaviour
 
     [Header("Game Over State")]
     public bool gameOver = false;
+    public bool dead;
 
     [Header("Timer")]
     public TextMeshProUGUI timeText;
@@ -175,7 +176,7 @@ public class PlayerController : MonoBehaviour
         }
 
         // lose
-        if ((timer == 0) && (winObject == 0) && (timerActive == true))
+        if (((timer == 0) && (winObject == 0) && (timerActive == true)) || dead == true)
         {
             transform.position = new Vector3(-0.6300001f, 2.7f, -0.3499999f);
             loseText.SetActive(true);
