@@ -59,6 +59,7 @@ public class LaserController : MonoBehaviour
     {
         if (aiming == true)
         {
+            AudioManager.Instance.PlaySFX("LaserFire");
             Invoke("Shoot", 0.5f);
             animator.SetBool("Shoot", true);
         }
