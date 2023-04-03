@@ -19,6 +19,7 @@ public class PlayerController : MonoBehaviour
     private bool groundedPlayer;
     private bool jumpPressed = false;
     private float gravityValue = -9.81f;
+    private float charWidth = 0.9f;
 
     [Header("Jump Height")]
     public float jumpHeight = 3f;
@@ -42,6 +43,7 @@ public class PlayerController : MonoBehaviour
 
     [Header("Game Over State")]
     public bool gameOver = false;
+    public bool dead;
 
     [Header("Timer")]
     public TextMeshProUGUI timeText;
@@ -85,7 +87,7 @@ public class PlayerController : MonoBehaviour
 
     void OnJump()
     {
-
+        Debug.Log("Jump pressed");
         if(controller.velocity.y == 0)
         {
             jumpPressed = true;
@@ -98,11 +100,13 @@ public class PlayerController : MonoBehaviour
         if(groundedPlayer)
         {
             playerVelocity.y = 0.0f;
+            animator.SetBool("Jump", false);
         }
 
         if(jumpPressed && groundedPlayer)
         {
             playerVelocity.y += Mathf.Sqrt(jumpHeight * -1 * gravityValue);
+            animator.SetBool("Jump", true);
             jumpPressed = false;
         }
 
@@ -135,12 +139,15 @@ public class PlayerController : MonoBehaviour
         playerControls.Disable();
     }
 
-    private void Update()
+    private void FixedUpdate()
     {
         MovementJump();
-
         HandleMovement();
         HandleGravityAndJump();
+    }
+    private void Update()
+    {
+
 
         if (timerActive == true)
         {
@@ -150,7 +157,9 @@ public class PlayerController : MonoBehaviour
         {
             timer = 0;
         }
-        timeText.text = timer.ToString("F2");
+        // timeText.text = timer.ToString("F2");
+
+        CenterText();
 
         // win
         /*if (winObject == 1)
@@ -161,78 +170,85 @@ public class PlayerController : MonoBehaviour
         //If timer is above zero, win object collected and timer is active teleport the player, activate win text, run WinCondition after 0.5s
         if ((timer > 0) && (winObject == 1) && (timerActive == true))
         {
-            transform.position = new Vector3(-0.6300001f, 2.7f, -0.3499999f);
-            winText.SetActive(true);
+            AudioManager.Instance.PlaySFX("WinSound");
+            //transform.position = new Vector3(-0.6300001f, 2.7f, -0.3499999f);
+            //winText.SetActive(true);
             Invoke("WinCondition", 0.5f);
         }
 
         // lose
-        if ((timer == 0) && (winObject == 0) && (timerActive == true))
+        if (((timer == 0) && (winObject == 0) && (timerActive == true)) || dead == true)
         {
-            transform.position = new Vector3(-0.6300001f, 2.7f, -0.3499999f);
-            loseText.SetActive(true);
+            //transform.position = new Vector3(-0.6300001f, 2.7f, -0.3499999f);
+            //loseText.SetActive(true);
+            AudioManager.Instance.PlaySFX("LoseSound");
             Invoke("LoseCondition", 0.5f);
             //StartCoroutine(LoseState(LoseTime));
         }
+    }
+
+    void CenterText()
+    {
+        string timerStr = timer.ToString("00.00");
+        timeText.SetText($"<mspace={charWidth}em>{timerStr}");
     }
 
     //Method to disable timer
     //Also starts coroutine to remove text after delay
     void WinCondition()
     {
-        timerActive = false;
-        StartCoroutine(TextRemove(winText, 4f));
+        SceneManager.LoadScene("Win");
+        // timerActive = false;
+        // StartCoroutine(TextRemove(winText, 4f));
     }
 
     void LoseCondition()
     {
-        timerActive = false;
-        StartCoroutine(LoseReset(loseText, 4f));
+        SceneManager.LoadScene("Lose");
+        // timerActive = false;
+        // StartCoroutine(LoseReset(loseText, 4f));
     }
 
-    IEnumerator LoseReset(GameObject text, float delay)
-    {
-        yield return new WaitForSeconds(delay);
-        text.SetActive(false);
-        timerActive = true;
-        timer = newTime;
-    }
+    // IEnumerator LoseReset(GameObject text, float delay)
+    // {
+    //     // yield return new WaitForSeconds(delay);
+    //     // text.SetActive(false);
+    //     // timerActive = true;
+    //     // timer = newTime;
+    // }
 
     //Sets specified gameobject to inactive after specified delay
-    IEnumerator TextRemove(GameObject text, float delay)
-    {
-        yield return new WaitForSeconds(delay);
-        text.SetActive(false);
-    }
+    // IEnumerator TextRemove(GameObject text, float delay)
+    // {
+    //     // yield return new WaitForSeconds(delay);
+    //     // text.SetActive(false);
+    // }
 
-    IEnumerator LoseState(float LoseTime)
-    {
-        gameOver = true;
-        loseText.SetActive(true);
-        speed = 0;
-        yield return new WaitForSeconds(LoseTime);
-        transform.position = new Vector3(-0.6300001f, 2.7f, -0.3499999f);
-        speed = newSpeed;
-        loseText.SetActive(false);
-        timer = newTime;
-    }
+    // IEnumerator LoseState(float LoseTime)
+    // {
+    //     // gameOver = true;
+    //     // loseText.SetActive(true);
+    //     // speed = 0;
+    //     // yield return new WaitForSeconds(LoseTime);
+    //     // transform.position = new Vector3(-0.6300001f, 2.7f, -0.3499999f);
+    //     // speed = newSpeed;
+    //     // loseText.SetActive(false);
+    //     // timer = newTime;
+    // }
 
     private void HandleMovement()
     {
-        /*float horizontal = Input.GetAxisRaw("Horizontal");
-        float vertical = Input.GetAxisRaw("Vertical");
-        Vector3 direction = new Vector3(horizontal, 0f, vertical).normalized;*/
 
         Vector3 direction = playerControls.Movement.Move.ReadValue<Vector2>();
 
-        /*f (vertical != 0 || horizontal != 0)
+        if (direction.x != 0 || direction.y != 0)
         {
             animator.SetBool("Walk", true);
         }
         else
         {
             animator.SetBool("Walk", false);
-        }*/
+        }
 
         if (direction.magnitude >= 0.1f)
         {
@@ -262,7 +278,7 @@ public class PlayerController : MonoBehaviour
             worldAimTarget.y = transform.position.y;
             Vector3 aimDirection = (worldAimTarget - transform.position).normalized;
 
-            transform.forward = Vector3.Lerp(transform.forward, aimDirection, Time.deltaTime * 20f);
+            //transform.forward = Vector3.Lerp(transform.forward, aimDirection, Time.deltaTime * 20f);
         }
     }
 

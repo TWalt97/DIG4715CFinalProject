@@ -5,7 +5,7 @@ using UnityEngine;
 public class LightScript : MonoBehaviour
 {
     [Header("Point Light")]
-    public GameObject directionLight;
+    GameObject[] directionLight;
 
     [Header("Active Light Time")]
     public float isLight = 10f;
@@ -14,6 +14,10 @@ public class LightScript : MonoBehaviour
     public float cooldownTime = 10f;
     public float nextFireTime = 0;
 
+    void Start()
+    {
+        directionLight = GameObject.FindGameObjectsWithTag("light");
+    }
     // Update is called once per frame
     void Update()
     {
@@ -31,12 +35,20 @@ public class LightScript : MonoBehaviour
     {
         Debug.Log("darkness started");
         // deactivate normal
-        directionLight.SetActive(false);
+        foreach (GameObject go in directionLight)
+        {
+            go.SetActive(false);
+        }
+        //directionLight.SetActive(false);
 
         yield return new WaitForSeconds(isLight);
 
         // activate normal
-        directionLight.SetActive(true);
+        foreach (GameObject go in directionLight)
+        {
+            go.SetActive(true);
+        }
+        //directionLight.SetActive(true);
         Debug.Log("darkness ended");
     }
 }

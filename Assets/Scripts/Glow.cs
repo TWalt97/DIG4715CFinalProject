@@ -37,6 +37,7 @@ public class Glow : MonoBehaviour
     {
         Debug.Log("Glow started");
 
+        AudioManager.Instance.PlaySFX("Glow");
         // set glow to true
         glowBool = true;
 

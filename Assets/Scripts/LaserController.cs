@@ -16,10 +16,12 @@ public class LaserController : MonoBehaviour
 
     private PlayerControls playerControls;
     public LayerMask layerMask;
+    Animator animator;
 
     private void Awake()
     {
         playerControls = new PlayerControls();
+        animator = GetComponentInChildren<Animator>();
     }
 
 
@@ -35,11 +37,9 @@ public class LaserController : MonoBehaviour
 
     void OnAim()
     {
-        Debug.Log(aiming);
         aiming = !aiming;
         if (aiming == true)
         {
-            Debug.Log("Aiming is true");
             mainCamera.SetActive(false);
             zoomCamera.SetActive(true);
             crosshair.SetActive(true);
@@ -59,7 +59,9 @@ public class LaserController : MonoBehaviour
     {
         if (aiming == true)
         {
-            Shoot();
+            AudioManager.Instance.PlaySFX("LaserFire");
+            Invoke("Shoot", 0.5f);
+            animator.SetBool("Shoot", true);
         }
     }
 
@@ -68,11 +70,9 @@ public class LaserController : MonoBehaviour
     {
         if (aiming == true)
         {
-            Debug.Log("Aiming is true");
             mainCamera.SetActive(false);
             zoomCamera.SetActive(true);
             crosshair.SetActive(true);
-            orientation.transform.rotation = mainCamera.transform.rotation;
         }
         else
         {
@@ -80,7 +80,6 @@ public class LaserController : MonoBehaviour
             zoomCamera.SetActive(false);
             crosshair.SetActive(false);
             aiming = false;
-            mainCamera.transform.rotation = orientation.transform.rotation;
         }
     }
 
@@ -98,5 +97,6 @@ public class LaserController : MonoBehaviour
                 destructibleObject.TakeDamage(1);
             }
         }
+        animator.SetBool("Shoot", false);
     }
 }

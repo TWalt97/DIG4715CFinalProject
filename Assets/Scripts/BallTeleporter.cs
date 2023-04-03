@@ -18,7 +18,7 @@ public class BallTeleporter : MonoBehaviour
     {
         if (other.GetComponent<Collider>() != null)
         {
-            other.transform.position = new Vector3(Random.Range(startPos.position.x + 12, startPos.position.x - 12), startPos.position.y, startPos.position.z);
+            other.transform.position = new Vector3(Random.Range(startPos.position.x, startPos.position.x), startPos.position.y, startPos.position.z);
         }
     }
 }
