@@ -20081,8 +20081,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fb37cbf97b5d06842af57e8e464d8d4f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  shrinkSize: 1
+  shrinkSize: 1.25
   normalSize: 2.5
+  shrinkBool: 0
 --- !u!114 &3964721881368725775
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -20096,11 +20097,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   glow: {fileID: 3964721881853812010}
-  glowOn: {fileID: 2100000, guid: 924af47249fdca5459d7f8039041bb20, type: 2}
-  glowOff: {fileID: 2100000, guid: 5309a261a575afa4cbb09705f3e4b5b9, type: 2}
-  isGlowing: 10
   glowBool: 0
-  cooldownTime: 20
 --- !u!1 &3964721881368725779
 GameObject:
   m_ObjectHideFlags: 0

@@ -6,54 +6,68 @@ public class Glow : MonoBehaviour
 {
     [Header("Player")]
     public GameObject glow;
-    public Material glowOn;
-    public Material glowOff;
+    // public Material glowOn;
+    // public Material glowOff;
 
-    [Header("How Long You Glow For")]
-    public float isGlowing = 10f;
+    // [Header("How Long You Glow For")]
+    // public float isGlowing = 10f;
     public bool glowBool = false;
 
-    [Header("Cooldown")]
-    public float cooldownTime = 10f;
-    private float nextFireTime = 0;
+    // [Header("Cooldown")]
+    // public float cooldownTime = 10f;
+    // private float nextFireTime = 0;
 
     // Update is called once per frame
     void Update()
     {
-        if (Time.time > nextFireTime)
-        {
-            if (Input.GetKey(KeyCode.E) && !glowBool)
+        /*if (Time.time > nextFireTime)
+        {*/
+            /*if (Input.GetKeyDown(KeyCode.E) && !glowBool)
             {
+                glowBool = !glowBool;
                 // cooldown
-                nextFireTime = Time.time + cooldownTime;
+                // nextFireTime = Time.time + cooldownTime;
 
-                // ability in use again
-                StartCoroutine(Ability(isGlowing));
+                // // ability in use again
+                // StartCoroutine(Ability(isGlowing));
+            }*/
+            if (glowBool == true)
+            {
+                glow.SetActive(true);
             }
-        }
+            if (glowBool == false)
+            {
+                glow.SetActive(false);
+            }
+        //}
     }
 
-    IEnumerator Ability(float isGlowing)
+    void OnGlow()
     {
-        Debug.Log("Glow started");
-
-        AudioManager.Instance.PlaySFX("Glow");
-        // set glow to true
-        glowBool = true;
-
-        // activate glow
-        glow.SetActive(true);
-        GetComponentInChildren<MeshRenderer>().material = glowOn;
-
-        yield return new WaitForSeconds(isGlowing);
-
-        // set glow to false
-        glowBool = false;
-
-        // deactivate glow
-        glow.SetActive(false);
-        GetComponentInChildren<MeshRenderer>().material = glowOff;
-
-        Debug.Log("Glow ended");
+        glowBool = !glowBool;
     }
+
+    // IEnumerator Ability(float isGlowing)
+    // {
+    //     Debug.Log("Glow started");
+
+    //     AudioManager.Instance.PlaySFX("Glow");
+    //     // set glow to true
+    //     glowBool = true;
+
+    //     // activate glow
+    //     glow.SetActive(true);
+    //     GetComponentInChildren<MeshRenderer>().material = glowOn;
+
+    //     yield return new WaitForSeconds(isGlowing);
+
+    //     // set glow to false
+    //     glowBool = false;
+
+    //     // deactivate glow
+    //     glow.SetActive(false);
+    //     GetComponentInChildren<MeshRenderer>().material = glowOff;
+
+    //     Debug.Log("Glow ended");
+    // }
 }
