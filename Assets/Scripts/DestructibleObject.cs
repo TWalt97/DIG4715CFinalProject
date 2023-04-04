@@ -20,6 +20,15 @@ public class DestructibleObject : MonoBehaviour
         }
     }
 
+    private void OnCollisionEnter(Collision other)
+    {
+        BulletController bulletController = other.gameObject.GetComponent<BulletController>();
+        if (bulletController != null)
+        {
+            TakeDamage(1);
+        }
+    }
+
     void Die()
     {
         Destroy(gameObject);
