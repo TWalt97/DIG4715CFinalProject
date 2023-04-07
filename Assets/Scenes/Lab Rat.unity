@@ -12064,6 +12064,51 @@ Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 2b60fc31c078b5a45a927f5ed028a26d, type: 3}
   m_PrefabInstance: {fileID: 906694693}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &930569701
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 930569703}
+  - component: {fileID: 930569702}
+  m_Layer: 0
+  m_Name: MazeTrigger
+  m_TagString: MazeBox
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!65 &930569702
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 930569701}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!4 &930569703
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 930569701}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -153.6, y: 238.5, z: -710.8}
+  m_LocalScale: {x: 275, y: 100, z: 225}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 35
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &944861262
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -14167,6 +14212,10 @@ PrefabInstance:
       propertyPath: m_Enabled
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 7969696206136045820, guid: 6de130ff87faa4945a9f76062740cd8c, type: 3}
+      propertyPath: m_Intensity
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 7969696206136045821, guid: 6de130ff87faa4945a9f76062740cd8c, type: 3}
       propertyPath: m_RootOrder
       value: 4
@@ -14217,7 +14266,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7969696206136045822, guid: 6de130ff87faa4945a9f76062740cd8c, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6de130ff87faa4945a9f76062740cd8c, type: 3}
@@ -14927,6 +14976,7 @@ GameObject:
   - component: {fileID: 1198110946}
   - component: {fileID: 1198110945}
   - component: {fileID: 1198110950}
+  - component: {fileID: 1198110951}
   m_Layer: 8
   m_Name: Player
   m_TagString: Untagged
@@ -14973,6 +15023,8 @@ MonoBehaviour:
   glowLight: {fileID: 973091514}
   aiming: 0
   laserParticle: {fileID: 396232943}
+  mazeTimer: 60
+  mazeTimerText: {fileID: 301226836}
 --- !u!114 &1198110947
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -15051,6 +15103,20 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 0.62659913, y: 0.8013754, z: 1.5485352}
   m_Center: {x: -0.01631623, y: 0.43991295, z: 0.13127433}
+--- !u!114 &1198110951
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1198110944}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1bd7548db6c46534894e9e992b42c358, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  lightCooldownTimer: 10
+  directionLight: {fileID: 1330005680}
 --- !u!4 &1199162049 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 75bd7d71a03a8534e93664eab0f0a516, type: 3}
@@ -16405,6 +16471,11 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 0.0045465603, y: 0.11200582, z: 0.0045465752}
   m_Center: {x: 0.08500907, y: 0.059983905, z: 0.058437217}
+--- !u!108 &1330005680 stripped
+Light:
+  m_CorrespondingSourceObject: {fileID: 7969696206136045820, guid: 6de130ff87faa4945a9f76062740cd8c, type: 3}
+  m_PrefabInstance: {fileID: 1132730584}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1340538803
 GameObject:
   m_ObjectHideFlags: 0
@@ -23695,7 +23766,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7969696206136045822, guid: 6de130ff87faa4945a9f76062740cd8c, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6de130ff87faa4945a9f76062740cd8c, type: 3}

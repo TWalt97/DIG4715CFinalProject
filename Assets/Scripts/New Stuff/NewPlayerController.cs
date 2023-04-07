@@ -2,6 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using TMPro;
+using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 [RequireComponent(typeof(CharacterController), typeof(PlayerInput))]
 public class NewPlayerController : MonoBehaviour
@@ -45,6 +48,11 @@ public class NewPlayerController : MonoBehaviour
     private float playerSize;
     bool lightToggle = false;
 
+    public float mazeTimer;
+    private float mazeTimerStart;
+    public TextMeshProUGUI mazeTimerText;
+    private bool insideOfMaze = false;
+
     private void Awake()
     {
         controller = GetComponent<CharacterController>();
@@ -60,6 +68,8 @@ public class NewPlayerController : MonoBehaviour
         shrinkAction = playerInput.actions["Shrink"];
 
         Cursor.lockState = CursorLockMode.Locked;
+
+        mazeTimerStart = mazeTimer;
     }
 
     private void OnEnable()
@@ -218,5 +228,43 @@ public class NewPlayerController : MonoBehaviour
             }
             yield break;
         }
+    }
+
+    private void Update()
+    {
+        if (insideOfMaze == true)
+        {
+            mazeTimerText.enabled = true;
+            string timerStr = mazeTimer.ToString("00.00");
+            mazeTimerText.SetText(timerStr);
+            mazeTimer -= Time.deltaTime;
+        }
+
+        if (mazeTimer <= 0f)
+        {
+            LoseCondition();
+        }
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.CompareTag("MazeBox"))
+        {
+            mazeTimer = mazeTimerStart;
+            insideOfMaze = true;
+        }
+    }
+
+    private void OnTriggerExit(Collider other) 
+    {
+        if (other.CompareTag("MazeBox"))
+        {
+            insideOfMaze = false;
+        }
+    }
+
+    private void LoseCondition()
+    {
+        SceneManager.LoadScene("Lose");
     }
 }
