@@ -53,6 +53,8 @@ public class NewPlayerController : MonoBehaviour
     public TextMeshProUGUI mazeTimerText;
     private bool insideOfMaze = false;
 
+    public float maxLightIntensity;
+
     private void Awake()
     {
         controller = GetComponent<CharacterController>();
@@ -118,7 +120,7 @@ public class NewPlayerController : MonoBehaviour
         lightToggle = !lightToggle;
         if (lightToggle == true)
         {
-            StartCoroutine(FadeLightSource.StartFade(glowLight, 2f, 500f));
+            StartCoroutine(FadeLightSource.StartFade(glowLight, 2f, maxLightIntensity));
         }
         if (lightToggle == false)
         {
