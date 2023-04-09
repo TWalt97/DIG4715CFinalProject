@@ -18,15 +18,13 @@ public class NewPlayerController : MonoBehaviour
     [SerializeField]
     private float rotationSpeed = 5f;
     [SerializeField]
-    private GameObject bulletPrefab;
-    [SerializeField]
     private Transform barrelTransform;
     [SerializeField]
-    private Transform bulletParent;
-    [SerializeField]
-    private float bulletMissDistance = 25;
-    [SerializeField]
     private Light glowLight;
+    [SerializeField]
+    private Transform particlePos;
+    [SerializeField]
+    private Transform particleParent;
 
     private CharacterController controller;
     private PlayerInput playerInput;
@@ -54,6 +52,8 @@ public class NewPlayerController : MonoBehaviour
     private bool insideOfMaze = false;
 
     public float maxLightIntensity;
+
+    public int health = 3;
 
     private void Awake()
     {
@@ -141,21 +141,11 @@ public class NewPlayerController : MonoBehaviour
     {
         animator.SetBool("Shoot", false);
         RaycastHit hit;
-        GameObject bullet = GameObject.Instantiate(bulletPrefab, barrelTransform.position, Quaternion.identity, bulletParent);
-        BulletController bulletController = bullet.GetComponent<BulletController>();
         if (Physics.Raycast(cameraTransform.position, cameraTransform.forward, out hit, Mathf.Infinity))
         {
-            Vector3 directionToTarget = (hit.point - laserParticle.transform.position).normalized;
+            Vector3 directionToTarget = (hit.point - particlePos.transform.position).normalized;
             Quaternion lookRotation = Quaternion.LookRotation(directionToTarget);
-            laserParticle.transform.rotation = lookRotation;
-            bulletController.target = hit.point;
-            bulletController.hit = true;
-            laserParticle.Play();
-        }
-        else
-        {
-            bulletController.target = cameraTransform.position + cameraTransform.forward * bulletMissDistance;
-            bulletController.hit = false;
+            ParticleSystem laser = ParticleSystem.Instantiate(laserParticle, particlePos.position, lookRotation, particleParent);
         }
     }
 
@@ -242,10 +232,11 @@ public class NewPlayerController : MonoBehaviour
             mazeTimer -= Time.deltaTime;
         }
 
-        if (mazeTimer <= 0f)
+        if (mazeTimer <= 0f || health <= 0)
         {
             LoseCondition();
         }
+
     }
 
     private void OnTriggerEnter(Collider other)

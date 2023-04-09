@@ -20,12 +20,12 @@ public class DestructibleObject : MonoBehaviour
         }
     }
 
-    private void OnCollisionEnter(Collision other)
+    private void OnParticleCollision(GameObject other)
     {
-        BulletController bulletController = other.gameObject.GetComponent<BulletController>();
-        if (bulletController != null)
+        if (other.tag == "Laser")
         {
             TakeDamage(1);
+            other.GetComponent<ParticleSystem>().Stop(true, ParticleSystemStopBehavior.StopEmitting);
         }
     }
 
