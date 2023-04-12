@@ -8,35 +8,35 @@ using UnityEngine.InputSystem;
 
 public class PlayerController : MonoBehaviour
 {
-    [Header("Speed")]
-    public float speed = 15f;
+    [Header("Movement")]
+    [SerializeField]
+    private float playerSpeed = 2.0f;
+    [SerializeField]
+    private float jumpHeight = 1.0f;
+    [SerializeField]
+    private float gravityValue = -9.81f;
+    [SerializeField]
+    private float rotationSpeed = 5f;
+    private Vector3 playerVelocity;
+    private bool groundedPlayer;
+
     [Header("Speed After Lose")]
     public float newSpeed = 15f;
     public float rotationSmoothTime;
 
-    [Header("Gravity")]
-    private Vector3 playerVelocity;
-    private bool groundedPlayer;
-    private bool jumpPressed = false;
-    private float gravityValue = -9.81f;
     private float charWidth = 0.9f;
 
-    [Header("Jump Height")]
-    public float jumpHeight = 3f;
 
     [Header("Reference the CharacterController on Player")]
     public CharacterController controller;
 
     [Header("Reference the Camera")]
     public Camera cam;
-    public GameObject zoomCam;
     public LayerMask aimColliderLayerMask;
 
     float currentAngle;
     float currentAngleVelocity;
 
-    [Header("Laser")]
-    public GameObject laserParticle;
 
     public int winObject = 0;
     public TextMeshProUGUI winObjectText;
@@ -77,26 +77,137 @@ public class PlayerController : MonoBehaviour
 
     [Header("Movement Controller")]
     //public InputAction playerControls;
-
+    private PlayerInput playerInput;
     private PlayerControls playerControls;
+    private InputAction moveAction;
+    private InputAction jumpAction;
+    private InputAction shootAction;
+    private InputAction glowAction;
+    private InputAction shrinkAction;
+
+    [Header("Glow")]
+    bool lightToggle = false;
+    public float maxLightIntensity;
+    [SerializeField]
+    private Light glowLight;
+
+    [Header("Laser")]
+    [SerializeField]
+    private Transform barrelTransform;
+    [SerializeField]
+    private Transform particlePos;
+    [SerializeField]
+    private Transform particleParent;
+    public bool aiming;
+    public ParticleSystem laserParticle;
+
+    [Header("Shrink")]
+    private float playerSize;
 
 
     Animator animator;
 
-    bool hasRun = false;
-
     bool deathCol = false;
     
     public GameObject cheese;
+
+    private Transform cameraTransform;
 
     private void Awake()
     {
         //getting reference for components on the Player
         controller = GetComponent<CharacterController>();
         animator = GetComponentInChildren<Animator>();
+        playerInput = GetComponent<PlayerInput>();
         cam = Camera.main;
+        cameraTransform = Camera.main.transform;
         playerControls = new PlayerControls();
+
+        moveAction = playerInput.actions["Move"];
+        jumpAction = playerInput.actions["Jump"];
+        shootAction = playerInput.actions["Shoot"];
+        glowAction = playerInput.actions["Glow"];
+        shrinkAction = playerInput.actions["Shrink"];
     }
+
+    private void OnEnable()
+    {
+        playerControls.Enable();
+        shootAction.performed += _ => ShootGun();
+        glowAction.performed += _ => Glow();
+        shrinkAction.performed += _ => Shrink();
+        shrinkAction.canceled += _ => ShrinkEnd();
+    }
+
+    private void OnDisable() 
+    {
+        playerControls.Disable();
+        shootAction.performed -= _ => ShootGun();
+        glowAction.performed -= _ => Glow();
+        shrinkAction.performed -= _ => Shrink();
+        shrinkAction.canceled -= _ => ShrinkEnd();
+    }
+
+    private void Shrink()
+    {
+        if (playerSize == 9f)
+        {
+            StartCoroutine(ChangeScale.StartFade(this.gameObject, 0.2f, 0.5f));
+            animator.SetBool("Shrink", true);
+            Invoke("ShrinkAnimCancel", 0.5f);
+        }
+    }
+
+    private void ShrinkEnd()
+    {
+        if (playerSize == 4.5f)
+        {
+            StartCoroutine(ChangeScale.StartFade(this.gameObject, 0.2f, 2f));
+            animator.SetBool("Shrink", true);
+            Invoke("ShrinkAnimCancel", 0.5f);
+        }
+    }
+
+    private void ShootGun()
+    {
+        if (aiming == true)
+        {
+            animator.SetBool("Shoot", true);
+            Invoke("Shoot", 0.5f);
+        }
+    }
+
+    private void Shoot()
+    {
+        animator.SetBool("Shoot", false);
+        RaycastHit hit;
+        if (Physics.Raycast(cameraTransform.position, cameraTransform.forward, out hit, Mathf.Infinity))
+        {
+            Vector3 directionToTarget = (hit.point - particlePos.transform.position).normalized;
+            Quaternion lookRotation = Quaternion.LookRotation(directionToTarget);
+            ParticleSystem laser = ParticleSystem.Instantiate(laserParticle, particlePos.position, lookRotation, particleParent);
+        }
+    }
+
+    private void Glow()
+    {
+        lightToggle = !lightToggle;
+        if (lightToggle == true)
+        {
+            StartCoroutine(FadeLightSource.StartFade(glowLight, 2f, maxLightIntensity));
+        }
+        if (lightToggle == false)
+        {
+            StartCoroutine(FadeLightSource.StartFade(glowLight, 2f, 0f));
+        }
+    }
+
+    private void ShrinkAnimCancel()
+    {
+        animator.SetBool("Shrink", false);
+    }
+
+
 
     void Start()
     {
@@ -107,55 +218,14 @@ public class PlayerController : MonoBehaviour
         Cursor.lockState = CursorLockMode.Locked;
     }
 
-    void OnJump()
-    {
-        Debug.Log("Jump pressed");
-        if(controller.velocity.y == 0)
-        {
-            jumpPressed = true;
-        }
-    }
-
-    void MovementJump()
-    {
-        groundedPlayer = controller.isGrounded;
-        if(groundedPlayer)
-        {
-            playerVelocity.y = 0.0f;
-            animator.SetBool("Jump", false);
-        }
-
-        if(jumpPressed && groundedPlayer)
-        {
-            playerVelocity.y += Mathf.Sqrt(jumpHeight * -1 * gravityValue);
-            animator.SetBool("Jump", true);
-            jumpPressed = false;
-        }
-
-        playerVelocity.y += gravityValue * Time.deltaTime;
-        controller.Move(playerVelocity * Time.deltaTime);
-    }
-
     void OnEscape()
     {
         Application.Quit();
     }
 
-    private void OnEnable()
-    {
-        playerControls.Enable();
-    }
-
-    private void OnDisable()
-    {
-        playerControls.Disable();
-    }
-
     private void FixedUpdate()
     {
-        MovementJump();
         HandleMovement();
-        HandleGravityAndJump();
     }
     private void Update()
     {
@@ -289,8 +359,42 @@ public class PlayerController : MonoBehaviour
 
     private void HandleMovement()
     {
+        playerSize = this.gameObject.transform.localScale.x;
+        groundedPlayer = controller.isGrounded;
+        if (groundedPlayer && playerVelocity.y < 0)
+        {
+            playerVelocity.y = 0f;
+            animator.SetBool("Jump", false);
+        }
 
-        Vector3 direction = playerControls.Movement.Move.ReadValue<Vector2>();
+        Vector2 input = moveAction.ReadValue<Vector2>();
+        Vector3 move = new Vector3(input.x, 0, input.y);
+        move = move.x * cameraTransform.right.normalized + move.z * cameraTransform.forward.normalized;
+        move.y = 0f;
+        controller.Move(move * Time.deltaTime * playerSpeed);
+
+        if (input.x != 0 || input.y != 0)
+        {
+            animator.SetBool("Walk", true);
+        }
+        else
+        {
+            animator.SetBool("Walk", false);
+        }
+
+        // Changes the height position of the player..
+        if (jumpAction.triggered && groundedPlayer)
+        {
+            animator.SetBool("Jump", true);
+            playerVelocity.y += Mathf.Sqrt(jumpHeight * -3.0f * gravityValue);
+        }
+
+        playerVelocity.y += gravityValue * Time.deltaTime;
+        controller.Move(playerVelocity * Time.deltaTime);
+
+        Quaternion targetRotation = Quaternion.Euler(0, cameraTransform.eulerAngles.y, 0);
+        transform.rotation = Quaternion.Lerp(transform.rotation, targetRotation, rotationSpeed * Time.deltaTime);
+        /*Vector3 direction = playerControls.Movement.Move.ReadValue<Vector2>();
 
         if (direction.x != 0 || direction.y != 0)
         {
@@ -329,8 +433,7 @@ public class PlayerController : MonoBehaviour
             worldAimTarget.y = transform.position.y;
             Vector3 aimDirection = (worldAimTarget - transform.position).normalized;
 
-            //transform.forward = Vector3.Lerp(transform.forward, aimDirection, Time.deltaTime * 20f);
-        }
+        }*/
     }
 
     void HandleGravityAndJump()
@@ -401,4 +504,37 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+
+    public static class ChangeScale
+    {
+        public static IEnumerator StartFade(GameObject gameObject, float duration, float scaleMultiplier)
+        {
+            float currentTime = 0;
+            Vector3 start = gameObject.transform.localScale;
+            while (currentTime < duration)
+            {
+                currentTime += Time.deltaTime;
+                float newValue = Mathf.Lerp(start.x, start.x * scaleMultiplier, currentTime / duration);
+                gameObject.transform.localScale = new Vector3(newValue, newValue, newValue);
+                yield return null;
+            }
+            yield break;
+        }
+    }
+
+    public static class FadeLightSource
+    {
+        public static IEnumerator StartFade(Light light, float duration, float targetIntensity)
+        {
+            float currentTime = 0;
+            float start = light.intensity;
+            while (currentTime < duration)
+            {
+                currentTime += Time.deltaTime;
+                light.intensity = Mathf.Lerp(start, targetIntensity, currentTime / duration);
+                yield return null;
+            }
+            yield break;
+        }
+    }
 }
