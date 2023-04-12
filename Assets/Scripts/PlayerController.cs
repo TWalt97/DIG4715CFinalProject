@@ -174,12 +174,13 @@ public class PlayerController : MonoBehaviour
         // }
 
         // lose
-        if (((timer == 0) && (winObject == 0) && (timerActive == true)))
+        if (((timer == 0) && (winObject == 0) && (timerActive == true) || (dead == true)))
         {
             transform.position = new Vector3(-24.55f, 196.08f, -806.58f);
             // loseText.SetActive(true);
             AudioManager.Instance.PlaySFX("LoseSound");
             timer = newTime;
+            dead = false;
             // Invoke("LoseCondition", 0.5f);
             // StartCoroutine(LoseState(LoseTime));
         }
