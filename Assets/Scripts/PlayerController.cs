@@ -382,23 +382,23 @@ public class PlayerController : MonoBehaviour
             timer2 = newTime2;
         }
 
-        if (collider.CompareTag("Enemy"))
-        {
-            Debug.Log("Enemy");
-            deathCol = true;
-            Debug.Log("Death Bool: " + deathCol);
-            Destroy(collider.gameObject);
-        }
+        // if (collider.CompareTag("Enemy"))
+        // {
+        //     Debug.Log("Enemy");
+        //     deathCol = true;
+        //     Debug.Log("Death Bool: " + deathCol);
+        //     Destroy(collider.gameObject);
+        // }
     }
 
-    // void OnCollisionEnter(Collision collision)
-    // {
-    //     if (collision.gameObject.tag == "Enemy")
-    //     {
-    //         // deathCol = true;
-    //         // Destroy(collision.gameObject);
-    //         Debug.Log("Enemy");
-    //     }
-    // }
+    void OnCollisionEnter(Collision collision)
+    {
+        if (collision.gameObject.tag == "Enemy")
+        {
+            deathCol = true;
+            Destroy(collision.gameObject);
+            Debug.Log("Enemy");
+        }
+    }
 
 }
