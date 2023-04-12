@@ -50,7 +50,7 @@ public class PlayerController : MonoBehaviour
     public float timer;
     [Header("Timer After Lose")]
     public float newTime;
-    bool timerActive = true;
+    bool timerActive = false;
 
     [Header("Lose State")]
     public GameObject loseText;
@@ -66,6 +66,8 @@ public class PlayerController : MonoBehaviour
 
 
     Animator animator;
+
+    bool hasRun = false;
 
     private void Awake()
     {
@@ -147,8 +149,6 @@ public class PlayerController : MonoBehaviour
     }
     private void Update()
     {
-
-
         if (timerActive == true)
         {
             timer -= Time.deltaTime;
@@ -162,28 +162,26 @@ public class PlayerController : MonoBehaviour
         CenterText();
 
         // win
-        /*if (winObject == 1)
-        {
-            WinCondition();
-        }*/
-        // win
         //If timer is above zero, win object collected and timer is active teleport the player, activate win text, run WinCondition after 0.5s
-        if ((timer > 0) && (winObject == 1) && (timerActive == true))
-        {
-            AudioManager.Instance.PlaySFX("WinSound");
-            //transform.position = new Vector3(-0.6300001f, 2.7f, -0.3499999f);
-            //winText.SetActive(true);
-            Invoke("WinCondition", 0.5f);
-        }
+        // if ((winObject == 1) && (timerActive == false) && (hasRun == false))
+        // {
+        //     AudioManager.Instance.PlaySFX("WinSound");
+        //     // Invoke("Reset", 0.5f);
+        //     hasRun = true;
+        //     transform.position = new Vector3(37.69f, 195.81f, -824.1f);
+        //     // winText.SetActive(true);
+        //     // Invoke("WinCondition", 0.5f);
+        // }
 
         // lose
-        if (((timer == 0) && (winObject == 0) && (timerActive == true)) || dead == true)
+        if (((timer == 0) && (winObject == 0) && (timerActive == true)))
         {
-            //transform.position = new Vector3(-0.6300001f, 2.7f, -0.3499999f);
-            //loseText.SetActive(true);
+            transform.position = new Vector3(-24.55f, 196.08f, -806.58f);
+            // loseText.SetActive(true);
             AudioManager.Instance.PlaySFX("LoseSound");
-            Invoke("LoseCondition", 0.5f);
-            //StartCoroutine(LoseState(LoseTime));
+            timer = newTime;
+            // Invoke("LoseCondition", 0.5f);
+            // StartCoroutine(LoseState(LoseTime));
         }
     }
 
@@ -193,21 +191,25 @@ public class PlayerController : MonoBehaviour
         timeText.SetText($"<mspace={charWidth}em>{timerStr}");
     }
 
+    // void Reset()
+    // {
+    //     hasRun = true;
+    // }
+
     //Method to disable timer
     //Also starts coroutine to remove text after delay
-    void WinCondition()
-    {
-        SceneManager.LoadScene("Win");
-        // timerActive = false;
-        // StartCoroutine(TextRemove(winText, 4f));
-    }
+    // void WinCondition()
+    // {
+    //     // SceneManager.LoadScene("Win");
+    //     StartCoroutine(TextRemove(winText, 4f));
+    // }
 
-    void LoseCondition()
-    {
-        SceneManager.LoadScene("Lose");
-        // timerActive = false;
-        // StartCoroutine(LoseReset(loseText, 4f));
-    }
+    // void LoseCondition()
+    // {
+    //     SceneManager.LoadScene("Lose");
+    //     // timerActive = false;
+    //     // StartCoroutine(LoseReset(loseText, 4f));
+    // }
 
     // IEnumerator LoseReset(GameObject text, float delay)
     // {
@@ -220,20 +222,21 @@ public class PlayerController : MonoBehaviour
     //Sets specified gameobject to inactive after specified delay
     // IEnumerator TextRemove(GameObject text, float delay)
     // {
-    //     // yield return new WaitForSeconds(delay);
-    //     // text.SetActive(false);
+    //     yield return new WaitForSeconds(delay);
+    //     text.SetActive(false);
+    //     //transform.position = new Vector3(37.69f, 195.81f, -824.1f);
     // }
 
     // IEnumerator LoseState(float LoseTime)
     // {
-    //     // gameOver = true;
-    //     // loseText.SetActive(true);
-    //     // speed = 0;
-    //     // yield return new WaitForSeconds(LoseTime);
-    //     // transform.position = new Vector3(-0.6300001f, 2.7f, -0.3499999f);
-    //     // speed = newSpeed;
-    //     // loseText.SetActive(false);
-    //     // timer = newTime;
+    //     gameOver = true;
+    //     loseText.SetActive(true);
+    //     speed = 0;
+    //     yield return new WaitForSeconds(LoseTime);
+    //     transform.position = new Vector3(-0.6300001f, 2.7f, -0.3499999f);
+    //     speed = newSpeed;
+    //     loseText.SetActive(false);
+    //     timer = newTime;
     // }
 
     private void HandleMovement()
@@ -309,7 +312,14 @@ public class PlayerController : MonoBehaviour
         {
             Destroy(collider.gameObject);
             winObject += 1;
-            winObjectText.text = "Win: " + winObject.ToString();
+            timerActive = false;
+            AudioManager.Instance.PlaySFX("WinSound");
+            transform.position = new Vector3(37.69f, 195.81f, -824.1f);
+        }
+
+        if (collider.CompareTag("startMaze"))
+        {
+            timerActive = true;
         }
     }
 
