@@ -46,11 +46,27 @@ public class PlayerController : MonoBehaviour
     public bool dead;
 
     [Header("Timer")]
+    [Header("Maze")]
     public TextMeshProUGUI timeText;
+    [Header("Coliseum")]
+    public TextMeshProUGUI timeText2;
+    [Header("Maze")]
     public float timer;
+    [Header("Coliseum")]
+    public float timer2;
     [Header("Timer After Lose")]
+    [Header("Maze")]
     public float newTime;
-    bool timerActive = true;
+    [Header("Coliseum")]
+    public float newTime2;
+    [Header("Maze")]
+    bool timerActive = false;
+    [Header("Coliseum")]
+    bool timerActive2 = false;
+    [Header("Maze")]
+    public GameObject Timer1;
+    [Header("Coliseum")]
+    public GameObject Timer2;
 
     [Header("Lose State")]
     public GameObject loseText;
@@ -66,6 +82,12 @@ public class PlayerController : MonoBehaviour
 
 
     Animator animator;
+
+    bool hasRun = false;
+
+    bool deathCol = false;
+    
+    public GameObject cheese;
 
     private void Awake()
     {
@@ -119,16 +141,6 @@ public class PlayerController : MonoBehaviour
         Application.Quit();
     }
 
-    void OnGlow()
-    {
-        //Glow goes here
-    }
-
-    void OnShrink()
-    {
-        //Shrink goes here
-    }
-
     private void OnEnable()
     {
         playerControls.Enable();
@@ -147,8 +159,7 @@ public class PlayerController : MonoBehaviour
     }
     private void Update()
     {
-
-
+        // maze
         if (timerActive == true)
         {
             timer -= Time.deltaTime;
@@ -157,57 +168,96 @@ public class PlayerController : MonoBehaviour
         {
             timer = 0;
         }
+
+        // coliseum
+        if (timerActive2 == true)
+        {
+            timer2 -= Time.deltaTime;
+        }
+        if (timer2 < 0)
+        {
+            timer2 = 0;
+        }
+
         // timeText.text = timer.ToString("F2");
 
         CenterText();
 
         // win
-        /*if (winObject == 1)
-        {
-            WinCondition();
-        }*/
-        // win
         //If timer is above zero, win object collected and timer is active teleport the player, activate win text, run WinCondition after 0.5s
-        if ((timer > 0) && (winObject == 1) && (timerActive == true))
+        // if ((winObject == 1) && (timerActive == false) && (hasRun == false))
+        // {
+        //     AudioManager.Instance.PlaySFX("WinSound");
+        //     // Invoke("Reset", 0.5f);
+        //     hasRun = true;
+        //     transform.position = new Vector3(37.69f, 195.81f, -824.1f);
+        //     // winText.SetActive(true);
+        //     // Invoke("WinCondition", 0.5f);
+        // }
+
+        // lose maze
+        if (((timer == 0) && (winObject == 0) && (timerActive == true) || (dead == true)))
         {
-            AudioManager.Instance.PlaySFX("WinSound");
-            //transform.position = new Vector3(-0.6300001f, 2.7f, -0.3499999f);
-            //winText.SetActive(true);
-            Invoke("WinCondition", 0.5f);
+            transform.position = new Vector3(-24.55f, 196.08f, -806.58f);
+            // loseText.SetActive(true);
+            AudioManager.Instance.PlaySFX("LoseSound");
+            // timer = newTime;
+            timerActive = false;
+            dead = false;
+            // Invoke("LoseCondition", 0.5f);
+            // StartCoroutine(LoseState(LoseTime));
         }
 
-        // lose
-        if (((timer == 0) && (winObject == 0) && (timerActive == true)) || dead == true)
+        // lose coliseum
+        if (deathCol == true)
         {
-            //transform.position = new Vector3(-0.6300001f, 2.7f, -0.3499999f);
-            //loseText.SetActive(true);
+            transform.position = new Vector3(99.91f, 194.3172f, -823.0043f);
             AudioManager.Instance.PlaySFX("LoseSound");
-            Invoke("LoseCondition", 0.5f);
-            //StartCoroutine(LoseState(LoseTime));
+            // timer2 = newTime2;
+            timerActive2 = false;
+            deathCol = false;
+        }
+
+        // win coliseum
+        if ((timer2 == 0))
+        {
+            timerActive2 = false;
+            cheese.SetActive(true); 
         }
     }
 
     void CenterText()
     {
+        // maze
         string timerStr = timer.ToString("00.00");
+        // coliseum
+        string timerStr2 = timer2.ToString("00.00");
+        // maze
         timeText.SetText($"<mspace={charWidth}em>{timerStr}");
+        // coliseum
+        timeText2.SetText($"<mspace={charWidth}em>{timerStr2}");
+
     }
+
+    // void Reset()
+    // {
+    //     hasRun = true;
+    // }
 
     //Method to disable timer
     //Also starts coroutine to remove text after delay
-    void WinCondition()
-    {
-        SceneManager.LoadScene("Win");
-        // timerActive = false;
-        // StartCoroutine(TextRemove(winText, 4f));
-    }
+    // void WinCondition()
+    // {
+    //     // SceneManager.LoadScene("Win");
+    //     StartCoroutine(TextRemove(winText, 4f));
+    // }
 
-    void LoseCondition()
-    {
-        SceneManager.LoadScene("Lose");
-        // timerActive = false;
-        // StartCoroutine(LoseReset(loseText, 4f));
-    }
+    // void LoseCondition()
+    // {
+    //     SceneManager.LoadScene("Lose");
+    //     // timerActive = false;
+    //     // StartCoroutine(LoseReset(loseText, 4f));
+    // }
 
     // IEnumerator LoseReset(GameObject text, float delay)
     // {
@@ -220,20 +270,21 @@ public class PlayerController : MonoBehaviour
     //Sets specified gameobject to inactive after specified delay
     // IEnumerator TextRemove(GameObject text, float delay)
     // {
-    //     // yield return new WaitForSeconds(delay);
-    //     // text.SetActive(false);
+    //     yield return new WaitForSeconds(delay);
+    //     text.SetActive(false);
+    //     //transform.position = new Vector3(37.69f, 195.81f, -824.1f);
     // }
 
     // IEnumerator LoseState(float LoseTime)
     // {
-    //     // gameOver = true;
-    //     // loseText.SetActive(true);
-    //     // speed = 0;
-    //     // yield return new WaitForSeconds(LoseTime);
-    //     // transform.position = new Vector3(-0.6300001f, 2.7f, -0.3499999f);
-    //     // speed = newSpeed;
-    //     // loseText.SetActive(false);
-    //     // timer = newTime;
+    //     gameOver = true;
+    //     loseText.SetActive(true);
+    //     speed = 0;
+    //     yield return new WaitForSeconds(LoseTime);
+    //     transform.position = new Vector3(-0.6300001f, 2.7f, -0.3499999f);
+    //     speed = newSpeed;
+    //     loseText.SetActive(false);
+    //     timer = newTime;
     // }
 
     private void HandleMovement()
@@ -307,10 +358,47 @@ public class PlayerController : MonoBehaviour
     {
         if (collider.CompareTag("winObject"))
         {
-            Destroy(collider.gameObject);
             winObject += 1;
-            winObjectText.text = "Win: " + winObject.ToString();
+            Debug.Log("Win Object: " + winObject);
+            timerActive = false;
+            timerActive2 = false;
+            AudioManager.Instance.PlaySFX("WinSound");
+            transform.position = new Vector3(37.69f, 195.81f, -824.1f);
+            Timer1.SetActive(false);
+            Timer2.SetActive(false);
+        }
+
+        if (collider.CompareTag("startMaze"))
+        {
+            timerActive = true;
+            Timer1.SetActive(true);
+            timer = newTime;
+        }
+
+        if (collider.CompareTag("startColiseum"))
+        {
+            timerActive2 = true;
+            Timer2.SetActive(true);
+            timer2 = newTime2;
+        }
+
+        if (collider.CompareTag("Enemy"))
+        {
+            Debug.Log("Enemy");
+            deathCol = true;
+            Debug.Log("Death Bool: " + deathCol);
+            Destroy(collider.gameObject);
         }
     }
+
+    // void OnCollisionEnter(Collision collision)
+    // {
+    //     if (collision.gameObject.tag == "Enemy")
+    //     {
+    //         // deathCol = true;
+    //         // Destroy(collision.gameObject);
+    //         Debug.Log("Enemy");
+    //     }
+    // }
 
 }
