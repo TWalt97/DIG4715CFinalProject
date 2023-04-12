@@ -75,6 +75,7 @@ public class PlayerController : MonoBehaviour
     [Header("How Long Lose is Displayed")]
     public float LoseTime;
 
+
     [Header("Movement Controller")]
     //public InputAction playerControls;
     private PlayerInput playerInput;
@@ -84,6 +85,7 @@ public class PlayerController : MonoBehaviour
     private InputAction shootAction;
     private InputAction glowAction;
     private InputAction shrinkAction;
+    
 
     [Header("Glow")]
     bool lightToggle = false;
