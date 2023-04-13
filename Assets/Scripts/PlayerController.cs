@@ -89,6 +89,16 @@ public class PlayerController : MonoBehaviour
     
     public GameObject cheese;
 
+    GameObject[] directionLight;
+
+    public int platformerCount;
+
+    bool deathPlat = false;
+
+    public int platformerGoal;
+
+    public GameObject platformerCheese;
+
     private void Awake()
     {
         //getting reference for components on the Player
@@ -105,6 +115,8 @@ public class PlayerController : MonoBehaviour
         winText.SetActive(false);
 
         Cursor.lockState = CursorLockMode.Locked;
+
+        directionLight = GameObject.FindGameObjectsWithTag("light");
     }
 
     void OnJump()
@@ -223,6 +235,20 @@ public class PlayerController : MonoBehaviour
         {
             timerActive2 = false;
             cheese.SetActive(true); 
+        }
+
+        // lose platformer
+        if (deathPlat == true)
+        {
+            transform.position = new Vector3(307.98f, 189.99f, -726.34f);
+            AudioManager.Instance.PlaySFX("LoseSound");
+            deathPlat = false;
+        }
+
+        // win platformer
+        if (platformerCount == platformerGoal)
+        {
+            platformerCheese.SetActive(true);
         }
     }
 
@@ -366,6 +392,11 @@ public class PlayerController : MonoBehaviour
             transform.position = new Vector3(37.69f, 195.81f, -824.1f);
             Timer1.SetActive(false);
             Timer2.SetActive(false);
+            GetComponent<LightScript>().enabled = true;
+            foreach (GameObject go in directionLight)
+            {
+                go.SetActive(true);
+            }
         }
 
         if (collider.CompareTag("startMaze"))
@@ -380,6 +411,32 @@ public class PlayerController : MonoBehaviour
             timerActive2 = true;
             Timer2.SetActive(true);
             timer2 = newTime2;
+        }
+
+        if (collider.CompareTag("startPlatformer"))
+        {
+            transform.position = new Vector3(270.84f, 191.299f, -737.7659f);
+
+            foreach (GameObject go in directionLight)
+            {
+                go.SetActive(false);
+            }
+
+            // disable script
+            GetComponent<LightScript>().enabled = false;
+        }
+
+        if (collider.CompareTag("PlatformPickUp"))
+        {
+            platformerCount += 1;
+            Debug.Log("Platformer Object: " + platformerCount);
+            Destroy(collider.gameObject);
+        }
+
+        if (collider.CompareTag("Trap"))
+        {
+            deathPlat = true;
+            Destroy(collider.gameObject);
         }
 
         // if (collider.CompareTag("Enemy"))
