@@ -5,6 +5,7 @@ using TMPro;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using UnityEngine.InputSystem;
+using Cinemachine;
 
 public class PlayerController : MonoBehaviour
 {
@@ -29,13 +30,6 @@ public class PlayerController : MonoBehaviour
 
     [Header("Reference the CharacterController on Player")]
     public CharacterController controller;
-
-    [Header("Reference the Camera")]
-    public Camera cam;
-    public LayerMask aimColliderLayerMask;
-
-    float currentAngle;
-    float currentAngleVelocity;
 
 
     public int winObject = 0;
@@ -85,6 +79,7 @@ public class PlayerController : MonoBehaviour
     private InputAction shootAction;
     private InputAction glowAction;
     private InputAction shrinkAction;
+    private InputAction interactAction;
     
 
     [Header("Glow")]
@@ -104,7 +99,14 @@ public class PlayerController : MonoBehaviour
     public ParticleSystem laserParticle;
 
     [Header("Shrink")]
+    [SerializeField]
+    private float shrinkSize = 3f;
+    private float startSize;
     private float playerSize;
+
+    [Header("Interact")]
+    [SerializeField]
+    private float interactRange = 100f;
 
 
     Animator animator;
@@ -114,6 +116,14 @@ public class PlayerController : MonoBehaviour
     public GameObject cheese;
 
     private Transform cameraTransform;
+    [SerializeField]
+    private GameObject thirdPersonCamera;
+    [SerializeField]
+    private GameObject aimCamera;
+    [SerializeField]
+    private GameObject TVCinemachine;
+
+    bool interacting;
 
     private void Awake()
     {
@@ -121,7 +131,6 @@ public class PlayerController : MonoBehaviour
         controller = GetComponent<CharacterController>();
         animator = GetComponentInChildren<Animator>();
         playerInput = GetComponent<PlayerInput>();
-        cam = Camera.main;
         cameraTransform = Camera.main.transform;
         playerControls = new PlayerControls();
 
@@ -130,6 +139,9 @@ public class PlayerController : MonoBehaviour
         shootAction = playerInput.actions["Shoot"];
         glowAction = playerInput.actions["Glow"];
         shrinkAction = playerInput.actions["Shrink"];
+        interactAction = playerInput.actions["Interact"];
+
+        startSize = transform.localScale.x;
     }
 
     private void OnEnable()
@@ -139,6 +151,7 @@ public class PlayerController : MonoBehaviour
         glowAction.performed += _ => Glow();
         shrinkAction.performed += _ => Shrink();
         shrinkAction.canceled += _ => ShrinkEnd();
+        interactAction.performed += _ => Interact();
     }
 
     private void OnDisable() 
@@ -148,13 +161,37 @@ public class PlayerController : MonoBehaviour
         glowAction.performed -= _ => Glow();
         shrinkAction.performed -= _ => Shrink();
         shrinkAction.canceled -= _ => ShrinkEnd();
+        interactAction.performed += _ => Interact();
+    }
+
+    private void Interact()
+    {
+        interacting = !interacting;
+        if (interacting == false)
+        {
+            Collider[] colliderArray = Physics.OverlapSphere(transform.position, interactRange);
+            foreach (Collider collider in colliderArray)
+            {
+                if (collider.TryGetComponent(out TutorialTeleporter tutorialTeleporter))
+                {
+                    //cameraTransform.gameObject.SetActive(false);
+                    TVCinemachine.GetComponent<CinemachineVirtualCamera>().Priority += 10;
+
+                }
+            }
+        }
+        else if (TVCinemachine.GetComponent<CinemachineVirtualCamera>().Priority == 19)
+        {
+            TVCinemachine.GetComponent<CinemachineVirtualCamera>().Priority -= 10;
+        }
+        
     }
 
     private void Shrink()
     {
-        if (playerSize == 9f)
+        if (playerSize == startSize)
         {
-            StartCoroutine(ChangeScale.StartFade(this.gameObject, 0.2f, 0.5f));
+            StartCoroutine(ChangeScale.StartFade(this.gameObject, 0.2f, shrinkSize));
             animator.SetBool("Shrink", true);
             Invoke("ShrinkAnimCancel", 0.5f);
         }
@@ -162,9 +199,9 @@ public class PlayerController : MonoBehaviour
 
     private void ShrinkEnd()
     {
-        if (playerSize == 4.5f)
+        if (playerSize == shrinkSize)
         {
-            StartCoroutine(ChangeScale.StartFade(this.gameObject, 0.2f, 2f));
+            StartCoroutine(ChangeScale.StartFade(this.gameObject, 0.2f, startSize));
             animator.SetBool("Shrink", true);
             Invoke("ShrinkAnimCancel", 0.5f);
         }
@@ -272,7 +309,7 @@ public class PlayerController : MonoBehaviour
         {
             transform.position = new Vector3(-24.55f, 196.08f, -806.58f);
             // loseText.SetActive(true);
-            AudioManager.Instance.PlaySFX("LoseSound");
+            //AudioManager.Instance.PlaySFX("LoseSound");
             // timer = newTime;
             timerActive = false;
             dead = false;
@@ -284,7 +321,7 @@ public class PlayerController : MonoBehaviour
         if (deathCol == true)
         {
             transform.position = new Vector3(99.91f, 194.3172f, -823.0043f);
-            AudioManager.Instance.PlaySFX("LoseSound");
+            //AudioManager.Instance.PlaySFX("LoseSound");
             // timer2 = newTime2;
             timerActive2 = false;
             deathCol = false;
@@ -467,7 +504,7 @@ public class PlayerController : MonoBehaviour
             Debug.Log("Win Object: " + winObject);
             timerActive = false;
             timerActive2 = false;
-            AudioManager.Instance.PlaySFX("WinSound");
+            //AudioManager.Instance.PlaySFX("WinSound");
             transform.position = new Vector3(37.69f, 195.81f, -824.1f);
             Timer1.SetActive(false);
             Timer2.SetActive(false);
@@ -509,14 +546,14 @@ public class PlayerController : MonoBehaviour
 
     public static class ChangeScale
     {
-        public static IEnumerator StartFade(GameObject gameObject, float duration, float scaleMultiplier)
+        public static IEnumerator StartFade(GameObject gameObject, float duration, float targetSize)
         {
             float currentTime = 0;
             Vector3 start = gameObject.transform.localScale;
             while (currentTime < duration)
             {
                 currentTime += Time.deltaTime;
-                float newValue = Mathf.Lerp(start.x, start.x * scaleMultiplier, currentTime / duration);
+                float newValue = Mathf.Lerp(start.x, targetSize, currentTime / duration);
                 gameObject.transform.localScale = new Vector3(newValue, newValue, newValue);
                 yield return null;
             }
