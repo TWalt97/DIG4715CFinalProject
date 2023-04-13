@@ -188,17 +188,17 @@ public class HUD : MonoBehaviour
 
     // }
 
-    public void ChangeObjective (String level)
-    {
-        if (isMaze)
-        {
+    // public void ChangeObjective (String level)
+    // {
+    //     if (isMaze)
+    //     {
 
-        }
-        else
-        {
+    //     }
+    //     else
+    //     {
             
-        }
-    }
+    //     }
+    // }
 
 
     // Old Glowing
