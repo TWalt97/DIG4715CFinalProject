@@ -382,16 +382,30 @@ public class PlayerController : MonoBehaviour
 
     void OnTriggerEnter(Collider collider)
     {
-        if (collider.CompareTag("winObject"))
+        if (collider.CompareTag("winMaze"))
         {
             winObject += 1;
             Debug.Log("Win Object: " + winObject);
             timerActive = false;
-            timerActive2 = false;
             AudioManager.Instance.PlaySFX("WinSound");
             transform.position = new Vector3(37.69f, 195.81f, -824.1f);
             Timer1.SetActive(false);
+        }
+        if (collider.CompareTag("winColiseum"))
+        {
+            winObject += 1;
+            Debug.Log("Win Object: " + winObject);
+            timerActive2 = false;
+            AudioManager.Instance.PlaySFX("WinSound");
+            transform.position = new Vector3(37.69f, 195.81f, -824.1f);
             Timer2.SetActive(false);
+        }
+        if (collider.CompareTag("winPlatformer"))
+        {
+            winObject += 1;
+            Debug.Log("Win Object: " + winObject);
+            AudioManager.Instance.PlaySFX("WinSound");
+            transform.position = new Vector3(37.69f, 195.81f, -824.1f);
             GetComponent<LightScript>().enabled = true;
             foreach (GameObject go in directionLight)
             {
