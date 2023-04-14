@@ -106,7 +106,11 @@ public class PlayerController : MonoBehaviour
 
     [Header("Interact")]
     [SerializeField]
-    private float interactRange = 100f;
+    private float interactRange = 5f;
+
+    [Header("TutorialLevel")]
+    public GameObject tutorialCamera;
+    public GameObject gameCamera;
 
 
     Animator animator;
@@ -123,7 +127,9 @@ public class PlayerController : MonoBehaviour
     [SerializeField]
     private GameObject TVCinemachine;
 
-    bool interacting;
+    bool interacting = false;
+
+    private Vector3 startLocation;
 
     private void Awake()
     {
@@ -157,16 +163,10 @@ public class PlayerController : MonoBehaviour
     private void OnDisable() 
     {
         playerControls.Disable();
-        shootAction.performed -= _ => ShootGun();
-        glowAction.performed -= _ => Glow();
-        shrinkAction.performed -= _ => Shrink();
-        shrinkAction.canceled -= _ => ShrinkEnd();
-        interactAction.performed += _ => Interact();
     }
 
     private void Interact()
     {
-        interacting = !interacting;
         if (interacting == false)
         {
             Collider[] colliderArray = Physics.OverlapSphere(transform.position, interactRange);
@@ -174,19 +174,50 @@ public class PlayerController : MonoBehaviour
             {
                 if (collider.TryGetComponent(out TutorialTeleporter tutorialTeleporter))
                 {
-                    //cameraTransform.gameObject.SetActive(false);
+                    interacting = !interacting;
                     TVCinemachine.GetComponent<CinemachineVirtualCamera>().Priority += 10;
-
+                    Invoke("EnterTutorialLevel", 1.5f);
                 }
             }
         }
-        else if (TVCinemachine.GetComponent<CinemachineVirtualCamera>().Priority == 19)
+        else
         {
-            TVCinemachine.GetComponent<CinemachineVirtualCamera>().Priority -= 10;
+            interacting = !interacting;
+            TVCinemachine.GetComponent<CinemachineVirtualCamera>().Priority += 10;
+            Invoke("ExitTutorialLevel", 1.5f);
         }
-        
     }
 
+    private void EnterTutorialLevel()
+    {
+        Debug.Log("Entering tutorial level...");
+        startLocation = this.gameObject.transform.position;
+        this.gameObject.transform.position = new Vector3(0, 1000, 0);
+
+        tutorialCamera.GetComponent<Camera>().enabled = true;
+        tutorialCamera.GetComponent<AudioListener>().enabled = true;
+        tutorialCamera.GetComponent<CinemachineBrain>().enabled = true;
+
+        gameCamera.SetActive(false);
+        cameraTransform = tutorialCamera.transform;
+
+        TVCinemachine.GetComponent<CinemachineVirtualCamera>().Priority -= 10;    
+    }
+
+    private void ExitTutorialLevel()
+    {
+        Debug.Log("Exiting tutorial level...");
+        this.gameObject.transform.position = startLocation;
+
+        tutorialCamera.GetComponent<Camera>().enabled = false;
+        tutorialCamera.GetComponent<AudioListener>().enabled = false;
+        tutorialCamera.GetComponent<CinemachineBrain>().enabled = false;
+
+        gameCamera.SetActive(true);
+        cameraTransform = gameCamera.transform;
+
+        TVCinemachine.GetComponent<CinemachineVirtualCamera>().Priority -= 10;
+    }
     private void Shrink()
     {
         if (playerSize == startSize)
