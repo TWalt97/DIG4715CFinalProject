@@ -7,7 +7,7 @@ using TMPro;
 public class HUD : MonoBehaviour
 {
     // Testing
-    public bool isHub;
+    public bool isDefault;
     public bool isMaze;
     public bool isArena;
     public bool isVent;
@@ -32,8 +32,7 @@ public class HUD : MonoBehaviour
     public GameObject mazeObjective;
     public GameObject arenaObjective;
     public GameObject ventObjective;
-    public GameObject hubObjective;
-    public GameObject escapeObjective;
+    public GameObject defaultObjective;
 
     public Button shrinkButtonBorder;
     public Button shrinkButtonBackground;
@@ -46,6 +45,16 @@ public class HUD : MonoBehaviour
 
     public Button glowButtonBorder;
     public Button glowButtonBackground;
+
+    public Image shrinkIcon;
+    public Image aimIcon;
+    public Image laserIcon;
+    public Image glowIcon;
+
+    private Color defaultIconColor = new Color(0.9912034f, 0.6745283f, 1.0f, 1.0f);
+    private Color mazeIconColor = new Color (0.6745098f, 0.7374928f, 1.0f, 1.0f);
+    private Color arenaIconColor = new Color (1.0f, 0.68966f, 0.6745098f, 1.0f);
+    private Color ventIconColor = new Color (0.9392163f, 1.0f, 0.6745098f, 1.0f);
 
     private ColorBlock shrinkBorderColors;
     private ColorBlock shrinkBackgroundColors;
@@ -92,8 +101,7 @@ public class HUD : MonoBehaviour
         mazeObjective.SetActive(false);
         arenaObjective.SetActive(false);
         ventObjective.SetActive(false);
-        hubObjective.SetActive(true);
-        escapeObjective.SetActive(false);
+        defaultObjective.SetActive(false);
 
         laserButtonBorder.interactable = false;
         laserButtonBackground.interactable = false;
@@ -101,63 +109,10 @@ public class HUD : MonoBehaviour
         glowButtonBorder.interactable = true;
         glowButtonBackground.interactable = true;
 
-        // Set default color
-        SetDefault();
+        // Set default hud
+        SetDefault(isDefault);
     }
 
-    void SetDefault ()
-    {
-        SetColor(shrinkBorderColors, defaultBorderButtonBaseColor, defaultBorderButtonPressedColor);
-        SetColor(shrinkBackgroundColors, defaultBackgroundButtonBaseColor, defaultBackgroundButtonPressedColor);
-        SetColor(aimBorderColors, defaultBorderButtonBaseColor, defaultBorderButtonPressedColor);
-        SetColor(aimBackgroundColors, defaultBackgroundButtonBaseColor, defaultBackgroundButtonPressedColor);
-        SetColor(laserBorderColors, defaultBorderButtonBaseColor, defaultBorderButtonPressedColor);
-        SetColor(laserBackgroundColors, defaultBackgroundButtonBaseColor, defaultBackgroundButtonPressedColor);
-        SetColor(glowBorderColors, defaultBorderButtonBaseColor, defaultBorderButtonPressedColor);
-        SetColor(glowBackgroundColors, defaultBackgroundButtonBaseColor, defaultBackgroundButtonPressedColor);
-    }
-
-    void SetMaze ()
-    {
-        SetColor(shrinkBorderColors, mazeBorderButtonBaseColor, mazeBorderButtonPressedColor);
-        SetColor(shrinkBackgroundColors, mazeBackgroundButtonBaseColor, mazeBackgroundButtonPressedColor);
-        SetColor(aimBorderColors, mazeBorderButtonBaseColor, mazeBorderButtonPressedColor);
-        SetColor(aimBackgroundColors, mazeBackgroundButtonBaseColor, mazeBackgroundButtonPressedColor);
-        SetColor(laserBorderColors, mazeBorderButtonBaseColor, mazeBorderButtonPressedColor);
-        SetColor(laserBackgroundColors, mazeBackgroundButtonBaseColor, mazeBackgroundButtonPressedColor);
-        SetColor(glowBorderColors, mazeBorderButtonBaseColor, mazeBorderButtonPressedColor);
-        SetColor(glowBackgroundColors, mazeBackgroundButtonBaseColor, mazeBackgroundButtonPressedColor);
-    }
-
-    void SetArena ()
-    {
-        SetColor(shrinkBorderColors, arenaBorderButtonBaseColor, arenaBorderButtonPressedColor);
-        SetColor(shrinkBackgroundColors, arenaBackgroundButtonBaseColor, arenaBackgroundButtonPressedColor);
-        SetColor(aimBorderColors, arenaBorderButtonBaseColor, arenaBorderButtonPressedColor);
-        SetColor(aimBackgroundColors, arenaBackgroundButtonBaseColor, arenaBackgroundButtonPressedColor);
-        SetColor(laserBorderColors, arenaBorderButtonBaseColor, arenaBorderButtonPressedColor);
-        SetColor(laserBackgroundColors, arenaBackgroundButtonBaseColor, arenaBackgroundButtonPressedColor);
-        SetColor(glowBorderColors, arenaBorderButtonBaseColor, arenaBorderButtonPressedColor);
-        SetColor(glowBackgroundColors, arenaBackgroundButtonBaseColor, arenaBackgroundButtonPressedColor);
-    }
-
-    void SetVent ()
-    {
-        SetColor(shrinkBorderColors, ventBorderButtonBaseColor, ventBorderButtonPressedColor);
-        SetColor(shrinkBackgroundColors, ventBackgroundButtonBaseColor, ventBackgroundButtonPressedColor);
-        SetColor(aimBorderColors, ventBorderButtonBaseColor, ventBorderButtonPressedColor);
-        SetColor(aimBackgroundColors, ventBackgroundButtonBaseColor, ventBackgroundButtonPressedColor);
-        SetColor(laserBorderColors, ventBorderButtonBaseColor, ventBorderButtonPressedColor);
-        SetColor(laserBackgroundColors, ventBackgroundButtonBaseColor, ventBackgroundButtonPressedColor);
-        SetColor(glowBorderColors, ventBorderButtonBaseColor, ventBorderButtonPressedColor);
-        SetColor(glowBackgroundColors, ventBackgroundButtonBaseColor, ventBackgroundButtonPressedColor);
-    }
-
-    void SetColor (ColorBlock colors, Color baseColor, Color pressedColor)
-    {
-        colors.normalColor = baseColor;
-        colors.pressedColor = pressedColor;
-    }
     // Update is called once per frame
     void Update()
     {
@@ -210,7 +165,12 @@ public class HUD : MonoBehaviour
             FadeToColor(laserButtonBackground.colors.normalColor, laserButtonBackground);
         }
 
+        // Testing
         isGlowing(isGlow);
+        SetDefault(isDefault);
+        SetMaze(isMaze);
+        SetArena(isArena);
+        SetVent(isVent);
 
         // Old Glowing
         // if (Input.GetKeyDown(KeyCode.E))
@@ -250,23 +210,125 @@ public class HUD : MonoBehaviour
         }
     }
 
-    // public void ChangeHUDDefault (bool isHub)
-    // {
+    public void SetDefault (bool isDefault)
+    {
+        if (isDefault)
+        {
+            defaultObjective.SetActive(true);
 
-    // }
+            SetImageColor(shrinkIcon, defaultIconColor);
+            SetImageColor(aimIcon, defaultIconColor);
+            SetImageColor(laserIcon, defaultIconColor);
+            SetImageColor(glowIcon, defaultIconColor);
 
-    // public void ChangeObjective (String level)
-    // {
-    //     if (isMaze)
-    //     {
+            SetButtonColor(shrinkButtonBorder, shrinkBorderColors, defaultBorderButtonBaseColor, defaultBorderButtonPressedColor);
+            SetButtonColor(shrinkButtonBackground, shrinkBackgroundColors, defaultBackgroundButtonBaseColor, defaultBackgroundButtonPressedColor);
+            SetButtonColor(aimButtonBorder, aimBorderColors, defaultBorderButtonBaseColor, defaultBorderButtonPressedColor);
+            SetButtonColor(aimButtonBackground, aimBackgroundColors, defaultBackgroundButtonBaseColor, defaultBackgroundButtonPressedColor);
+            SetButtonColor(laserButtonBorder, laserBorderColors, defaultBorderButtonBaseColor, defaultBorderButtonPressedColor);
+            SetButtonColor(laserButtonBackground, laserBackgroundColors, defaultBackgroundButtonBaseColor, defaultBackgroundButtonPressedColor);
+            SetButtonColor(glowButtonBorder, glowBorderColors, defaultBorderButtonBaseColor, defaultBorderButtonPressedColor);
+            SetButtonColor(glowButtonBackground, glowBackgroundColors, defaultBackgroundButtonBaseColor, defaultBackgroundButtonPressedColor);
+        }
+        else
+        {
+            defaultObjective.SetActive(false);
+        }
+    }
 
-    //     }
-    //     else
-    //     {
-            
-    //     }
-    // }
+    void SetImageColor(Image image, Color color)
+    {
+        image.GetComponent<Image>().color = color;
+    }
 
+    public void SetMaze (bool isMaze)
+    {
+        if (isMaze)
+        {
+            mazeObjective.SetActive(true);
+
+            SetImageColor(shrinkIcon, mazeIconColor);
+            SetImageColor(aimIcon, mazeIconColor);
+            SetImageColor(laserIcon, mazeIconColor);
+            SetImageColor(glowIcon, mazeIconColor);
+
+            SetButtonColor(shrinkButtonBorder, shrinkBorderColors, mazeBorderButtonBaseColor, mazeBorderButtonPressedColor);
+            SetButtonColor(shrinkButtonBackground, shrinkBackgroundColors, mazeBackgroundButtonBaseColor, mazeBackgroundButtonPressedColor);
+            SetButtonColor(aimButtonBorder, aimBorderColors, mazeBorderButtonBaseColor, mazeBorderButtonPressedColor);
+            SetButtonColor(aimButtonBackground, aimBackgroundColors, mazeBackgroundButtonBaseColor, mazeBackgroundButtonPressedColor);
+            SetButtonColor(laserButtonBorder, laserBorderColors, mazeBorderButtonBaseColor, mazeBorderButtonPressedColor);
+            SetButtonColor(laserButtonBackground, laserBackgroundColors, mazeBackgroundButtonBaseColor, mazeBackgroundButtonPressedColor);
+            SetButtonColor(glowButtonBorder, glowBorderColors, mazeBorderButtonBaseColor, mazeBorderButtonPressedColor);
+            SetButtonColor(glowButtonBackground, glowBackgroundColors, mazeBackgroundButtonBaseColor, mazeBackgroundButtonPressedColor);
+        }
+        else
+        {
+            mazeObjective.SetActive(false);
+            SetDefault(isDefault);
+        }
+    }
+
+    public void SetArena (bool isArena)
+    {
+        if (isArena)
+        {
+            arenaObjective.SetActive(true);
+
+            SetImageColor(shrinkIcon, arenaIconColor);
+            SetImageColor(aimIcon, arenaIconColor);
+            SetImageColor(laserIcon, arenaIconColor);
+            SetImageColor(glowIcon, arenaIconColor);
+
+            SetButtonColor(shrinkButtonBorder, shrinkBorderColors, arenaBorderButtonBaseColor, arenaBorderButtonPressedColor);
+            SetButtonColor(shrinkButtonBackground, shrinkBackgroundColors, arenaBackgroundButtonBaseColor, arenaBackgroundButtonPressedColor);
+            SetButtonColor(aimButtonBorder, aimBorderColors, arenaBorderButtonBaseColor, arenaBorderButtonPressedColor);
+            SetButtonColor(aimButtonBackground, aimBackgroundColors, arenaBackgroundButtonBaseColor, arenaBackgroundButtonPressedColor);
+            SetButtonColor(laserButtonBorder, laserBorderColors, arenaBorderButtonBaseColor, arenaBorderButtonPressedColor);
+            SetButtonColor(laserButtonBackground, laserBackgroundColors, arenaBackgroundButtonBaseColor, arenaBackgroundButtonPressedColor);
+            SetButtonColor(glowButtonBorder, glowBorderColors, arenaBorderButtonBaseColor, arenaBorderButtonPressedColor);
+            SetButtonColor(glowButtonBackground, glowBackgroundColors, arenaBackgroundButtonBaseColor, arenaBackgroundButtonPressedColor);            
+        }
+        else
+        {
+            arenaObjective.SetActive(false);
+            SetDefault(isDefault);
+        }
+    }
+
+    public void SetVent (bool isVent)
+    {
+        if (isVent)
+        {
+            ventObjective.SetActive(true);
+
+            SetImageColor(shrinkIcon, ventIconColor);
+            SetImageColor(aimIcon, ventIconColor);
+            SetImageColor(laserIcon, ventIconColor);
+            SetImageColor(glowIcon, ventIconColor);
+
+            SetButtonColor(shrinkButtonBorder, shrinkBorderColors, ventBorderButtonBaseColor, ventBorderButtonPressedColor);
+            SetButtonColor(shrinkButtonBackground, shrinkBackgroundColors, ventBackgroundButtonBaseColor, ventBackgroundButtonPressedColor);
+            SetButtonColor(aimButtonBorder, aimBorderColors, ventBorderButtonBaseColor, ventBorderButtonPressedColor);
+            SetButtonColor(aimButtonBackground, aimBackgroundColors, ventBackgroundButtonBaseColor, ventBackgroundButtonPressedColor);
+            SetButtonColor(laserButtonBorder, laserBorderColors, ventBorderButtonBaseColor, ventBorderButtonPressedColor);
+            SetButtonColor(laserButtonBackground, laserBackgroundColors, ventBackgroundButtonBaseColor, ventBackgroundButtonPressedColor);
+            SetButtonColor(glowButtonBorder, glowBorderColors, ventBorderButtonBaseColor, ventBorderButtonPressedColor);
+            SetButtonColor(glowButtonBackground, glowBackgroundColors, ventBackgroundButtonBaseColor, ventBackgroundButtonPressedColor);
+        }
+        else
+        {
+            ventObjective.SetActive(false);
+            SetDefault(isDefault);
+        }
+    }
+
+    void SetButtonColor (Button button, ColorBlock colors, Color baseColor, Color pressedColor)
+    {
+        colors.normalColor = baseColor;
+        colors.pressedColor = pressedColor;
+        colors.disabledColor = pressedColor;
+        button.colors = colors;
+    }
 
     // Old Glowing
     // void UseGlow()
