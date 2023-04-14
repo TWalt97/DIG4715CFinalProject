@@ -10175,7 +10175,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1141581761}
   m_LocalRotation: {x: 0.32326594, y: -0, z: -0, w: 0.94630814}
-  m_LocalPosition: {x: 0, y: 42.7, z: -67.4}
+  m_LocalPosition: {x: -11.55097, y: 4.562744, z: -16.918858}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -10286,7 +10286,7 @@ MonoBehaviour:
   m_BlendUpdateMethod: 1
   m_DefaultBlend:
     m_Style: 0
-    m_Time: 0.5
+    m_Time: 2
     m_CustomCurve:
       serializedVersion: 2
       m_Curve: []
@@ -17884,6 +17884,18 @@ PrefabInstance:
     - target: {fileID: 3868792624813816731, guid: 18ed33b3a5c3088448b6a7e46ab73ec2, type: 3}
       propertyPath: m_ScreenY
       value: 0.17
+      objectReference: {fileID: 0}
+    - target: {fileID: 3868792624813816731, guid: 18ed33b3a5c3088448b6a7e46ab73ec2, type: 3}
+      propertyPath: m_XDamping
+      value: 0.05
+      objectReference: {fileID: 0}
+    - target: {fileID: 3868792624813816731, guid: 18ed33b3a5c3088448b6a7e46ab73ec2, type: 3}
+      propertyPath: m_YDamping
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3868792624813816731, guid: 18ed33b3a5c3088448b6a7e46ab73ec2, type: 3}
+      propertyPath: m_ZDamping
+      value: 0.1
       objectReference: {fileID: 0}
     - target: {fileID: 3868792624813816731, guid: 18ed33b3a5c3088448b6a7e46ab73ec2, type: 3}
       propertyPath: m_CameraDistance
