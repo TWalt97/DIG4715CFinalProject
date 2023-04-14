@@ -11,8 +11,8 @@ public class HUD : MonoBehaviour
     public bool isMaze;
     public bool isArena;
     public bool isVent;
+    public bool isGlow;
 
-    private bool isGlow;
     private bool isAiming = false;
 
     // Old Glow
@@ -29,17 +29,11 @@ public class HUD : MonoBehaviour
     // [SerializeField]
     // private TextMeshProUGUI glowCooldownTimerText;
 
-    // public Button mazeObjectiveButtonBorder;
-    // public Button mazeObjectiveButtonBackground;
-    // public TextMeshProUGUI mazeObjectiveText;
-
-    // public Button arenaObjectiveButtonBorder;
-    // public Button arenaObjectiveButtonBackground;
-    // public TextMeshProUGUI arenaObjectiveText;
-    
-    // public Button ventObjectiveButtonBorder;
-    // public Button ventObjectiveButtonBackground;
-    // public TextMeshProUGUI ventObjectiveText;
+    public GameObject mazeObjective;
+    public GameObject arenaObjective;
+    public GameObject ventObjective;
+    public GameObject hubObjective;
+    public GameObject escapeObjective;
 
     public Button shrinkButtonBorder;
     public Button shrinkButtonBackground;
@@ -53,49 +47,120 @@ public class HUD : MonoBehaviour
     public Button glowButtonBorder;
     public Button glowButtonBackground;
 
-    // private ColorBlock shrinkBorderColors = shrinkButtonBorder.colors;
-    // private ColorBlock shrinkBackgroundColors = shrinkButtonBackground.colors;
-    // private ColorBlock aimBorderColors = aimButtonBorder.colors;
-    // private ColorBlock aimBackgroundColors = arenaObjectiveButtonBackground.colors;
-    // private ColorBlock laserBorderColors = laserButtonBorder.colors;
-    // private ColorBlock laserBackgroundColors = laserButtonBackground.colors;
-    // private ColorBlock glowBorderColors = glowButtonBorder.colors;
-    // private ColorBlock glowBackgroundColors = glowButtonBackground.colors;
+    private ColorBlock shrinkBorderColors;
+    private ColorBlock shrinkBackgroundColors;
+    private ColorBlock aimBorderColors;
+    private ColorBlock aimBackgroundColors;
+    private ColorBlock laserBorderColors;
+    private ColorBlock laserBackgroundColors;
+    private ColorBlock glowBorderColors;
+    private ColorBlock glowBackgroundColors;
 
-    // private Color mazeBorderButtonBaseColor = new Color(0.2470588f, 0.2392157f, 0.5882353f, 1.0f);
-    // private Color mazeBorderButtonPressedColor = new Color(0.2470588f, 0.2392157f, 0.5882353f, 0.5882353f);
-    // private Color mazeBackgroundButtonBaseColor = new Color (0.6196079f, 0.7301583f, 0.8980392f, 1.0f);
-    // private Color mazeBackgroundButtonPressedColor = new Color (0.6196079f, 0.7301583f, 0.8980392f, 0.5882353f);
+    private Color defaultBorderButtonBaseColor = new Color(0.4603736f, 0.2856444f, 0.4622642f, 1.0f);
+    private Color defaultBorderButtonPressedColor = new Color(0.4603736f, 0.2856444f, 0.4622642f, 0.5882353f);
+    private Color defaultBackgroundButtonBaseColor = new Color(0.6352941f, 0.3540406f, 0.6431373f, 1.0f);
+    private Color defaultBackgroundButtonPressedColor = new Color(0.6352941f, 0.3540406f, 0.6431373f,  0.5882353f);
 
-    // private Color arenaBorderButtonBaseColor = new Color(0.5843138f, 0.2352941f, 0.2388183f, 1.0f);
-    // private Color arenaBorderButtonPressedColor = new Color(0.5843138f, 0.2352941f, 0.2388183f, 0.5882353f);
-    // private Color arenaBackgroundButtonBaseColor = new Color(0.8980392f, 0.6875842f, 0.6196079f, 1.0f);
-    // private Color arenaBackgroundButtonPressedColor = new Color(0.8980392f, 0.6875842f, 0.6196079f, 0.5882353f);
+    private Color mazeBorderButtonBaseColor = new Color(0.2470588f, 0.2392157f, 0.5882353f, 1.0f);
+    private Color mazeBorderButtonPressedColor = new Color(0.2470588f, 0.2392157f, 0.5882353f, 0.5882353f);
+    private Color mazeBackgroundButtonBaseColor = new Color (0.6196079f, 0.7301583f, 0.8980392f, 1.0f);
+    private Color mazeBackgroundButtonPressedColor = new Color (0.6196079f, 0.7301583f, 0.8980392f, 0.5882353f);
 
-    // private Color ventBorderButtonBaseColor = new Color(0.8901961f, 0.8980393f, 0.6196079f, 1.0f);
-    // private Color ventBorderButtonPressedColor = new Color(0.8901961f, 0.8980393f, 0.6196079f, 0.5882353f);
-    // private Color ventBackgroundButtonBaseColor = new Color(0.8161573f, 0.8301887f, 0.3320754f, 1.0f);
-    // private Color ventBackgroundButtonPressedColor = new Color(0.8161573f, 0.8301887f, 0.3320754f, 0.5882353f);
+    private Color arenaBorderButtonBaseColor = new Color(0.5843138f, 0.2352941f, 0.2388183f, 1.0f);
+    private Color arenaBorderButtonPressedColor = new Color(0.5843138f, 0.2352941f, 0.2388183f, 0.5882353f);
+    private Color arenaBackgroundButtonBaseColor = new Color(0.8980392f, 0.6875842f, 0.6196079f, 1.0f);
+    private Color arenaBackgroundButtonPressedColor = new Color(0.8980392f, 0.6875842f, 0.6196079f, 0.5882353f);
+
+    private Color ventBorderButtonBaseColor = new Color(0.8901961f, 0.8980393f, 0.6196079f, 1.0f);
+    private Color ventBorderButtonPressedColor = new Color(0.8901961f, 0.8980393f, 0.6196079f, 0.5882353f);
+    private Color ventBackgroundButtonBaseColor = new Color(0.8161573f, 0.8301887f, 0.3320754f, 1.0f);
+    private Color ventBackgroundButtonPressedColor = new Color(0.8161573f, 0.8301887f, 0.3320754f, 0.5882353f);
 
     // Start is called before the first frame update
     void Awake()
     {
+        shrinkBorderColors = shrinkButtonBorder.colors;
+        shrinkBackgroundColors = shrinkButtonBackground.colors;
+        aimBorderColors = aimButtonBorder.colors;
+        aimBackgroundColors = aimButtonBackground.colors;
+        laserBorderColors = laserButtonBorder.colors;
+        laserBackgroundColors = laserButtonBackground.colors;
+        glowBorderColors = glowButtonBorder.colors;
+        glowBackgroundColors = glowButtonBackground.colors;
         // player = GetComponent<PlayerController>();
+
+        mazeObjective.SetActive(false);
+        arenaObjective.SetActive(false);
+        ventObjective.SetActive(false);
+        hubObjective.SetActive(true);
+        escapeObjective.SetActive(false);
 
         laserButtonBorder.interactable = false;
         laserButtonBackground.interactable = false;
 
         glowButtonBorder.interactable = true;
         glowButtonBackground.interactable = true;
-        // glowAbilityTimerText.gameObject.SetActive(false);
-        // glowCooldownTimerText.gameObject.SetActive(false);
+
+        // Set default color
+        SetDefault();
     }
 
+    void SetDefault ()
+    {
+        SetColor(shrinkBorderColors, defaultBorderButtonBaseColor, defaultBorderButtonPressedColor);
+        SetColor(shrinkBackgroundColors, defaultBackgroundButtonBaseColor, defaultBackgroundButtonPressedColor);
+        SetColor(aimBorderColors, defaultBorderButtonBaseColor, defaultBorderButtonPressedColor);
+        SetColor(aimBackgroundColors, defaultBackgroundButtonBaseColor, defaultBackgroundButtonPressedColor);
+        SetColor(laserBorderColors, defaultBorderButtonBaseColor, defaultBorderButtonPressedColor);
+        SetColor(laserBackgroundColors, defaultBackgroundButtonBaseColor, defaultBackgroundButtonPressedColor);
+        SetColor(glowBorderColors, defaultBorderButtonBaseColor, defaultBorderButtonPressedColor);
+        SetColor(glowBackgroundColors, defaultBackgroundButtonBaseColor, defaultBackgroundButtonPressedColor);
+    }
+
+    void SetMaze ()
+    {
+        SetColor(shrinkBorderColors, mazeBorderButtonBaseColor, mazeBorderButtonPressedColor);
+        SetColor(shrinkBackgroundColors, mazeBackgroundButtonBaseColor, mazeBackgroundButtonPressedColor);
+        SetColor(aimBorderColors, mazeBorderButtonBaseColor, mazeBorderButtonPressedColor);
+        SetColor(aimBackgroundColors, mazeBackgroundButtonBaseColor, mazeBackgroundButtonPressedColor);
+        SetColor(laserBorderColors, mazeBorderButtonBaseColor, mazeBorderButtonPressedColor);
+        SetColor(laserBackgroundColors, mazeBackgroundButtonBaseColor, mazeBackgroundButtonPressedColor);
+        SetColor(glowBorderColors, mazeBorderButtonBaseColor, mazeBorderButtonPressedColor);
+        SetColor(glowBackgroundColors, mazeBackgroundButtonBaseColor, mazeBackgroundButtonPressedColor);
+    }
+
+    void SetArena ()
+    {
+        SetColor(shrinkBorderColors, arenaBorderButtonBaseColor, arenaBorderButtonPressedColor);
+        SetColor(shrinkBackgroundColors, arenaBackgroundButtonBaseColor, arenaBackgroundButtonPressedColor);
+        SetColor(aimBorderColors, arenaBorderButtonBaseColor, arenaBorderButtonPressedColor);
+        SetColor(aimBackgroundColors, arenaBackgroundButtonBaseColor, arenaBackgroundButtonPressedColor);
+        SetColor(laserBorderColors, arenaBorderButtonBaseColor, arenaBorderButtonPressedColor);
+        SetColor(laserBackgroundColors, arenaBackgroundButtonBaseColor, arenaBackgroundButtonPressedColor);
+        SetColor(glowBorderColors, arenaBorderButtonBaseColor, arenaBorderButtonPressedColor);
+        SetColor(glowBackgroundColors, arenaBackgroundButtonBaseColor, arenaBackgroundButtonPressedColor);
+    }
+
+    void SetVent ()
+    {
+        SetColor(shrinkBorderColors, ventBorderButtonBaseColor, ventBorderButtonPressedColor);
+        SetColor(shrinkBackgroundColors, ventBackgroundButtonBaseColor, ventBackgroundButtonPressedColor);
+        SetColor(aimBorderColors, ventBorderButtonBaseColor, ventBorderButtonPressedColor);
+        SetColor(aimBackgroundColors, ventBackgroundButtonBaseColor, ventBackgroundButtonPressedColor);
+        SetColor(laserBorderColors, ventBorderButtonBaseColor, ventBorderButtonPressedColor);
+        SetColor(laserBackgroundColors, ventBackgroundButtonBaseColor, ventBackgroundButtonPressedColor);
+        SetColor(glowBorderColors, ventBorderButtonBaseColor, ventBorderButtonPressedColor);
+        SetColor(glowBackgroundColors, ventBackgroundButtonBaseColor, ventBackgroundButtonPressedColor);
+    }
+
+    void SetColor (ColorBlock colors, Color baseColor, Color pressedColor)
+    {
+        colors.normalColor = baseColor;
+        colors.pressedColor = pressedColor;
+    }
     // Update is called once per frame
     void Update()
     {
-        // CenterText();
-
         // Shrinking
         if (Input.GetKeyDown(KeyCode.LeftControl))
         {
@@ -144,6 +209,8 @@ public class HUD : MonoBehaviour
             FadeToColor(laserButtonBorder.colors.normalColor, laserButtonBorder);
             FadeToColor(laserButtonBackground.colors.normalColor, laserButtonBackground);
         }
+
+        isGlowing(isGlow);
 
         // Old Glowing
         // if (Input.GetKeyDown(KeyCode.E))
