@@ -131,6 +131,9 @@ public class PlayerController : MonoBehaviour
 
     private Vector3 startLocation;
 
+    [SerializeField]
+    private GameObject interactUI;
+
     private void Awake()
     {
         //getting reference for components on the Player
@@ -165,6 +168,19 @@ public class PlayerController : MonoBehaviour
         playerControls.Disable();
     }
 
+    public TutorialTeleporter GetInteractableObject()
+    {
+        Collider[] colliderArray = Physics.OverlapSphere(transform.position, interactRange);
+        foreach (Collider collider in colliderArray)
+        {
+            if (collider.TryGetComponent(out TutorialTeleporter tutorialTeleporter))
+            {
+                return tutorialTeleporter;
+            }
+        }
+        return null;
+    }
+
     private void Interact()
     {
         if (interacting == false)
@@ -176,6 +192,7 @@ public class PlayerController : MonoBehaviour
                 {
                     interacting = !interacting;
                     TVCinemachine.GetComponent<CinemachineVirtualCamera>().Priority += 10;
+                    interactUI.transform.localScale = new Vector3(0, 0, 0);
                     Invoke("EnterTutorialLevel", 1.5f);
                 }
             }
@@ -190,7 +207,6 @@ public class PlayerController : MonoBehaviour
 
     private void EnterTutorialLevel()
     {
-        Debug.Log("Entering tutorial level...");
         startLocation = this.gameObject.transform.position;
         this.gameObject.transform.position = new Vector3(0, 1000, 0);
 
@@ -206,7 +222,6 @@ public class PlayerController : MonoBehaviour
 
     private void ExitTutorialLevel()
     {
-        Debug.Log("Exiting tutorial level...");
         this.gameObject.transform.position = startLocation;
 
         tutorialCamera.GetComponent<Camera>().enabled = false;
@@ -217,6 +232,7 @@ public class PlayerController : MonoBehaviour
         cameraTransform = gameCamera.transform;
 
         TVCinemachine.GetComponent<CinemachineVirtualCamera>().Priority -= 10;
+        interactUI.transform.localScale = new Vector3(1, 1, 1);
     }
     private void Shrink()
     {
@@ -299,6 +315,14 @@ public class PlayerController : MonoBehaviour
     }
     private void Update()
     {
+        if (GetInteractableObject() != null)
+        {
+            interactUI.SetActive(true);
+        }
+        else
+        {
+            interactUI.SetActive(false);
+        }
         // maze
         if (timerActive == true)
         {
