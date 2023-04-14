@@ -399,7 +399,7 @@ public class PlayerController : MonoBehaviour
         // maze
         timeText.SetText($"<mspace={charWidth}em>{timerStr}");
         // coliseum
-        timeText2.SetText($"<mspace={charWidth}em>{timerStr2}");
+        //timeText2.SetText($"<mspace={charWidth}em>{timerStr2}");
 
     }
 
