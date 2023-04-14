@@ -7,11 +7,12 @@ using TMPro;
 public class HUD : MonoBehaviour
 {
     // Testing
+    // isDefault is testing too but need it to be enabled for now
     public bool isDefault;
-    public bool isMaze;
-    public bool isArena;
-    public bool isVent;
-    public bool isGlow;
+    // public bool isMaze;
+    // public bool isArena;
+    // public bool isVent;
+    // public bool isGlow;
 
     private bool isAiming = false;
 
@@ -33,6 +34,8 @@ public class HUD : MonoBehaviour
     public GameObject arenaObjective;
     public GameObject ventObjective;
     public GameObject defaultObjective;
+
+    public TextMeshProUGUI defaultText;
 
     public Button shrinkButtonBorder;
     public Button shrinkButtonBackground;
@@ -166,11 +169,11 @@ public class HUD : MonoBehaviour
         }
 
         // Testing
-        isGlowing(isGlow);
-        SetDefault(isDefault);
-        SetMaze(isMaze);
-        SetArena(isArena);
-        SetVent(isVent);
+        // isGlowing(isGlow);
+        // SetDefault(isDefault);
+        // SetMaze(isMaze);
+        // SetArena(isArena);
+        // SetVent(isVent);
 
         // Old Glowing
         // if (Input.GetKeyDown(KeyCode.E))
@@ -320,6 +323,11 @@ public class HUD : MonoBehaviour
             ventObjective.SetActive(false);
             SetDefault(isDefault);
         }
+    }
+
+    public void ChangeDefaultText(string objective)
+    {
+        defaultText.text = objective;
     }
 
     void SetButtonColor (Button button, ColorBlock colors, Color baseColor, Color pressedColor)
