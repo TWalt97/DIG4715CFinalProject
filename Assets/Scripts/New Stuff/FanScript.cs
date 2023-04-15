@@ -6,40 +6,64 @@ public class FanScript : MonoBehaviour
 {
     float speed;
 
+    public float speedPush;
+
+    float fanTimer = 10f;
+
+    FieldOfView fieldOfView;
+
+    public CharacterController characterController;
+
     [Header("Full Speed")]
     public float fullSpeedTime;
     public float fullSpeed;
 
     [Header("Normal Speed")]
-    public float normalTime;
     public float normalSpeed;
-    float nextFireTime = 0;
+
+    private void Awake()
+    {
+        fieldOfView = GetComponent<FieldOfView>();
+        // characterController = GetComponent<CharacterController>();
+    }
+
+    void Start()
+    {
+        speed = normalSpeed;
+    }
 
     // Update is called once per frame
     void Update()
     {
-        if (Time.time > nextFireTime)
+        fanTimer -= Time.deltaTime;
+        if (fanTimer <= 0)
         {
-            // cooldown
-            nextFireTime = Time.time + normalTime;
-
-            // ability in use again
             StartCoroutine(FanTime(fullSpeedTime));
+            fanTimer = 10f;
         }
 
         transform.Rotate(0, 0, speed, Space.Self);
+
+        if ((speed == fullSpeed) && (fieldOfView.canSeePlayer == true))
+        {
+            //Push Player back
+            PushBack();
+        }
     }
 
     IEnumerator FanTime(float fullSpeedTime)
     {
-        Debug.Log("normal speed started");
-
-        speed = normalSpeed;
+        Debug.Log("full Speed");
+        speed = fullSpeed;
 
         yield return new WaitForSeconds(fullSpeedTime);
+        Debug.Log("full speed ended");
 
-        Debug.Log("normal speed ended");
+        speed = normalSpeed;       
+    }
 
-        speed = fullSpeed;        
+    void PushBack()
+    {
+        characterController.Move(transform.forward * Time.deltaTime * speedPush);
     }
 }
