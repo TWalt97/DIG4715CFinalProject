@@ -14,6 +14,7 @@ public class PauseUi : MonoBehaviour
     public GameObject HUDOverlay;
 
     bool paused = false;
+    public bool hud;
     //public GameObject ResumeButtonMenuUI;
 
     // Update is called once per frame
@@ -73,20 +74,11 @@ public class PauseUi : MonoBehaviour
     }
 
     // change to about
-    /*public void About()
+    public void HudTeleport()
     {
-        ResumeButtonMenuUI.SetActive(true);
-        pauseMenuUI.SetActive(false);
-        Time.timeScale = 0f;
+        hud = true;
+        Debug.Log("HUD: " + hud);
     }
-
-    public void ResumeAbout()
-    {
-        ResumeButtonMenuUI.SetActive(false);
-        Time.timeScale = 1f;
-        GameIsPaused = false;
-        Cursor.lockState = CursorLockMode.Locked;
-    }*/
 
     // pause game
     void Pause()

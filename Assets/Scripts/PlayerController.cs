@@ -103,6 +103,8 @@ public class PlayerController : MonoBehaviour
     public GameObject platformerDoor;
     public GameObject colDoor;
 
+    PauseUi pauseUi;
+
     private void Awake()
     {
         //getting reference for components on the Player
@@ -110,6 +112,7 @@ public class PlayerController : MonoBehaviour
         animator = GetComponentInChildren<Animator>();
         cam = Camera.main;
         playerControls = new PlayerControls();
+        pauseUi = GetComponent<PauseUi>();
     }
 
     void Start()
@@ -253,6 +256,13 @@ public class PlayerController : MonoBehaviour
         if (platformerCount == platformerGoal)
         {
             platformerCheese.SetActive(true);
+        }
+
+        if (pauseUi.hud == true)
+        {
+            transform.position = new Vector3(307.98f, 189.99f, -726.34f);
+            timerActive = false;
+            timerActive2 = false;
         }
     }
 
