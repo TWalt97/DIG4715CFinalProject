@@ -77,7 +77,6 @@ public class PauseUi : MonoBehaviour
     public void HudTeleport()
     {
         hud = true;
-        Debug.Log("HUD: " + hud);
     }
 
     // pause game

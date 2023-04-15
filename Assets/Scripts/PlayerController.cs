@@ -103,7 +103,7 @@ public class PlayerController : MonoBehaviour
     public GameObject platformerDoor;
     public GameObject colDoor;
 
-    PauseUi pauseUi;
+    public PauseUi pauseUi;
 
     private void Awake()
     {
@@ -112,7 +112,6 @@ public class PlayerController : MonoBehaviour
         animator = GetComponentInChildren<Animator>();
         cam = Camera.main;
         playerControls = new PlayerControls();
-        pauseUi = GetComponent<PauseUi>();
     }
 
     void Start()
@@ -258,9 +257,10 @@ public class PlayerController : MonoBehaviour
             platformerCheese.SetActive(true);
         }
 
+        // teleport to hud
         if (pauseUi.hud == true)
         {
-            transform.position = new Vector3(307.98f, 189.99f, -726.34f);
+            transform.position = new Vector3(49.4f, 194.44f, -817.5f);
             timerActive = false;
             timerActive2 = false;
         }
