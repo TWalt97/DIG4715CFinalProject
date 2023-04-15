@@ -99,6 +99,10 @@ public class PlayerController : MonoBehaviour
 
     public GameObject platformerCheese;
 
+    public GameObject mazeDoor;
+    public GameObject platformerDoor;
+    public GameObject colDoor;
+
     private void Awake()
     {
         //getting reference for components on the Player
@@ -390,6 +394,8 @@ public class PlayerController : MonoBehaviour
             AudioManager.Instance.PlaySFX("WinSound");
             transform.position = new Vector3(37.69f, 195.81f, -824.1f);
             Timer1.SetActive(false);
+            mazeDoor.transform.position = new Vector3(-2.76f, 207.2345f, -817.63f);
+            mazeDoor.transform.rotation = Quaternion.Euler(0, 0, 0);
         }
         if (collider.CompareTag("winColiseum"))
         {
@@ -399,6 +405,8 @@ public class PlayerController : MonoBehaviour
             AudioManager.Instance.PlaySFX("WinSound");
             transform.position = new Vector3(37.69f, 195.81f, -824.1f);
             Timer2.SetActive(false);
+            colDoor.transform.position = new Vector3(73.06473f, 207.2345f, -817.75f);
+            colDoor.transform.rotation = Quaternion.Euler(0, 180, 0);
         }
         if (collider.CompareTag("winPlatformer"))
         {
@@ -411,6 +419,8 @@ public class PlayerController : MonoBehaviour
             {
                 go.SetActive(true);
             }
+            platformerDoor.transform.position = new Vector3(35.3625f, 207.2345f, -855.0118f);
+            platformerDoor.transform.rotation = Quaternion.Euler(0, 0, 0);
         }
 
         if (collider.CompareTag("startMaze"))
