@@ -15,6 +15,8 @@ public class SwitchVCam : MonoBehaviour
 
     private CinemachineVirtualCamera virtualCamera;
     private InputAction aimAction;
+    [SerializeField]
+    private HUD hud;
 
     private void Awake()
     {
@@ -39,6 +41,7 @@ public class SwitchVCam : MonoBehaviour
         virtualCamera.Priority += priorityBoostAmount;
         aimCanvas.enabled = true;
         playerController.aiming = true;
+        hud.aiming = true;
     }
 
     private void CancelAim()
@@ -46,5 +49,6 @@ public class SwitchVCam : MonoBehaviour
         virtualCamera.Priority -= priorityBoostAmount;
         aimCanvas.enabled = false;
         playerController.aiming = false;
+        hud.aiming = false;
     }
 }

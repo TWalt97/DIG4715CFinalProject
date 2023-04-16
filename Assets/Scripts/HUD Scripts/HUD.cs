@@ -88,6 +88,11 @@ public class HUD : MonoBehaviour
     private Color ventBackgroundButtonBaseColor = new Color(0.8161573f, 0.8301887f, 0.3320754f, 1.0f);
     private Color ventBackgroundButtonPressedColor = new Color(0.8161573f, 0.8301887f, 0.3320754f, 0.5882353f);
 
+    public bool glowing;
+    public bool shrinking;
+    public bool aiming;
+    public bool shooting;
+
     // Start is called before the first frame update
     void Awake()
     {
@@ -120,25 +125,25 @@ public class HUD : MonoBehaviour
     void Update()
     {
         // Shrinking
-        if (Input.GetKeyDown(KeyCode.LeftControl))
+        if (shrinking == true)
         {
             UseAbility(shrinkButtonBorder);
             UseAbility(shrinkButtonBackground);
         }
-        else if (Input.GetKeyUp(KeyCode.LeftControl))
+        if (shrinking == false)
         {
             FadeToColor(shrinkButtonBorder.colors.normalColor, shrinkButtonBorder);
             FadeToColor(shrinkButtonBackground.colors.normalColor, shrinkButtonBackground);
         }
 
         // Aiming
-        if (Input.GetKeyDown(KeyCode.Mouse1))
+        if (aiming == true)
         {
             UseAbility(aimButtonBorder);
             UseAbility(aimButtonBackground);
             isAiming = true;
         }
-        else if (Input.GetKeyUp(KeyCode.Mouse1))
+        if (aiming == false)
         {
             FadeToColor(aimButtonBorder.colors.normalColor, aimButtonBorder);
             FadeToColor(aimButtonBackground.colors.normalColor, aimButtonBackground);
@@ -157,15 +162,26 @@ public class HUD : MonoBehaviour
         }
 
         // Fire Laser
-        if (isAiming && Input.GetKeyDown(KeyCode.Mouse0))
+        if (shooting == true)
         {
             UseAbility(laserButtonBorder);
             UseAbility(laserButtonBackground);
         }
-        else if (isAiming && Input.GetKeyUp(KeyCode.Mouse0))
+        if (shooting == false)
         {
             FadeToColor(laserButtonBorder.colors.normalColor, laserButtonBorder);
             FadeToColor(laserButtonBackground.colors.normalColor, laserButtonBackground);
+        }
+
+        if (glowing == true)
+        {
+            glowButtonBorder.interactable = false;
+            glowButtonBackground.interactable = false;
+        }
+        else
+        {
+            glowButtonBorder.interactable = true;
+            glowButtonBackground.interactable = true;
         }
 
         // Testing

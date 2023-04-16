@@ -2798,8 +2798,8 @@ Transform:
   - {fileID: 37486670}
   - {fileID: 547973925}
   - {fileID: 451374275}
-  - {fileID: 2083067330}
   - {fileID: 1152282358}
+  - {fileID: 2083067330}
   - {fileID: 1869474367}
   m_Father: {fileID: 0}
   m_RootOrder: 8
@@ -18287,6 +18287,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6149047560143212263, guid: d2746fa4911620f46b6a72639630fcf5, type: 3}
+      propertyPath: hud
+      value: 
+      objectReference: {fileID: 1967906429}
     - target: {fileID: 6149047560892377669, guid: d2746fa4911620f46b6a72639630fcf5, type: 3}
       propertyPath: m_Size.y
       value: 0.6563375
@@ -18307,6 +18311,10 @@ PrefabInstance:
       propertyPath: m_LocalScale.z
       value: 9
       objectReference: {fileID: 0}
+    - target: {fileID: 6149047560892377695, guid: d2746fa4911620f46b6a72639630fcf5, type: 3}
+      propertyPath: hud
+      value: 
+      objectReference: {fileID: 1967906429}
     - target: {fileID: 6149047560892377695, guid: d2746fa4911620f46b6a72639630fcf5, type: 3}
       propertyPath: Timer1
       value: 
@@ -32672,6 +32680,10 @@ MonoBehaviour:
   aimIcon: {fileID: 1866745566}
   laserIcon: {fileID: 1956274835}
   glowIcon: {fileID: 1164786495}
+  glowing: 0
+  shrinking: 0
+  aiming: 0
+  shooting: 0
 --- !u!4 &1967906430
 Transform:
   m_ObjectHideFlags: 0

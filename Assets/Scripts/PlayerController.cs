@@ -103,6 +103,7 @@ public class PlayerController : MonoBehaviour
     private Transform particleParent;
     public bool aiming;
     public ParticleSystem laserParticle;
+    private bool laserCooldown = false;
 
     [Header("Shrink")]
     [SerializeField]
@@ -143,6 +144,9 @@ public class PlayerController : MonoBehaviour
     private GameObject interactUI;
 
     Rigidbody rb;
+
+    [SerializeField]
+    private HUD hud;
 
     private void Awake()
     {
@@ -248,6 +252,7 @@ public class PlayerController : MonoBehaviour
     {
         if (playerSize == startSize)
         {
+            hud.shrinking = true;
             StartCoroutine(ChangeScale.StartFade(this.gameObject, 0.1f, shrinkSize));
             animator.SetBool("Shrink", true);
             Invoke("ShrinkAnimCancel", 0.5f);
@@ -258,6 +263,7 @@ public class PlayerController : MonoBehaviour
     {
         if (playerSize == shrinkSize)
         {
+            hud.shrinking = false;
             StartCoroutine(ChangeScale.StartFade(this.gameObject, 0.1f, startSize));
             animator.SetBool("Shrink", true);
             Invoke("ShrinkAnimCancel", 0.5f);
@@ -266,10 +272,12 @@ public class PlayerController : MonoBehaviour
 
     private void ShootGun()
     {
-        if (aiming == true)
+        if (aiming == true && laserCooldown == false)
         {
+            hud.shooting = true;
             animator.SetBool("Shoot", true);
             Invoke("Shoot", 0.5f);
+            laserCooldown = true;
         }
     }
 
@@ -277,6 +285,8 @@ public class PlayerController : MonoBehaviour
     {
         animator.SetBool("Shoot", false);
         RaycastHit hit;
+        hud.shooting = false;
+        laserCooldown = false;
         if (Physics.Raycast(cameraTransform.position, cameraTransform.forward, out hit, Mathf.Infinity))
         {
             Vector3 directionToTarget = (hit.point - particlePos.transform.position).normalized;
@@ -290,10 +300,12 @@ public class PlayerController : MonoBehaviour
         lightToggle = !lightToggle;
         if (lightToggle == true)
         {
+            hud.glowing = true;
             StartCoroutine(FadeLightSource.StartFade(glowLight, 2f, maxLightIntensity));
         }
         if (lightToggle == false)
         {
+            hud.glowing = false;
             StartCoroutine(FadeLightSource.StartFade(glowLight, 2f, 0f));
         }
     }
