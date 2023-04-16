@@ -117,6 +117,8 @@ public class PlayerController : MonoBehaviour
     [Header("TutorialLevel")]
     public GameObject tutorialCamera;
     public GameObject gameCamera;
+    [SerializeField]
+    private Transform tutorialPos;
 
 
     Animator animator;
@@ -216,7 +218,7 @@ public class PlayerController : MonoBehaviour
     private void EnterTutorialLevel()
     {
         startLocation = this.gameObject.transform.position;
-        this.gameObject.transform.position = new Vector3(0, 1000, 0);
+        this.gameObject.transform.position = tutorialPos.position;
 
         tutorialCamera.GetComponent<Camera>().enabled = true;
         tutorialCamera.GetComponent<AudioListener>().enabled = true;
