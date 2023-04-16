@@ -197,6 +197,8 @@ public class PlayerController : MonoBehaviour
         startSize = transform.localScale.x;
         startPos = transform.position;
 
+        AudioManager.Instance.musicSource.Stop();
+        AudioManager.Instance.PlayMusic("HubMusic");
         // hud.isDefault = true;
     }
 
@@ -737,6 +739,7 @@ public class PlayerController : MonoBehaviour
             // HUD.Instance.SetArena(isArena);
             timer2 = newTime2;
         }
+        
         if (collider.CompareTag("startPlatformer"))
         {
             transform.position = new Vector3(270.84f, 191.299f, -737.7659f);
@@ -762,6 +765,12 @@ public class PlayerController : MonoBehaviour
             deathPlat = true;
             Destroy(collider.gameObject);
         }
+
+        // if (collider.CompareTag("hubMusic"))
+        // {
+        //     AudioManager.Instance.musicSource.Stop();
+        //     AudioManager.Instance.PlayMusic("HubMusic");
+        // }
 
         // if (collider.CompareTag("Enemy"))
         // {
