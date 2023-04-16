@@ -6,17 +6,21 @@ using UnityEngine.UI;
 public class BrightnessScripts : MonoBehaviour
 {
     public Slider slider;
-    public Light sceneLight;
 
-    // Start is called before the first frame update
+    [Header("Point Light")]
+    GameObject[] directionLight;
+
     void Start()
     {
-        
+        directionLight = GameObject.FindGameObjectsWithTag("light");
     }
 
     // Update is called once per frame
     void Update()
     {
-        sceneLight.intensity = slider.value;
+        foreach (GameObject go in directionLight)
+        {
+            go.GetComponent<Light>().intensity = slider.value;
+        }
     }
 }
