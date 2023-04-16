@@ -12,7 +12,7 @@ public class FanScript : MonoBehaviour
 
     FieldOfView fieldOfView;
 
-    public CharacterController characterController;
+    public GameObject player;
 
     [Header("Full Speed")]
     public float fullSpeedTime;
@@ -21,11 +21,11 @@ public class FanScript : MonoBehaviour
     [Header("Normal Speed")]
     public float normalSpeed;
 
-    private void Awake()
-    {
-        fieldOfView = GetComponent<FieldOfView>();
-        // characterController = GetComponent<CharacterController>();
-    }
+    // private void Awake()
+    // {
+    //     fieldOfView = GetComponent<FieldOfView>();
+    //     // characterController = GetComponent<CharacterController>();
+    // }
 
     void Start()
     {
@@ -64,6 +64,6 @@ public class FanScript : MonoBehaviour
 
     void PushBack()
     {
-        characterController.Move(transform.forward * Time.deltaTime * speedPush);
+        player.GetComponent<Rigidbody>().AddForce(transform.forward * speedPush, ForceMode.Force);
     }
 }
