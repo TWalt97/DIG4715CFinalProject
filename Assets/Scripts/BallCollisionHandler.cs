@@ -16,6 +16,6 @@ public class BallCollisionHandler : MonoBehaviour
                 //Death goes here
                 Debug.Log("You dead");
                 other.GetComponent<PlayerController>().dead = true;
-        }
+            }
         }
 }

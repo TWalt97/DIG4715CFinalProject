@@ -8,24 +8,44 @@ public class Shrink : MonoBehaviour
     private PlayerController playerController;
 
     [Header("Size")]
-    public float shrinkSize = 1f;
-    public float normalSize = 2f;
+    public float shrinkSize;
+    public float normalSize;
+    public bool shrinkBool = false;
 
-    Animator animator;
+    // [Header("Animator")]
+    // Animator animator;
 
-    // awake
     void Awake()
     {
         // player
         playerController = GameObject.FindObjectOfType<PlayerController>();
-        animator = GetComponentInChildren<Animator>();
+        // animator = GetComponentInChildren<Animator>();
     }
 
     // Update is called once per frame
     void Update()
     {
+        if (shrinkBool == true)
+        {
+            // AudioManager.Instance.PlaySFX("Shrink");
+            // Debug.Log("Pressing left control");
+
+            // shrink size
+            playerController.transform.localScale = new Vector3 (shrinkSize, shrinkSize, shrinkSize);
+            // animator.SetBool("Shrink", true);
+            // Invoke("ResetAnim", 0.5f);
+        }
+        if (shrinkBool == false)
+        {
+            // Debug.Log("Release left control");
+
+            // return to normal size
+            playerController.transform.localScale = new Vector3 (normalSize, normalSize, normalSize);
+            // animator.SetBool("Shrink", true);
+            // Invoke("ResetAnim", 0.5f);
+        }
         // shrink
-        if (Input.GetKeyDown(KeyCode.LeftControl))
+        /*if (Input.GetKeyDown(KeyCode.LeftControl))
         {
             AudioManager.Instance.PlaySFX("Shrink");
             Debug.Log("Pressing left control");
@@ -45,11 +65,16 @@ public class Shrink : MonoBehaviour
             playerController.transform.localScale = new Vector3 (normalSize, normalSize, normalSize);
             animator.SetBool("Shrink", true);
             Invoke("ResetAnim", 0.5f);
-        }
+        }*/
     }
 
-    void ResetAnim()
+    void OnShrink()
     {
-        animator.SetBool("Shrink", false);
+        shrinkBool = !shrinkBool;
     }
+
+//     void ResetAnim()
+//     {
+//         animator.SetBool("Shrink", false);
+//     }
 }
