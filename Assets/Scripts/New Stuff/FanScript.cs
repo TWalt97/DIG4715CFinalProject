@@ -45,11 +45,15 @@ public class FanScript : MonoBehaviour
 
         transform.Rotate(0, 0, speed, Space.Self);
 
-        if ((speed == fullSpeed) && (fieldOfView.canSeePlayer == true))
+        if (fieldOfView != null)
         {
-            //Push Player back
-            PushBack();
+            if ((speed == fullSpeed) && (fieldOfView.canSeePlayer == true))
+            {
+                //Push Player back
+                PushBack();
+            }
         }
+        
     }
 
     IEnumerator FanTime(float fullSpeedTime)

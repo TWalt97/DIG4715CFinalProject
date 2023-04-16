@@ -160,6 +160,8 @@ public class PlayerController : MonoBehaviour
     public int platformerCount;
 
     bool deathPlat = false;
+    [SerializeField]
+    private Transform platformerSpawnPos;
 
     public int platformerGoal;
 
@@ -502,9 +504,9 @@ public class PlayerController : MonoBehaviour
         // lose platformer
         if (deathPlat == true)
         {
-            transform.position = new Vector3(307.98f, 189.99f, -726.34f);
-            AudioManager.Instance.PlaySFX("LoseSound");
+            transform.position = platformerSpawnPos.position;
             deathPlat = false;
+            AudioManager.Instance.PlaySFX("LoseSound");
         }
 
         // win platformer
@@ -761,6 +763,11 @@ public class PlayerController : MonoBehaviour
         {
             deathPlat = true;
             Destroy(collider.gameObject);
+        }
+
+        if (collider.CompareTag("PlatformerDeathZone"))
+        {
+            deathPlat = true;
         }
 
         // if (collider.CompareTag("Enemy"))
