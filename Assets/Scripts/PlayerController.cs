@@ -263,6 +263,9 @@ public class PlayerController : MonoBehaviour
             transform.position = new Vector3(49.4f, 194.44f, -817.5f);
             timerActive = false;
             timerActive2 = false;
+            Timer1.SetActive(false);
+            Timer2.SetActive(false);
+            pauseUi.hud = false;
         }
     }
 
