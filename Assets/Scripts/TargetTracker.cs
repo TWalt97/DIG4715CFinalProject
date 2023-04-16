@@ -18,6 +18,6 @@ public class TargetTracker : MonoBehaviour
     void Update()
     {
         targetsDestroyed = 5 - this.gameObject.transform.childCount;
-        targetTracker.text = ("Skele-Rats Destroyed: " + targetsDestroyed + "/5");
+        targetTracker.text = ("Targets Destroyed: " + targetsDestroyed + "/5");
     }
 }
