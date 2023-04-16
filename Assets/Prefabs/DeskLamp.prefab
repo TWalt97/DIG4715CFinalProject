@@ -427,6 +427,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 9165301650736698028}
+  - component: {fileID: 3171298082835900376}
   m_Layer: 0
   m_Name: DeskLamp
   m_TagString: Untagged
@@ -454,6 +455,20 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!64 &3171298082835900376
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8393128496125577238}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 4
+  m_Convex: 0
+  m_CookingOptions: 30
+  m_Mesh: {fileID: 0}
 --- !u!1 &8699556140477486659
 GameObject:
   m_ObjectHideFlags: 0
@@ -500,7 +515,7 @@ Light:
   m_Shape: 0
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_Intensity: 30000
-  m_Range: 1000
+  m_Range: 300
   m_SpotAngle: 89.33701
   m_InnerSpotAngle: 69.60134
   m_CookieSize: 10

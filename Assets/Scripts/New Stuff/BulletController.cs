@@ -10,12 +10,12 @@ public class BulletController : MonoBehaviour
 
     public Vector3 target { get; set;  }
     public bool hit { get; set;  }
-    NewPlayerController newPlayerController;
+    PlayerController playerController;
 
     private void OnEnable() 
     {
         Destroy(gameObject, timeToDestroy);
-        newPlayerController = GetComponentInParent<NewPlayerController>();
+        playerController = GetComponentInParent<PlayerController>();
     }
 
     void Update()
@@ -23,13 +23,13 @@ public class BulletController : MonoBehaviour
         transform.position = Vector3.MoveTowards(transform.position, target, speed * Time.deltaTime);
         if(!hit && Vector3.Distance(transform.position, target) < 0.01f)
         {
-            Destroy(gameObject);
-            newPlayerController.laserParticle.Stop();
+            //Destroy(gameObject);
+            playerController.laserParticle.Stop();
         }
     }
 
     private void OnCollisionEnter(Collision other) 
     {
-        Destroy(gameObject);
+        //Destroy(gameObject);
     }
 }

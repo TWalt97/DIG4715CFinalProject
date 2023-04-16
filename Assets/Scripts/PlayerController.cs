@@ -45,6 +45,11 @@ public class PlayerController : MonoBehaviour
     public bool gameOver = false;
     public bool dead;
 
+    // private bool isDefault;
+    // private bool isMaze;
+    // private bool isArena;
+    // private bool isVent;
+
     [Header("Timer")]
     [Header("Maze")]
     public TextMeshProUGUI timeText;
@@ -67,6 +72,8 @@ public class PlayerController : MonoBehaviour
     public GameObject Timer1;
     [Header("Coliseum")]
     public GameObject Timer2;
+    // [Header("Default")]
+    // public GameObject default;
 
     [Header("Lose State")]
     public GameObject loseText;
@@ -86,7 +93,7 @@ public class PlayerController : MonoBehaviour
     private InputAction glowAction;
     private InputAction shrinkAction;
     private InputAction interactAction;
-    
+
 
     [Header("Glow")]
     bool lightToggle = false;
@@ -144,10 +151,8 @@ public class PlayerController : MonoBehaviour
     [SerializeField]
     private HUD hud;
 
-    bool hasRun = false;
-
     bool deathCol = false;
-    
+
     public GameObject colWin;
 
     GameObject[] directionLight;
@@ -168,6 +173,10 @@ public class PlayerController : MonoBehaviour
 
     private Vector3 startPos;
     private Vector3 cameraStartPos;
+    public GameObject colosseumDoor;
+    [SerializeField]
+    private GameObject colosseumSpawners;
+    private GameObject colosseumTrigger;
 
     private void Awake()
     {
@@ -187,6 +196,8 @@ public class PlayerController : MonoBehaviour
 
         startSize = transform.localScale.x;
         startPos = transform.position;
+
+        // hud.isDefault = true;
     }
 
     private void OnEnable()
@@ -199,7 +210,7 @@ public class PlayerController : MonoBehaviour
         interactAction.performed += _ => Interact();
     }
 
-    private void OnDisable() 
+    private void OnDisable()
     {
         playerControls.Disable();
     }
@@ -253,7 +264,7 @@ public class PlayerController : MonoBehaviour
         gameCamera.SetActive(false);
         cameraTransform = tutorialCamera.transform;
 
-        TVCinemachine.GetComponent<CinemachineVirtualCamera>().Priority -= 10;    
+        TVCinemachine.GetComponent<CinemachineVirtualCamera>().Priority -= 10;
     }
 
     private void ExitTutorialLevel()
@@ -361,12 +372,13 @@ public class PlayerController : MonoBehaviour
     }
     private void Update()
     {
-        // teleport to hud
+
         if (pauseUi.hud == true)
         {
             transform.position = startPos;
             timerActive = false;
             timerActive2 = false;
+            // default.SetActive(false);
             Timer1.SetActive(false);
             Timer2.SetActive(false);
             pauseUi.hud = false;
@@ -420,10 +432,18 @@ public class PlayerController : MonoBehaviour
         if (timerActive2 == true)
         {
             timer2 -= Time.deltaTime;
+            timeText2.text = timer2.ToString("F2");
+            colosseumDoor.SetActive(true);
+            colosseumSpawners.SetActive(true);
         }
         if (timer2 < 0)
         {
             timer2 = 0;
+            colosseumDoor.SetActive(false);
+            colosseumSpawners.SetActive(false);
+            GameObject[] enemies = GameObject.FindGameObjectsWithTag("Enemy");
+            foreach (GameObject enemy in enemies)
+                GameObject.Destroy(enemy);
         }
 
         // timeText.text = timer.ToString("F2");
@@ -462,14 +482,21 @@ public class PlayerController : MonoBehaviour
             //AudioManager.Instance.PlaySFX("LoseSound");
             // timer2 = newTime2;
             timerActive2 = false;
+            Timer2.SetActive(false);
+            // default.SetActive(true);
+            colosseumDoor.SetActive(false);
             deathCol = false;
+            colosseumSpawners.SetActive(false);
+            GameObject[] enemies = GameObject.FindGameObjectsWithTag("Enemy");
+            foreach(GameObject enemy in enemies)
+                GameObject.Destroy(enemy);
         }
 
         // win coliseum
         if ((timer2 == 0))
         {
             timerActive2 = false;
-            colWin.SetActive(true); 
+            colWin.SetActive(true);
         }
 
         // lose platformer
@@ -496,6 +523,7 @@ public class PlayerController : MonoBehaviour
         string timerStr2 = timer2.ToString("00.00");
         // maze
         timeText.SetText($"<mspace={charWidth}em>{timerStr}");
+        timeText2.SetText($"<mspace={charWidth}em>{timerStr2}");
         // coliseum
         //timeText2.SetText($"<mspace={charWidth}em>{timerStr2}");
 
@@ -669,6 +697,7 @@ public class PlayerController : MonoBehaviour
             AudioManager.Instance.PlaySFX("WinSound");
             transform.position = new Vector3(37.69f, 195.81f, -824.1f);
             Timer2.SetActive(false);
+            // default.SetActive(true);
             colDoor.transform.position = new Vector3(73.06473f, 207.2345f, -817.75f);
             colDoor.transform.rotation = Quaternion.Euler(0, 180, 0);
         }
@@ -697,8 +726,15 @@ public class PlayerController : MonoBehaviour
 
         if (collider.CompareTag("startColiseum"))
         {
+            hud.isDefault = false;
+            hud.isArena = true;
+            colosseumTrigger = collider.gameObject;
+            colosseumTrigger.SetActive(false);
             timerActive2 = true;
             Timer2.SetActive(true);
+            // default.SetActive(false);
+            // HUD.Instance.SetDefault(isDefault);
+            // HUD.Instance.SetArena(isArena);
             timer2 = newTime2;
         }
         if (collider.CompareTag("startPlatformer"))
@@ -742,7 +778,8 @@ public class PlayerController : MonoBehaviour
         {
             deathCol = true;
             Destroy(collision.gameObject);
-            Debug.Log("Enemy");
+            colosseumTrigger.SetActive(true);
+            //Debug.Log("Enemy");
         }
     }
 

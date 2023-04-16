@@ -9,6 +9,7 @@ public class RatSpawner : MonoBehaviour
     [SerializeField]
     private Transform player;
     float timer = 5f;
+    bool spawnActivated;
     // Start is called before the first frame update
     void Start()
     {
@@ -19,11 +20,11 @@ public class RatSpawner : MonoBehaviour
     void Update()
     {
         timer -= Time.deltaTime;
-        if (timer <= 0)
-        {
-            timer = 5f;
-            GameObject ratSkeleton = GameObject.Instantiate(skeletonRatPrefab, this.transform.position, Quaternion.identity);
-            ratSkeleton.GetComponent<EnemyController>().playerLocation = player;
-        }
+            if (timer <= 0)
+            {
+                timer = Random.Range(2, 6);
+                GameObject ratSkeleton = GameObject.Instantiate(skeletonRatPrefab, this.transform.position, Quaternion.identity);
+                ratSkeleton.GetComponent<EnemyController>().playerLocation = player;
+            }  
     }
 }

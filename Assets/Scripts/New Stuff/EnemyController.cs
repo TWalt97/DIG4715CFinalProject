@@ -41,29 +41,15 @@ public class EnemyController : MonoBehaviour
     {
         if (other.tag == "Laser")
         {
-            Debug.Log("Hit");
-            TakeDamage(1);
+            Hit();
         }
     }
 
-    private void OnCollisionEnter(Collision other) 
+    private void Hit()
     {
-        if (other.gameObject.GetComponent<NewPlayerController>() != null)
-        {
-            other.gameObject.GetComponent<NewPlayerController>().health -= 1;
-            Debug.Log(other.gameObject.GetComponent<NewPlayerController>().health);
-        }
-    }
-
-    public void TakeDamage(int damage)
-    {
-        health -= damage;
-        if (health <= 0f)
-        {
-            animator.SetBool("Death", true);
-            agent.enabled = false;
-            Invoke("Die", 1f);
-        }
+        animator.SetBool("Death", true);
+        agent.enabled = false;
+        Invoke("Die", 1f);
     }
 
     private void Die()
