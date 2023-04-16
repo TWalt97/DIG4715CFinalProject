@@ -9,13 +9,14 @@ public class HUD : MonoBehaviour
     public static HUD Instance;
     // Testing
     // isDefault is testing too but need it to be enabled for now
+
     public bool isDefault;
     public bool isMaze;
     public bool isArena;
     public bool isVent;
-    public bool isGlow;
+    // public bool isGlow;
 
-    private bool isAiming = false;
+    public bool isAiming = false;
 
     // Old Glow
     // private bool isCooldown = false;
@@ -107,10 +108,10 @@ public class HUD : MonoBehaviour
         glowBackgroundColors = glowButtonBackground.colors;
         // player = GetComponent<PlayerController>();
 
-        mazeObjective.SetActive(false);
-        arenaObjective.SetActive(false);
-        ventObjective.SetActive(false);
-        defaultObjective.SetActive(false);
+        // mazeObjective.SetActive(false);
+        // arenaObjective.SetActive(false);
+        // ventObjective.SetActive(false);
+        // defaultObjective.SetActive(false);
 
         laserButtonBorder.interactable = false;
         laserButtonBackground.interactable = false;
@@ -119,7 +120,7 @@ public class HUD : MonoBehaviour
         glowButtonBackground.interactable = true;
 
         // Set default hud
-        SetDefault(isDefault);
+        // SetDefault(isDefault);
     }
 
     // Update is called once per frame
@@ -186,7 +187,7 @@ public class HUD : MonoBehaviour
         }
 
         // Testing
-        isGlowing(isGlow);
+        // isGlowing(isGlow);
         SetDefault(isDefault);
         SetMaze(isMaze);
         SetArena(isArena);
@@ -234,7 +235,7 @@ public class HUD : MonoBehaviour
     {
         if (isDefault)
         {
-            defaultObjective.SetActive(true);
+            // defaultObjective.SetActive(true);
 
             SetImageColor(shrinkIcon, defaultIconColor);
             SetImageColor(aimIcon, defaultIconColor);
@@ -252,7 +253,7 @@ public class HUD : MonoBehaviour
         }
         else
         {
-            defaultObjective.SetActive(false);
+            // defaultObjective.SetActive(false);
         }
     }
 
@@ -265,7 +266,7 @@ public class HUD : MonoBehaviour
     {
         if (isMaze)
         {
-            mazeObjective.SetActive(true);
+            // mazeObjective.SetActive(true);
 
             SetImageColor(shrinkIcon, mazeIconColor);
             SetImageColor(aimIcon, mazeIconColor);
@@ -283,7 +284,7 @@ public class HUD : MonoBehaviour
         }
         else
         {
-            mazeObjective.SetActive(false);
+            // mazeObjective.SetActive(false);
             SetDefault(isDefault);
         }
     }
@@ -292,7 +293,7 @@ public class HUD : MonoBehaviour
     {
         if (isArena)
         {
-            arenaObjective.SetActive(true);
+            // arenaObjective.SetActive(true);
 
             SetImageColor(shrinkIcon, arenaIconColor);
             SetImageColor(aimIcon, arenaIconColor);
@@ -310,7 +311,7 @@ public class HUD : MonoBehaviour
         }
         else
         {
-            arenaObjective.SetActive(false);
+            // arenaObjective.SetActive(false);
             SetDefault(isDefault);
         }
     }
@@ -319,7 +320,7 @@ public class HUD : MonoBehaviour
     {
         if (isVent)
         {
-            ventObjective.SetActive(true);
+            // ventObjective.SetActive(true);
 
             SetImageColor(shrinkIcon, ventIconColor);
             SetImageColor(aimIcon, ventIconColor);
@@ -337,7 +338,7 @@ public class HUD : MonoBehaviour
         }
         else
         {
-            ventObjective.SetActive(false);
+            // ventObjective.SetActive(false);
             SetDefault(isDefault);
         }
     }

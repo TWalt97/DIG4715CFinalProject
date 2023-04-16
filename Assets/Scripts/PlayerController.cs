@@ -72,6 +72,8 @@ public class PlayerController : MonoBehaviour
     public GameObject Timer1;
     [Header("Coliseum")]
     public GameObject Timer2;
+    // [Header("Default")]
+    // public GameObject default;
 
     [Header("Lose State")]
     public GameObject loseText;
@@ -194,6 +196,8 @@ public class PlayerController : MonoBehaviour
 
         startSize = transform.localScale.x;
         startPos = transform.position;
+
+        // hud.isDefault = true;
     }
 
     private void OnEnable()
@@ -368,21 +372,13 @@ public class PlayerController : MonoBehaviour
     }
     private void Update()
     {
-        // isDefault = true;
-        // isMaze = false;
-        // isArena = false;
-        // isVent = false;
 
-        // HUD.Instance.SetDefault(isDefault);
-        // HUD.Instance.SetMaze(isMaze);
-        // HUD.Instance.SetArena(isArena);
-        // HUD.Instance.SetVent(isVent);
-        // teleport to hud
         if (pauseUi.hud == true)
         {
             transform.position = startPos;
             timerActive = false;
             timerActive2 = false;
+            // default.SetActive(false);
             Timer1.SetActive(false);
             Timer2.SetActive(false);
             pauseUi.hud = false;
@@ -487,6 +483,7 @@ public class PlayerController : MonoBehaviour
             // timer2 = newTime2;
             timerActive2 = false;
             Timer2.SetActive(false);
+            // default.SetActive(true);
             colosseumDoor.SetActive(false);
             deathCol = false;
             colosseumSpawners.SetActive(false);
@@ -700,6 +697,7 @@ public class PlayerController : MonoBehaviour
             AudioManager.Instance.PlaySFX("WinSound");
             transform.position = new Vector3(37.69f, 195.81f, -824.1f);
             Timer2.SetActive(false);
+            // default.SetActive(true);
             colDoor.transform.position = new Vector3(73.06473f, 207.2345f, -817.75f);
             colDoor.transform.rotation = Quaternion.Euler(0, 180, 0);
         }
@@ -728,12 +726,13 @@ public class PlayerController : MonoBehaviour
 
         if (collider.CompareTag("startColiseum"))
         {
-            // isDefault = false;
-            // isArena = true;
+            hud.isDefault = false;
+            hud.isArena = true;
             colosseumTrigger = collider.gameObject;
             colosseumTrigger.SetActive(false);
             timerActive2 = true;
             Timer2.SetActive(true);
+            // default.SetActive(false);
             // HUD.Instance.SetDefault(isDefault);
             // HUD.Instance.SetArena(isArena);
             timer2 = newTime2;
