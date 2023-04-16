@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Cinemachine;
 
 public class PauseUi : MonoBehaviour
 {
@@ -15,6 +16,8 @@ public class PauseUi : MonoBehaviour
 
     bool paused = false;
     public bool hud;
+    public CinemachineBrain cinemachineBrain;
+
     //public GameObject ResumeButtonMenuUI;
 
     // Update is called once per frame
@@ -30,6 +33,7 @@ public class PauseUi : MonoBehaviour
                 pauseMenuUI.SetActive(true);
                 Cursor.lockState = CursorLockMode.None;
                 Cursor.visible = true;
+                //cinemachineBrain.m_UpdateMethod = CinemachineBrain.UpdateMethod.LateUpdate;
 
                 mainPauseScreen.SetActive(true);
                 creditsScreen.SetActive(false);
@@ -44,6 +48,7 @@ public class PauseUi : MonoBehaviour
                 HUDOverlay.SetActive(true);
                 Cursor.lockState = CursorLockMode.Locked;
                 Cursor.visible = false;
+                //cinemachineBrain.m_UpdateMethod = CinemachineBrain.UpdateMethod.SmartUpdate;
             }
         }
 

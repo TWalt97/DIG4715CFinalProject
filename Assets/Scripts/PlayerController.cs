@@ -166,6 +166,9 @@ public class PlayerController : MonoBehaviour
 
     public PauseUi pauseUi;
 
+    private Vector3 startPos;
+    private Vector3 cameraStartPos;
+
     private void Awake()
     {
         //getting reference for components on the Player
@@ -183,6 +186,7 @@ public class PlayerController : MonoBehaviour
         interactAction = playerInput.actions["Interact"];
 
         startSize = transform.localScale.x;
+        startPos = transform.position;
     }
 
     private void OnEnable()
@@ -357,6 +361,17 @@ public class PlayerController : MonoBehaviour
     }
     private void Update()
     {
+        // teleport to hud
+        if (pauseUi.hud == true)
+        {
+            transform.position = startPos;
+            timerActive = false;
+            timerActive2 = false;
+            Timer1.SetActive(false);
+            Timer2.SetActive(false);
+            pauseUi.hud = false;
+            pauseUi.Resume();
+        }
         if (Physics.CheckSphere(transform.position, distanceToGround, groundedLayer))
         {
             groundedPlayer = true;
@@ -468,22 +483,9 @@ public class PlayerController : MonoBehaviour
         // win platformer
         if (platformerCount == platformerGoal)
         {
-            platformerWin.SetActive(true);
+            //platformerWin.SetActive(true);
         }
 
-        // teleport to hud
-        if (pauseUi.hud == true)
-        {
-            transform.position = new Vector3(49.4f, 194.44f, -817.5f);
-            timerActive = false;
-            timerActive2 = false;
-            Timer1.SetActive(false);
-            Timer2.SetActive(false);
-            pauseUi.hud = false;
-            Debug.Log("HUB: " + pauseUi.hud);
-        }
-
-        Debug.Log("HUB: " + pauseUi.hud);
     }
 
     void CenterText()

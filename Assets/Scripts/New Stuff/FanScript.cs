@@ -29,6 +29,7 @@ public class FanScript : MonoBehaviour
 
     void Start()
     {
+        fieldOfView = GetComponent<FieldOfView>();
         speed = normalSpeed;
     }
 
@@ -53,11 +54,9 @@ public class FanScript : MonoBehaviour
 
     IEnumerator FanTime(float fullSpeedTime)
     {
-        Debug.Log("full Speed");
         speed = fullSpeed;
 
         yield return new WaitForSeconds(fullSpeedTime);
-        Debug.Log("full speed ended");
 
         speed = normalSpeed;       
     }
