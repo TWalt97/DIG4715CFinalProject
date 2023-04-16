@@ -248,7 +248,7 @@ public class PlayerController : MonoBehaviour
     {
         if (playerSize == startSize)
         {
-            StartCoroutine(ChangeScale.StartFade(this.gameObject, 0.2f, shrinkSize));
+            StartCoroutine(ChangeScale.StartFade(this.gameObject, 0.1f, shrinkSize));
             animator.SetBool("Shrink", true);
             Invoke("ShrinkAnimCancel", 0.5f);
         }
@@ -258,7 +258,7 @@ public class PlayerController : MonoBehaviour
     {
         if (playerSize == shrinkSize)
         {
-            StartCoroutine(ChangeScale.StartFade(this.gameObject, 0.2f, startSize));
+            StartCoroutine(ChangeScale.StartFade(this.gameObject, 0.1f, startSize));
             animator.SetBool("Shrink", true);
             Invoke("ShrinkAnimCancel", 0.5f);
         }
