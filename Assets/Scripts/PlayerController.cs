@@ -45,6 +45,11 @@ public class PlayerController : MonoBehaviour
     public bool gameOver = false;
     public bool dead;
 
+    // private bool isDefault;
+    // private bool isMaze;
+    // private bool isArena;
+    // private bool isVent;
+
     [Header("Timer")]
     [Header("Maze")]
     public TextMeshProUGUI timeText;
@@ -363,6 +368,15 @@ public class PlayerController : MonoBehaviour
     }
     private void Update()
     {
+        // isDefault = true;
+        // isMaze = false;
+        // isArena = false;
+        // isVent = false;
+
+        // HUD.Instance.SetDefault(isDefault);
+        // HUD.Instance.SetMaze(isMaze);
+        // HUD.Instance.SetArena(isArena);
+        // HUD.Instance.SetVent(isVent);
         // teleport to hud
         if (pauseUi.hud == true)
         {
@@ -512,6 +526,7 @@ public class PlayerController : MonoBehaviour
         string timerStr2 = timer2.ToString("00.00");
         // maze
         timeText.SetText($"<mspace={charWidth}em>{timerStr}");
+        timeText2.SetText($"<mspace={charWidth}em>{timerStr2}");
         // coliseum
         //timeText2.SetText($"<mspace={charWidth}em>{timerStr2}");
 
@@ -713,10 +728,14 @@ public class PlayerController : MonoBehaviour
 
         if (collider.CompareTag("startColiseum"))
         {
+            // isDefault = false;
+            // isArena = true;
             colosseumTrigger = collider.gameObject;
             colosseumTrigger.SetActive(false);
             timerActive2 = true;
             Timer2.SetActive(true);
+            // HUD.Instance.SetDefault(isDefault);
+            // HUD.Instance.SetArena(isArena);
             timer2 = newTime2;
         }
         if (collider.CompareTag("startPlatformer"))

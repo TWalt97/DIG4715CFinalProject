@@ -6,6 +6,7 @@ using TMPro;
 
 public class HUD : MonoBehaviour
 {
+    public static HUD Instance;
     // Testing
     // isDefault is testing too but need it to be enabled for now
     public bool isDefault;
