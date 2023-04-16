@@ -20,7 +20,7 @@ public class BrightnessScripts : MonoBehaviour
     {
         foreach (GameObject go in directionLight)
         {
-            go.GetComponent<Light>().intensity = slider.value;
+            go.GetComponent<Light>().intensity = SaveValues.spookyPercent;
         }
     }
 }

@@ -76,6 +76,7 @@ public class PauseUi : MonoBehaviour
         pauseMenuUI.SetActive(false);
         HUDOverlay.SetActive(true);
         Time.timeScale = 1f;
+        AudioListener.pause = false;
         GameIsPaused = false;
         Cursor.lockState = CursorLockMode.Locked;
     }
