@@ -6,12 +6,13 @@ using TMPro;
 
 public class SettingsController : MonoBehaviour
 {
-    public Slider _musicSlider, _sfxSlider;
-    public TextMeshProUGUI musicPercent, sfxPercent;
+    public Slider _musicSlider, _sfxSlider, _spookySlider;
+    public TextMeshProUGUI musicPercent, sfxPercent, spookyPercent;
 
     public GameObject fullscreenToggle; 
+    public GameObject godModeToggle; 
 
-    public Dropdown dropDown;
+    // public Dropdown dropDown;
 
     // private void Start()
     // {
@@ -19,25 +20,30 @@ public class SettingsController : MonoBehaviour
     //     _sfxSlider.value = SaveStuff.sfxVolume;
     // }
 
-    private void Start()
+    private void Awake()
     {
         _musicSlider.value = SaveValues.musicVolume;
         _sfxSlider.value = SaveValues.sfxVolume;
+        _spookySlider.value = SaveValues.spookyPercent;
 
         fullscreenToggle.GetComponent<Toggle>().isOn = SaveValues.isFullscreen;
+        godModeToggle.GetComponent<Toggle>().isOn = SaveValues.isGodMode;
 
-        dropDown.onValueChanged.AddListener(delegate { DropdownItemSelected(dropDown); });
+        // GameObject godModeCanvas = GameObject.Find("DoNotDestroyOnLoad/GameJournalistCanvas");
+
+        // dropDown.onValueChanged.AddListener(delegate { DropdownItemSelected(dropDown); });
     }
 
-    public void ToggleMusic()
-    {
-        AudioManager.Instance.ToggleMusic();
-    }
+    // In case we want to add mute buttons
+    // public void ToggleMusic()
+    // {
+    //     AudioManager.Instance.ToggleMusic();
+    // }
     
-    public void ToggleSFX()
-    {
-        AudioManager.Instance.ToggleSFX();
-    }
+    // public void ToggleSFX()
+    // {
+    //     AudioManager.Instance.ToggleSFX();
+    // }
 
     public void MusicVolume()
     {
@@ -54,6 +60,13 @@ public class SettingsController : MonoBehaviour
 
     }
 
+    public void SpookySlider()
+    {
+        spookyPercent.text = Mathf.RoundToInt(_spookySlider.value * 100) + "%";
+        // Insert reference to change float value in player control that controls light intensity here
+        SaveValues.spookyPercent = _spookySlider.value;
+    }
+
     public void SetQuality (int qualityIndex)
     {
         QualitySettings.SetQualityLevel(qualityIndex);
@@ -66,16 +79,34 @@ public class SettingsController : MonoBehaviour
         SaveValues.isFullscreen = isFullscreen;   
     }
 
-    public void DropdownItemSelected(Dropdown dropDown)
+    public void SetGodMode (bool isGod)
     {
-        switch(dropDown.value)
+        SaveValues.isGodMode = isGod;   
+        GameObject godModeCanvas = GameObject.Find("DoNotDestroyOnLoad/GameJournalistCanvas");
+
+        if (isGod)
         {
-            case 0: PlayerPrefs.SetInt("DROPDOWNQUALITY", 0);
-                break;
-            case 1: PlayerPrefs.SetInt("DROPDOWNQUALITY", 1);
-                break;
-            case 2: PlayerPrefs.SetInt("DROPDOWNQUALITY", 2);
-                break;
+            // godModeCanvas = GameObject.Find("GameJournalistCanvas");
+            godModeCanvas.SetActive(true);
         }
+        else
+        {
+            // godModeCanvas = GameObject.Find("GameJournalistCanvas");
+            godModeCanvas.SetActive(false);
+        }
+
     }
+
+    // public void DropdownItemSelected(Dropdown dropDown)
+    // {
+    //     switch(dropDown.value)
+    //     {
+    //         case 0: PlayerPrefs.SetInt("DROPDOWNQUALITY", 0);
+    //             break;
+    //         case 1: PlayerPrefs.SetInt("DROPDOWNQUALITY", 1);
+    //             break;
+    //         case 2: PlayerPrefs.SetInt("DROPDOWNQUALITY", 2);
+    //             break;
+    //     }
+    // }
 }
