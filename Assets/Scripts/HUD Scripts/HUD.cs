@@ -10,10 +10,10 @@ public class HUD : MonoBehaviour
     // Testing
     // isDefault is testing too but need it to be enabled for now
     public bool isDefault;
-    // public bool isMaze;
-    // public bool isArena;
-    // public bool isVent;
-    // public bool isGlow;
+    public bool isMaze;
+    public bool isArena;
+    public bool isVent;
+    public bool isGlow;
 
     private bool isAiming = false;
 
@@ -70,24 +70,24 @@ public class HUD : MonoBehaviour
     private ColorBlock glowBackgroundColors;
 
     private Color defaultBorderButtonBaseColor = new Color(0.4603736f, 0.2856444f, 0.4622642f, 1.0f);
-    private Color defaultBorderButtonPressedColor = new Color(0.4603736f, 0.2856444f, 0.4622642f, 0.5882353f);
+    private Color defaultBorderButtonPressedColor = new Color(0.4603736f, 0.2856444f, 0.4622642f, 0.362f);
     private Color defaultBackgroundButtonBaseColor = new Color(0.6352941f, 0.3540406f, 0.6431373f, 1.0f);
-    private Color defaultBackgroundButtonPressedColor = new Color(0.6352941f, 0.3540406f, 0.6431373f,  0.5882353f);
+    private Color defaultBackgroundButtonPressedColor = new Color(0.6352941f, 0.3540406f, 0.6431373f,  0.362f);
 
     private Color mazeBorderButtonBaseColor = new Color(0.2470588f, 0.2392157f, 0.5882353f, 1.0f);
-    private Color mazeBorderButtonPressedColor = new Color(0.2470588f, 0.2392157f, 0.5882353f, 0.5882353f);
+    private Color mazeBorderButtonPressedColor = new Color(0.2470588f, 0.2392157f, 0.5882353f, 0.362f);
     private Color mazeBackgroundButtonBaseColor = new Color (0.6196079f, 0.7301583f, 0.8980392f, 1.0f);
-    private Color mazeBackgroundButtonPressedColor = new Color (0.6196079f, 0.7301583f, 0.8980392f, 0.5882353f);
+    private Color mazeBackgroundButtonPressedColor = new Color (0.6196079f, 0.7301583f, 0.8980392f, 0.362f);
 
     private Color arenaBorderButtonBaseColor = new Color(0.5843138f, 0.2352941f, 0.2388183f, 1.0f);
-    private Color arenaBorderButtonPressedColor = new Color(0.5843138f, 0.2352941f, 0.2388183f, 0.5882353f);
+    private Color arenaBorderButtonPressedColor = new Color(0.5843138f, 0.2352941f, 0.2388183f, 0.362f);
     private Color arenaBackgroundButtonBaseColor = new Color(0.8980392f, 0.6875842f, 0.6196079f, 1.0f);
-    private Color arenaBackgroundButtonPressedColor = new Color(0.8980392f, 0.6875842f, 0.6196079f, 0.5882353f);
+    private Color arenaBackgroundButtonPressedColor = new Color(0.8980392f, 0.6875842f, 0.6196079f, 0.362f);
 
     private Color ventBorderButtonBaseColor = new Color(0.8901961f, 0.8980393f, 0.6196079f, 1.0f);
-    private Color ventBorderButtonPressedColor = new Color(0.8901961f, 0.8980393f, 0.6196079f, 0.5882353f);
+    private Color ventBorderButtonPressedColor = new Color(0.8901961f, 0.8980393f, 0.6196079f, 0.362f);
     private Color ventBackgroundButtonBaseColor = new Color(0.8161573f, 0.8301887f, 0.3320754f, 1.0f);
-    private Color ventBackgroundButtonPressedColor = new Color(0.8161573f, 0.8301887f, 0.3320754f, 0.5882353f);
+    private Color ventBackgroundButtonPressedColor = new Color(0.8161573f, 0.8301887f, 0.3320754f, 0.362f);
 
     public bool glowing;
     public bool shrinking;
@@ -186,11 +186,11 @@ public class HUD : MonoBehaviour
         }
 
         // Testing
-        // isGlowing(isGlow);
-        // SetDefault(isDefault);
-        // SetMaze(isMaze);
-        // SetArena(isArena);
-        // SetVent(isVent);
+        isGlowing(isGlow);
+        SetDefault(isDefault);
+        SetMaze(isMaze);
+        SetArena(isArena);
+        SetVent(isVent);
 
         // Old Glowing
         // if (Input.GetKeyDown(KeyCode.E))
