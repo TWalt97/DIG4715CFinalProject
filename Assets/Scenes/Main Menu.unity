@@ -2263,7 +2263,7 @@ GameObject:
   - component: {fileID: 483512332}
   m_Layer: 5
   m_Name: GameJournalistCanvas
-  m_TagString: Untagged
+  m_TagString: GodMode
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -5833,6 +5833,7 @@ MonoBehaviour:
   spookyPercent: {fileID: 1164978341}
   fullscreenToggle: {fileID: 195751376}
   godModeToggle: {fileID: 589772763}
+  godModeCanvas: {fileID: 483512327}
 --- !u!1 &1323236887
 GameObject:
   m_ObjectHideFlags: 0
@@ -5944,8 +5945,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -458, y: 158.80008}
-  m_SizeDelta: {x: 129.0027, y: 23.1952}
+  m_AnchoredPosition: {x: -498.95084, y: 158.80008}
+  m_SizeDelta: {x: 163.1284, y: 23.1952}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1323820759
 MonoBehaviour:
@@ -5967,7 +5968,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Spookiness:'
+  m_text: 'Level Brightness:'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: c7d2cb33e8167f94a840d957b5ac2dc5, type: 2}
   m_sharedMaterial: {fileID: 436081627710491810, guid: c7d2cb33e8167f94a840d957b5ac2dc5, type: 2}
@@ -7014,7 +7015,7 @@ RectTransform:
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0.19992, y: 1}
+  m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 10, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -8236,8 +8237,8 @@ RectTransform:
   m_Father: {fileID: 763549003}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.19992, y: 0}
-  m_AnchorMax: {x: 0.19992, y: 1}
+  m_AnchorMin: {x: 1, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 20, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}

@@ -4,14 +4,19 @@ using UnityEngine;
 
 public class DontDestroy : MonoBehaviour
 {
+
+    public static DontDestroy Instance;
+
+
     private void Awake()
     {
-        GameObject[] objs = GameObject.FindGameObjectsWithTag("GodMode");
-
-        if (objs.Length > 1)
+        if (Instance != null)
         {
+            Debug.LogWarning("multiple dont destroys");
             Destroy(this.gameObject);
         }
+
+        Instance = this;
 
         DontDestroyOnLoad(this.gameObject);
     }

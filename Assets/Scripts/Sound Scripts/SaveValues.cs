@@ -6,7 +6,7 @@ public static class SaveValues
 {
     public static float musicVolume = 0.2f;
     public static float sfxVolume = 0.2f;
-    public static float spookyPercent = 0.0f;
+    public static float spookyPercent = 1.0f;
 
     public static bool isFullscreen = true;
     public static bool isGodMode = false;

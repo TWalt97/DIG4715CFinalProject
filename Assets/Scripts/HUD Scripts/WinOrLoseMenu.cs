@@ -7,7 +7,7 @@ public class WinOrLoseMenu : MonoBehaviour
 {
     public void Awake()
     {
-        Cursor.lockState = CursorLockMode.None;
+        // Cursor.lockState = CursorLockMode.None;
     }
     public void MainMenu()
     {

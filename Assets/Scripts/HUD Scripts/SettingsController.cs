@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using UnityEngine.SceneManagement;
 
 public class SettingsController : MonoBehaviour
 {
@@ -12,6 +13,7 @@ public class SettingsController : MonoBehaviour
     public GameObject fullscreenToggle; 
     public GameObject godModeToggle; 
 
+    private GameObject godModeCanvas;
     // public Dropdown dropDown;
 
     // private void Start()
@@ -20,8 +22,25 @@ public class SettingsController : MonoBehaviour
     //     _sfxSlider.value = SaveStuff.sfxVolume;
     // }
 
+    // void OnEnable()
+    // {
+    //     SceneManager.sceneLoaded += OnLevelFinishedLoading;
+    // }
+
+    // void OnDisable()
+    // {
+    //     SceneManager.sceneLoaded -= OnLevelFinishedLoading;
+    // }
+
+    // void OnLevelFinishedLoading(Scene scene, LoadSceneMode mode)
+    // {
+    //     Debug.Log("a");
+    //     godModeCanvas = DontDestroy.Instance.gameObject;
+    // }
+
     private void Awake()
     {
+        godModeCanvas = DontDestroy.Instance.gameObject;
         _musicSlider.value = SaveValues.musicVolume;
         _sfxSlider.value = SaveValues.sfxVolume;
         _spookySlider.value = SaveValues.spookyPercent;
@@ -29,7 +48,7 @@ public class SettingsController : MonoBehaviour
         fullscreenToggle.GetComponent<Toggle>().isOn = SaveValues.isFullscreen;
         godModeToggle.GetComponent<Toggle>().isOn = SaveValues.isGodMode;
 
-        // GameObject godModeCanvas = GameObject.Find("DoNotDestroyOnLoad/GameJournalistCanvas");
+        // godModeCanvas = GameObject.FindGameObjectWithTag("GodMode");
 
         // dropDown.onValueChanged.AddListener(delegate { DropdownItemSelected(dropDown); });
     }
@@ -82,7 +101,7 @@ public class SettingsController : MonoBehaviour
     public void SetGodMode (bool isGod)
     {
         SaveValues.isGodMode = isGod;   
-        GameObject godModeCanvas = GameObject.Find("DoNotDestroyOnLoad/GameJournalistCanvas");
+        // GameObject godModeCanvas = GameObject.FindGameObjectWithTag("GodMode");
 
         if (isGod)
         {
