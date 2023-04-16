@@ -10,10 +10,13 @@ public class SwitchVCam : MonoBehaviour
     private int priorityBoostAmount = 10;
     [SerializeField]
     private Canvas aimCanvas;
+    [SerializeField]
+    PlayerController playerController;
 
     private CinemachineVirtualCamera virtualCamera;
     private InputAction aimAction;
-    public NewPlayerController newPlayerController;
+    [SerializeField]
+    private HUD hud;
 
     private void Awake()
     {
@@ -37,13 +40,15 @@ public class SwitchVCam : MonoBehaviour
     {
         virtualCamera.Priority += priorityBoostAmount;
         aimCanvas.enabled = true;
-        newPlayerController.aiming = true;
+        playerController.aiming = true;
+        hud.aiming = true;
     }
 
     private void CancelAim()
     {
         virtualCamera.Priority -= priorityBoostAmount;
         aimCanvas.enabled = false;
-        newPlayerController.aiming = false;
+        playerController.aiming = false;
+        hud.aiming = false;
     }
 }

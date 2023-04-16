@@ -41,6 +41,7 @@ public class EnemyController : MonoBehaviour
     {
         if (other.tag == "Laser")
         {
+            Debug.Log("Hit");
             TakeDamage(1);
         }
     }
