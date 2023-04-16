@@ -15,11 +15,17 @@ public class PlayerController : MonoBehaviour
     [SerializeField]
     private float jumpHeight = 1.0f;
     [SerializeField]
-    private float gravityValue = -9.81f;
-    [SerializeField]
     private float rotationSpeed = 5f;
+    [SerializeField]
+    private float maxSpeed;
+    [SerializeField]
+    private LayerMask groundedLayer;
     private Vector3 playerVelocity;
     private bool groundedPlayer;
+    [SerializeField]
+    private float groundDrag;
+    [SerializeField]
+    private float distanceToGround;
 
     [Header("Speed After Lose")]
     public float newSpeed = 15f;
@@ -134,14 +140,16 @@ public class PlayerController : MonoBehaviour
     [SerializeField]
     private GameObject interactUI;
 
+    Rigidbody rb;
+
     private void Awake()
     {
         //getting reference for components on the Player
-        controller = GetComponent<CharacterController>();
         animator = GetComponentInChildren<Animator>();
         playerInput = GetComponent<PlayerInput>();
         cameraTransform = Camera.main.transform;
         playerControls = new PlayerControls();
+        rb = GetComponent<Rigidbody>();
 
         moveAction = playerInput.actions["Move"];
         jumpAction = playerInput.actions["Jump"];
@@ -315,6 +323,32 @@ public class PlayerController : MonoBehaviour
     }
     private void Update()
     {
+        if (Physics.CheckSphere(transform.position, distanceToGround, groundedLayer))
+        {
+            groundedPlayer = true;
+        }
+        else
+        {
+            groundedPlayer = false;
+        }
+
+        if (groundedPlayer)
+        {
+            rb.drag = groundDrag;
+            animator.SetBool("Jump", false);
+        }
+        else
+        {
+            rb.drag = 0;
+        }
+
+        if (jumpAction.triggered && groundedPlayer)
+        {
+            rb.velocity = new Vector3(rb.velocity.x, 0f, rb.velocity.z);
+            animator.SetBool("Jump", true);
+            rb.AddForce(transform.up * jumpHeight, ForceMode.Impulse);
+        }
+
         if (GetInteractableObject() != null)
         {
             interactUI.SetActive(true);
@@ -454,18 +488,24 @@ public class PlayerController : MonoBehaviour
     private void HandleMovement()
     {
         playerSize = this.gameObject.transform.localScale.x;
-        groundedPlayer = controller.isGrounded;
-        if (groundedPlayer && playerVelocity.y < 0)
-        {
-            playerVelocity.y = 0f;
-            animator.SetBool("Jump", false);
-        }
 
         Vector2 input = moveAction.ReadValue<Vector2>();
         Vector3 move = new Vector3(input.x, 0, input.y);
         move = move.x * cameraTransform.right.normalized + move.z * cameraTransform.forward.normalized;
         move.y = 0f;
-        controller.Move(move * Time.deltaTime * playerSpeed);
+        rb.AddForce(move.normalized * playerSpeed * 10, ForceMode.Force);
+        Vector3 flatVel = new Vector3(rb.velocity.x, 0f, rb.velocity.z);
+
+        if (flatVel.magnitude > playerSpeed)
+        {
+            Vector3 limitedVel = flatVel.normalized * playerSpeed;
+            rb.velocity = new Vector3(limitedVel.x, rb.velocity.y, limitedVel.z);
+        }
+
+        if ((move.x == 0) && (move.z == 0))
+        {
+            rb.velocity = new Vector3(0, rb.velocity.y, 0);
+        }
 
         if (input.x != 0 || input.y != 0)
         {
@@ -477,14 +517,6 @@ public class PlayerController : MonoBehaviour
         }
 
         // Changes the height position of the player..
-        if (jumpAction.triggered && groundedPlayer)
-        {
-            animator.SetBool("Jump", true);
-            playerVelocity.y += Mathf.Sqrt(jumpHeight * -3.0f * gravityValue);
-        }
-
-        playerVelocity.y += gravityValue * Time.deltaTime;
-        controller.Move(playerVelocity * Time.deltaTime);
 
         Quaternion targetRotation = Quaternion.Euler(0, cameraTransform.eulerAngles.y, 0);
         transform.rotation = Quaternion.Lerp(transform.rotation, targetRotation, rotationSpeed * Time.deltaTime);
