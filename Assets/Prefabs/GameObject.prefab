@@ -26,7 +26,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7494069694623438089}
-  m_LocalRotation: {x: -0, y: 0.7071068, z: -0, w: -0.7071068}
+  m_LocalRotation: {x: 0, y: 0.7071068, z: -0, w: -0.7071068}
   m_LocalPosition: {x: 343.9, y: 204.2, z: -752}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -47,10 +47,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6afbf5eb89fb08d43854932abe4a0a96, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speedPush: 15
-  characterController: {fileID: 0}
+  speedPush: 250
+  player: {fileID: 0}
   fullSpeedTime: 3
-  fullSpeed: 3
+  fullSpeed: 4
   normalSpeed: 1
 --- !u!114 &7494069694623438093
 MonoBehaviour:
@@ -65,14 +65,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   radius: 74.86
-  angle: 100
+  angle: 57.31
   playerRef: {fileID: 0}
   targetMask:
     serializedVersion: 2
-    m_Bits: 1024
+    m_Bits: 256
   obstructionMask:
     serializedVersion: 2
-    m_Bits: 2048
+    m_Bits: 3072
   canSeePlayer: 0
 --- !u!54 &7494069694623438090
 Rigidbody:

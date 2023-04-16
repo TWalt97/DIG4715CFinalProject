@@ -8,7 +8,7 @@ public class FanScript : MonoBehaviour
 
     public float speedPush;
 
-    float fanTimer = 10f;
+    float fanTimer = 15f;
 
     FieldOfView fieldOfView;
 
@@ -54,15 +54,33 @@ public class FanScript : MonoBehaviour
 
     IEnumerator FanTime(float fullSpeedTime)
     {
-        speed = fullSpeed;
+        //speed = fullSpeed;
+        StartCoroutine(ChangeFanSpeed.StartFade(this.gameObject.GetComponent<FanScript>(), 2f, fullSpeed));
 
         yield return new WaitForSeconds(fullSpeedTime);
 
-        speed = normalSpeed;       
+        //speed = normalSpeed;
+        StartCoroutine(ChangeFanSpeed.StartFade(this.gameObject.GetComponent<FanScript>(), 2f, normalSpeed));      
     }
 
     void PushBack()
     {
         player.GetComponent<Rigidbody>().AddForce(transform.forward * speedPush, ForceMode.Force);
+    }
+
+    public static class ChangeFanSpeed
+    {
+        public static IEnumerator StartFade(FanScript fanScript, float duration, float targetSpeed)
+        {
+            float currentTime = 0;
+            float start = fanScript.speed;
+            while (currentTime < duration)
+            {
+                currentTime += Time.deltaTime;
+                fanScript.speed = Mathf.Lerp(start, targetSpeed, currentTime / duration);
+                yield return null;
+            }
+            yield break;
+        }
     }
 }
