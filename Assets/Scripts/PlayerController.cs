@@ -103,6 +103,7 @@ public class PlayerController : MonoBehaviour
     private Transform particleParent;
     public bool aiming;
     public ParticleSystem laserParticle;
+    private bool laserCooldown = false;
 
     [Header("Shrink")]
     [SerializeField]
@@ -123,10 +124,6 @@ public class PlayerController : MonoBehaviour
 
     Animator animator;
 
-    bool deathCol = false;
-    
-    public GameObject cheese;
-
     private Transform cameraTransform;
     [SerializeField]
     private GameObject thirdPersonCamera;
@@ -143,6 +140,34 @@ public class PlayerController : MonoBehaviour
     private GameObject interactUI;
 
     Rigidbody rb;
+
+    [SerializeField]
+    private HUD hud;
+
+    bool hasRun = false;
+
+    bool deathCol = false;
+    
+    public GameObject colWin;
+
+    GameObject[] directionLight;
+
+    public int platformerCount;
+
+    bool deathPlat = false;
+
+    public int platformerGoal;
+
+    public GameObject platformerWin;
+
+    public GameObject mazeDoor;
+    public GameObject platformerDoor;
+    public GameObject colDoor;
+
+    public PauseUi pauseUi;
+
+    private Vector3 startPos;
+    private Vector3 cameraStartPos;
 
     private void Awake()
     {
@@ -161,6 +186,7 @@ public class PlayerController : MonoBehaviour
         interactAction = playerInput.actions["Interact"];
 
         startSize = transform.localScale.x;
+        startPos = transform.position;
     }
 
     private void OnEnable()
@@ -248,7 +274,8 @@ public class PlayerController : MonoBehaviour
     {
         if (playerSize == startSize)
         {
-            StartCoroutine(ChangeScale.StartFade(this.gameObject, 0.2f, shrinkSize));
+            hud.shrinking = true;
+            StartCoroutine(ChangeScale.StartFade(this.gameObject, 0.1f, shrinkSize));
             animator.SetBool("Shrink", true);
             Invoke("ShrinkAnimCancel", 0.5f);
         }
@@ -258,7 +285,8 @@ public class PlayerController : MonoBehaviour
     {
         if (playerSize == shrinkSize)
         {
-            StartCoroutine(ChangeScale.StartFade(this.gameObject, 0.2f, startSize));
+            hud.shrinking = false;
+            StartCoroutine(ChangeScale.StartFade(this.gameObject, 0.1f, startSize));
             animator.SetBool("Shrink", true);
             Invoke("ShrinkAnimCancel", 0.5f);
         }
@@ -266,10 +294,12 @@ public class PlayerController : MonoBehaviour
 
     private void ShootGun()
     {
-        if (aiming == true)
+        if (aiming == true && laserCooldown == false)
         {
+            hud.shooting = true;
             animator.SetBool("Shoot", true);
             Invoke("Shoot", 0.5f);
+            laserCooldown = true;
         }
     }
 
@@ -277,6 +307,8 @@ public class PlayerController : MonoBehaviour
     {
         animator.SetBool("Shoot", false);
         RaycastHit hit;
+        hud.shooting = false;
+        laserCooldown = false;
         if (Physics.Raycast(cameraTransform.position, cameraTransform.forward, out hit, Mathf.Infinity))
         {
             Vector3 directionToTarget = (hit.point - particlePos.transform.position).normalized;
@@ -290,10 +322,12 @@ public class PlayerController : MonoBehaviour
         lightToggle = !lightToggle;
         if (lightToggle == true)
         {
+            hud.glowing = true;
             StartCoroutine(FadeLightSource.StartFade(glowLight, 2f, maxLightIntensity));
         }
         if (lightToggle == false)
         {
+            hud.glowing = false;
             StartCoroutine(FadeLightSource.StartFade(glowLight, 2f, 0f));
         }
     }
@@ -312,6 +346,8 @@ public class PlayerController : MonoBehaviour
         winText.SetActive(false);
 
         Cursor.lockState = CursorLockMode.Locked;
+
+        directionLight = GameObject.FindGameObjectsWithTag("light");
     }
 
     void OnEscape()
@@ -325,6 +361,17 @@ public class PlayerController : MonoBehaviour
     }
     private void Update()
     {
+        // teleport to hud
+        if (pauseUi.hud == true)
+        {
+            transform.position = startPos;
+            timerActive = false;
+            timerActive2 = false;
+            Timer1.SetActive(false);
+            Timer2.SetActive(false);
+            pauseUi.hud = false;
+            pauseUi.Resume();
+        }
         if (Physics.CheckSphere(transform.position, distanceToGround, groundedLayer))
         {
             groundedPlayer = true;
@@ -422,8 +469,23 @@ public class PlayerController : MonoBehaviour
         if ((timer2 == 0))
         {
             timerActive2 = false;
-            cheese.SetActive(true); 
+            colWin.SetActive(true); 
         }
+
+        // lose platformer
+        if (deathPlat == true)
+        {
+            transform.position = new Vector3(307.98f, 189.99f, -726.34f);
+            AudioManager.Instance.PlaySFX("LoseSound");
+            deathPlat = false;
+        }
+
+        // win platformer
+        if (platformerCount == platformerGoal)
+        {
+            //platformerWin.SetActive(true);
+        }
+
     }
 
     void CenterText()
@@ -587,16 +649,43 @@ public class PlayerController : MonoBehaviour
 
     void OnTriggerEnter(Collider collider)
     {
-        if (collider.CompareTag("winObject"))
+        if (collider.CompareTag("winMaze"))
         {
             winObject += 1;
             Debug.Log("Win Object: " + winObject);
             timerActive = false;
-            timerActive2 = false;
-            //AudioManager.Instance.PlaySFX("WinSound");
+            AudioManager.Instance.PlaySFX("WinSound");
             transform.position = new Vector3(37.69f, 195.81f, -824.1f);
             Timer1.SetActive(false);
+            mazeDoor.transform.position = new Vector3(-2.76f, 207.2345f, -817.63f);
+            mazeDoor.transform.rotation = Quaternion.Euler(0, 0, 0);
+        }
+
+        if (collider.CompareTag("winColiseum"))
+        {
+            winObject += 1;
+            Debug.Log("Win Object: " + winObject);
+            timerActive2 = false;
+            AudioManager.Instance.PlaySFX("WinSound");
+            transform.position = new Vector3(37.69f, 195.81f, -824.1f);
             Timer2.SetActive(false);
+            colDoor.transform.position = new Vector3(73.06473f, 207.2345f, -817.75f);
+            colDoor.transform.rotation = Quaternion.Euler(0, 180, 0);
+        }
+
+        if (collider.CompareTag("winPlatformer"))
+        {
+            winObject += 1;
+            Debug.Log("Win Object: " + winObject);
+            AudioManager.Instance.PlaySFX("WinSound");
+            transform.position = new Vector3(37.69f, 195.81f, -824.1f);
+            GetComponent<LightScript>().enabled = true;
+            foreach (GameObject go in directionLight)
+            {
+                go.SetActive(true);
+            }
+            platformerDoor.transform.position = new Vector3(35.3625f, 207.2345f, -855.0118f);
+            platformerDoor.transform.rotation = Quaternion.Euler(0, 0, 0);
         }
 
         if (collider.CompareTag("startMaze"))
@@ -611,6 +700,31 @@ public class PlayerController : MonoBehaviour
             timerActive2 = true;
             Timer2.SetActive(true);
             timer2 = newTime2;
+        }
+        if (collider.CompareTag("startPlatformer"))
+        {
+            transform.position = new Vector3(270.84f, 191.299f, -737.7659f);
+
+            foreach (GameObject go in directionLight)
+            {
+                go.SetActive(false);
+            }
+
+            // disable script
+            GetComponent<LightScript>().enabled = false;
+        }
+
+        if (collider.CompareTag("PlatformPickUp"))
+        {
+            platformerCount += 1;
+            Debug.Log("Platformer Object: " + platformerCount);
+            Destroy(collider.gameObject);
+        }
+
+        if (collider.CompareTag("Trap"))
+        {
+            deathPlat = true;
+            Destroy(collider.gameObject);
         }
 
         // if (collider.CompareTag("Enemy"))
