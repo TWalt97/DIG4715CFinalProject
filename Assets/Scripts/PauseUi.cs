@@ -12,6 +12,7 @@ public class PauseUi : MonoBehaviour
     public GameObject mainPauseScreen;
     public GameObject creditsScreen;
     public GameObject howToPlayScreen;
+    public GameObject optionsScreen;
     public GameObject HUDOverlay;
 
     bool paused = false;
@@ -38,6 +39,7 @@ public class PauseUi : MonoBehaviour
                 mainPauseScreen.SetActive(true);
                 creditsScreen.SetActive(false);
                 howToPlayScreen.SetActive(false);
+                optionsScreen.SetActive(false);
                 HUDOverlay.SetActive(false);
             }
             else
