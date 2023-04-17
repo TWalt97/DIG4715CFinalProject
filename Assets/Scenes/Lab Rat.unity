@@ -38902,7 +38902,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6149047558969403948, guid: d2746fa4911620f46b6a72639630fcf5, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 18.459503
+      value: 18.459473
       objectReference: {fileID: 0}
     - target: {fileID: 6149047558969403948, guid: d2746fa4911620f46b6a72639630fcf5, type: 3}
       propertyPath: m_LocalPosition.y
@@ -38910,7 +38910,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6149047558969403948, guid: d2746fa4911620f46b6a72639630fcf5, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 10.803528
+      value: 11.256653
       objectReference: {fileID: 0}
     - target: {fileID: 6149047558969403985, guid: d2746fa4911620f46b6a72639630fcf5, type: 3}
       propertyPath: m_Layer
@@ -39077,6 +39077,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 697888940}
     - target: {fileID: 6149047560892377695, guid: d2746fa4911620f46b6a72639630fcf5, type: 3}
+      propertyPath: colosseumSpawn
+      value: 
+      objectReference: {fileID: 2119142772}
+    - target: {fileID: 6149047560892377695, guid: d2746fa4911620f46b6a72639630fcf5, type: 3}
       propertyPath: platformerDoor
       value: 
       objectReference: {fileID: 1146164281}
@@ -39102,7 +39106,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6982119055779351445, guid: d2746fa4911620f46b6a72639630fcf5, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 4.848175
+      value: 5.101959
       objectReference: {fileID: 0}
     - target: {fileID: 6982119055779351445, guid: d2746fa4911620f46b6a72639630fcf5, type: 3}
       propertyPath: m_LocalPosition.y
@@ -39122,7 +39126,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6982119055873100630, guid: d2746fa4911620f46b6a72639630fcf5, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 18.459503
+      value: 18.459473
       objectReference: {fileID: 0}
     - target: {fileID: 6982119055873100630, guid: d2746fa4911620f46b6a72639630fcf5, type: 3}
       propertyPath: m_LocalPosition.y
@@ -39130,7 +39134,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6982119055873100630, guid: d2746fa4911620f46b6a72639630fcf5, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 10.803528
+      value: 11.256653
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d2746fa4911620f46b6a72639630fcf5, type: 3}
@@ -45360,6 +45364,7 @@ Transform:
   - {fileID: 1569077806}
   - {fileID: 1992807556}
   - {fileID: 396591126}
+  - {fileID: 2119142772}
   m_Father: {fileID: 0}
   m_RootOrder: 33
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -71741,6 +71746,37 @@ Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: fca1fe08d5b1ae347a3c0841f699b970, type: 3}
   m_PrefabInstance: {fileID: 1674425461}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &2119142771
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2119142772}
+  m_Layer: 0
+  m_Name: ColosseumSpawn
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2119142772
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2119142771}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -32.4, y: -76.89, z: -78.12}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1363926898}
+  m_RootOrder: 23
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &2126037653
 PrefabInstance:
   m_ObjectHideFlags: 0
