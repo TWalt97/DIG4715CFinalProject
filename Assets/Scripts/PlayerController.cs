@@ -179,6 +179,8 @@ public class PlayerController : MonoBehaviour
     [SerializeField]
     private GameObject colosseumSpawners;
     private GameObject colosseumTrigger;
+    [SerializeField]
+    private Transform colosseumSpawn;
 
     private void Awake()
     {
@@ -492,7 +494,7 @@ public class PlayerController : MonoBehaviour
         // lose coliseum
         if (deathCol == true)
         {
-            transform.position = new Vector3(99.91f, 194.3172f, -823.0043f);
+            transform.position = colosseumSpawn.position;
             AudioManager.Instance.PlaySFX("LoseSound");
             // timer2 = newTime2;
             timerActive2 = false;
@@ -796,6 +798,10 @@ public class PlayerController : MonoBehaviour
             Destroy(collider.gameObject);
         }
 
+        if (collider.CompareTag("PlatformerDeathZone"))
+        {
+            deathPlat = true;
+        }
         // if (collider.CompareTag("hubMusic"))
         // {
         //     AudioManager.Instance.musicSource.Stop();
