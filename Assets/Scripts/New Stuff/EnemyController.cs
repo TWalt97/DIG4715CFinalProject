@@ -45,7 +45,7 @@ public class EnemyController : MonoBehaviour
         }
     }
 
-    private void Hit()
+    public void Hit()
     {
         AudioManager.Instance.PlaySFX("SkeleDeath");
         animator.SetBool("Death", true);

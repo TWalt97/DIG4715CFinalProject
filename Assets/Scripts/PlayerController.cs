@@ -181,6 +181,12 @@ public class PlayerController : MonoBehaviour
     private GameObject colosseumTrigger;
     [SerializeField]
     private Transform colosseumSpawn;
+    [SerializeField]
+    private GameObject platformerWinObject;
+    [SerializeField]
+    private Transform mazeSpawn;
+    [SerializeField]
+    private GameObject colosseumWinObject;
 
     private void Awake()
     {
@@ -457,6 +463,7 @@ public class PlayerController : MonoBehaviour
             timer2 = 0;
             colosseumDoor.SetActive(false);
             colosseumSpawners.SetActive(false);
+            colosseumWinObject.SetActive(true);
             GameObject[] enemies = GameObject.FindGameObjectsWithTag("Enemy");
             foreach (GameObject enemy in enemies)
                 GameObject.Destroy(enemy);
@@ -479,9 +486,9 @@ public class PlayerController : MonoBehaviour
         // }
 
         // lose maze
-        if (((timer == 0) && (winObject == 0) && (timerActive == true) || (dead == true)))
+        if (((timer == 0) && (timerActive == true) || (dead == true)))
         {
-            transform.position = new Vector3(-24.55f, 196.08f, -806.58f);
+            transform.position = mazeSpawn.position;
             // loseText.SetActive(true);
             AudioManager.Instance.PlaySFX("LoseSound");
             // timer = newTime;
@@ -693,6 +700,12 @@ public class PlayerController : MonoBehaviour
 
     void OnTriggerEnter(Collider collider)
     {
+        if (collider.CompareTag("TutorialCheese"))
+        {
+            interacting = !interacting;
+            TVCinemachine.GetComponent<CinemachineVirtualCamera>().Priority += 10;
+            Invoke("ExitTutorialLevel", 1.5f);
+        }
         if (collider.CompareTag("winMaze"))
         {
             AudioManager.Instance.musicSource.Stop();
@@ -734,7 +747,7 @@ public class PlayerController : MonoBehaviour
             winObject += 1;
             Debug.Log("Win Object: " + winObject);
             AudioManager.Instance.PlaySFX("WinSound");
-            transform.position = new Vector3(37.69f, 195.81f, -824.1f);
+            transform.position = startPos;
             GetComponent<LightScript>().enabled = true;
             foreach (GameObject go in directionLight)
             {
@@ -790,6 +803,10 @@ public class PlayerController : MonoBehaviour
             platformerCount += 1;
             Debug.Log("Platformer Object: " + platformerCount);
             Destroy(collider.gameObject);
+            if (platformerCount == 3)
+            {
+                platformerWinObject.SetActive(true);
+            }
         }
 
         if (collider.CompareTag("Trap"))
