@@ -8,7 +8,7 @@ public class FanScript : MonoBehaviour
 
     public float speedPush;
 
-    float fanTimer = 15f;
+    float fanTimer = 20f;
 
     FieldOfView fieldOfView;
 
@@ -40,7 +40,7 @@ public class FanScript : MonoBehaviour
         if (fanTimer <= 0)
         {
             StartCoroutine(FanTime(fullSpeedTime));
-            fanTimer = 10f;
+            fanTimer = 20f;
         }
 
         transform.Rotate(0, 0, speed, Space.Self);
