@@ -738,6 +738,7 @@ public class PlayerController : MonoBehaviour
                 SceneManager.LoadScene("Win");
                 AudioManager.Instance.PlaySFX("WinSound");
                 Cursor.lockState = CursorLockMode.None;
+                Cursor.visible = true;
             }
         }
 
@@ -761,6 +762,7 @@ public class PlayerController : MonoBehaviour
                 SceneManager.LoadScene("Win");
                 AudioManager.Instance.PlaySFX("WinSound");
                 Cursor.lockState = CursorLockMode.None;
+                Cursor.visible = true;
             }
         }
 
@@ -785,6 +787,7 @@ public class PlayerController : MonoBehaviour
                 SceneManager.LoadScene("Win");
                 AudioManager.Instance.PlaySFX("WinSound");
                 Cursor.lockState = CursorLockMode.None;
+                Cursor.visible = true;
             }
         }
 
