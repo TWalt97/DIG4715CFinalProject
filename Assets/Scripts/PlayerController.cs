@@ -798,6 +798,10 @@ public class PlayerController : MonoBehaviour
             Destroy(collider.gameObject);
         }
 
+        if (collider.CompareTag("PlatformerDeathZone"))
+        {
+            deathPlat = true;
+        }
         // if (collider.CompareTag("hubMusic"))
         // {
         //     AudioManager.Instance.musicSource.Stop();
