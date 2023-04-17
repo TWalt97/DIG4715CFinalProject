@@ -187,6 +187,8 @@ public class PlayerController : MonoBehaviour
     private Transform mazeSpawn;
     [SerializeField]
     private GameObject colosseumWinObject;
+    [SerializeField]
+    private GameObject pickupParticle;
 
     private void Awake()
     {
@@ -209,7 +211,7 @@ public class PlayerController : MonoBehaviour
 
         AudioManager.Instance.musicSource.Stop();
         AudioManager.Instance.PlayMusic("HubMusic");
-        
+
         hud.isDefault = true;
         hud.isMaze = false;
         hud.isArena = false;
@@ -403,7 +405,7 @@ public class PlayerController : MonoBehaviour
         {
             AudioManager.Instance.musicSource.Stop();
             AudioManager.Instance.PlayMusic("HubMusic");
-            
+
             hud.isDefault = true;
             hud.isMaze = false;
             hud.isArena = false;
@@ -523,7 +525,7 @@ public class PlayerController : MonoBehaviour
             deathCol = false;
             colosseumSpawners.SetActive(false);
             GameObject[] enemies = GameObject.FindGameObjectsWithTag("Enemy");
-            foreach(GameObject enemy in enemies)
+            foreach (GameObject enemy in enemies)
                 GameObject.Destroy(enemy);
         }
 
@@ -539,7 +541,7 @@ public class PlayerController : MonoBehaviour
         {
             transform.position = platformerSpawnPos.position;
             deathPlat = false;
-            AudioManager.Instance.PlaySFX("LoseSound");     
+            AudioManager.Instance.PlaySFX("LoseSound");
         }
 
         // win platformer
@@ -731,6 +733,10 @@ public class PlayerController : MonoBehaviour
             Timer1.SetActive(false);
             mazeDoor.transform.position = new Vector3(-319f, 207.2345f, -622f);
             mazeDoor.transform.rotation = Quaternion.Euler(0, 0, 0);
+            if (winObject == 3)
+            {
+                SceneManager.LoadScene("Win");
+            }
         }
 
         if (collider.CompareTag("winColiseum"))
@@ -738,7 +744,7 @@ public class PlayerController : MonoBehaviour
 
             AudioManager.Instance.musicSource.Stop();
             AudioManager.Instance.PlayMusic("HubMusic");
-            
+
             winObject += 1;
             Debug.Log("Win Object: " + winObject);
             timerActive2 = false;
@@ -748,14 +754,17 @@ public class PlayerController : MonoBehaviour
             // default.SetActive(true);
             colDoor.transform.position = new Vector3(-282f, 207.2345f, -659f);
             colDoor.transform.rotation = Quaternion.Euler(0, 0, 0);
+            if (winObject == 3)
+            {
+                SceneManager.LoadScene("Win");
+            }
         }
 
         if (collider.CompareTag("winPlatformer"))
         {
-
             AudioManager.Instance.musicSource.Stop();
             AudioManager.Instance.PlayMusic("HubMusic");
-            
+
             winObject += 1;
             Debug.Log("Win Object: " + winObject);
             AudioManager.Instance.PlaySFX("WinSound");
@@ -767,6 +776,10 @@ public class PlayerController : MonoBehaviour
             }
             platformerDoor.transform.position = new Vector3(-281f, 207.2345f, -659f);
             platformerDoor.transform.rotation = Quaternion.Euler(0, 0, 0);
+            if (winObject == 3)
+            {
+                SceneManager.LoadScene("Win");
+            }
         }
 
         if (collider.CompareTag("startMaze"))
@@ -795,7 +808,7 @@ public class PlayerController : MonoBehaviour
             // HUD.Instance.SetArena(isArena);
             timer2 = newTime2;
         }
-        
+
         if (collider.CompareTag("startPlatformer"))
         {
             AudioManager.Instance.musicSource.Stop();
@@ -817,6 +830,8 @@ public class PlayerController : MonoBehaviour
 
         if (collider.CompareTag("PlatformPickUp"))
         {
+            GameObject pickup = GameObject.Instantiate(pickupParticle, collider.gameObject.transform.position, Quaternion.identity);
+
             AudioManager.Instance.PlaySFX("CheeseCollect");
 
             platformerCount += 1;

@@ -6,6 +6,7 @@ public class FanButtonController : MonoBehaviour
 {
     [SerializeField]
     private GameObject fan;
+    private GameObject particle;
     // Start is called before the first frame update
     void Start()
     {
@@ -22,6 +23,8 @@ public class FanButtonController : MonoBehaviour
     {
         if (other.tag == "Laser")
         {
+            particle = this.transform.GetChild(0).gameObject;
+            particle.GetComponent<ParticleSystem>().Play();
             AudioManager.Instance.PlaySFX("ButtonDestroy");
             DisableFan();
         }
@@ -32,6 +35,6 @@ public class FanButtonController : MonoBehaviour
         // AudioManager.Instance.PlaySFX("FanShutDown");
 
         fan.GetComponent<FanScript>().enabled = false;
-        Destroy(gameObject, 0.5f);
+        Destroy(gameObject, 1.5f);
     }
 }
