@@ -4,34 +4,21 @@ using UnityEngine;
 
 public class NewLightController : MonoBehaviour
 {
+    GameObject[] directionLight;
     [SerializeField]
     float lightCooldownTimer = 5f;
     float resetTime;
-    public Light directionLight;
     // Start is called before the first frame update
     void Start()
     {
+        directionLight = GameObject.FindGameObjectsWithTag("light");
         resetTime = lightCooldownTimer;
     }
 
     // Update is called once per frame
     void Update()
     {
-        lightCooldownTimer -= Time.deltaTime;
-        if (lightCooldownTimer <= 0)
-        {
-            if (directionLight.intensity == 1f)
-            {
-                StartCoroutine(FadeLightSource.StartFade(directionLight, 1f, 0.05f));
-                lightCooldownTimer = resetTime;
-            }
-            if (directionLight.intensity == 0.05f)
-            {
-                StartCoroutine(FadeLightSource.StartFade(directionLight, 1f, 1f));
-                lightCooldownTimer = resetTime; 
-            }
 
-        }
     }
 
     public static class FadeLightSource
