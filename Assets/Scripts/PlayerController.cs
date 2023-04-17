@@ -289,6 +289,8 @@ public class PlayerController : MonoBehaviour
     {
         if (playerSize == startSize)
         {
+            AudioManager.Instance.PlaySFX("Shrink");
+
             hud.shrinking = true;
             StartCoroutine(ChangeScale.StartFade(this.gameObject, 0.1f, shrinkSize));
             animator.SetBool("Shrink", true);
@@ -300,6 +302,8 @@ public class PlayerController : MonoBehaviour
     {
         if (playerSize == shrinkSize)
         {
+            AudioManager.Instance.PlaySFX("Shrink");
+
             hud.shrinking = false;
             StartCoroutine(ChangeScale.StartFade(this.gameObject, 0.1f, startSize));
             animator.SetBool("Shrink", true);
@@ -320,6 +324,8 @@ public class PlayerController : MonoBehaviour
 
     private void Shoot()
     {
+        AudioManager.Instance.PlaySFX("LaserFire");
+
         animator.SetBool("Shoot", false);
         RaycastHit hit;
         hud.shooting = false;
@@ -337,11 +343,15 @@ public class PlayerController : MonoBehaviour
         lightToggle = !lightToggle;
         if (lightToggle == true)
         {
+            AudioManager.Instance.PlaySFX("Glow");
+
             hud.glowing = true;
             StartCoroutine(FadeLightSource.StartFade(glowLight, 2f, maxLightIntensity));
         }
         if (lightToggle == false)
         {
+            AudioManager.Instance.PlaySFX("Glow");
+
             hud.glowing = false;
             StartCoroutine(FadeLightSource.StartFade(glowLight, 2f, 0f));
         }
@@ -471,7 +481,7 @@ public class PlayerController : MonoBehaviour
         {
             transform.position = new Vector3(-24.55f, 196.08f, -806.58f);
             // loseText.SetActive(true);
-            //AudioManager.Instance.PlaySFX("LoseSound");
+            AudioManager.Instance.PlaySFX("LoseSound");
             // timer = newTime;
             timerActive = false;
             dead = false;
@@ -483,7 +493,7 @@ public class PlayerController : MonoBehaviour
         if (deathCol == true)
         {
             transform.position = new Vector3(99.91f, 194.3172f, -823.0043f);
-            //AudioManager.Instance.PlaySFX("LoseSound");
+            AudioManager.Instance.PlaySFX("LoseSound");
             // timer2 = newTime2;
             timerActive2 = false;
             Timer2.SetActive(false);
@@ -683,6 +693,9 @@ public class PlayerController : MonoBehaviour
     {
         if (collider.CompareTag("winMaze"))
         {
+            AudioManager.Instance.musicSource.Stop();
+            AudioManager.Instance.PlayMusic("HubMusic");
+
             winObject += 1;
             Debug.Log("Win Object: " + winObject);
             timerActive = false;
@@ -695,6 +708,10 @@ public class PlayerController : MonoBehaviour
 
         if (collider.CompareTag("winColiseum"))
         {
+
+            AudioManager.Instance.musicSource.Stop();
+            AudioManager.Instance.PlayMusic("HubMusic");
+            
             winObject += 1;
             Debug.Log("Win Object: " + winObject);
             timerActive2 = false;
@@ -708,6 +725,10 @@ public class PlayerController : MonoBehaviour
 
         if (collider.CompareTag("winPlatformer"))
         {
+
+            AudioManager.Instance.musicSource.Stop();
+            AudioManager.Instance.PlayMusic("HubMusic");
+            
             winObject += 1;
             Debug.Log("Win Object: " + winObject);
             AudioManager.Instance.PlaySFX("WinSound");
@@ -723,6 +744,8 @@ public class PlayerController : MonoBehaviour
 
         if (collider.CompareTag("startMaze"))
         {
+            AudioManager.Instance.musicSource.Stop();
+            AudioManager.Instance.PlayMusic("MazeMusic");
             timerActive = true;
             Timer1.SetActive(true);
             timer = newTime;
@@ -730,6 +753,8 @@ public class PlayerController : MonoBehaviour
 
         if (collider.CompareTag("startColiseum"))
         {
+            AudioManager.Instance.musicSource.Stop();
+            AudioManager.Instance.PlayMusic("ArenaMusic");
             hud.isDefault = false;
             hud.isArena = true;
             colosseumTrigger = collider.gameObject;
@@ -744,6 +769,9 @@ public class PlayerController : MonoBehaviour
         
         if (collider.CompareTag("startPlatformer"))
         {
+            AudioManager.Instance.musicSource.Stop();
+            AudioManager.Instance.PlayMusic("VentMusic");
+            
             transform.position = platformerSpawnPos.position;
 
             foreach (GameObject go in directionLight)
