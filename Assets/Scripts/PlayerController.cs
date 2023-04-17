@@ -304,7 +304,7 @@ public class PlayerController : MonoBehaviour
     {
         if (playerSize == shrinkSize)
         {
-            AudioManager.Instance.PlaySFX("Shrink");
+            AudioManager.Instance.PlaySFX("Grow");
 
             hud.shrinking = false;
             StartCoroutine(ChangeScale.StartFade(this.gameObject, 0.1f, startSize));
@@ -352,7 +352,7 @@ public class PlayerController : MonoBehaviour
         }
         if (lightToggle == false)
         {
-            AudioManager.Instance.PlaySFX("Glow");
+            AudioManager.Instance.PlaySFX("GlowFade");
 
             hud.glowing = false;
             StartCoroutine(FadeLightSource.StartFade(glowLight, 2f, 0f));
