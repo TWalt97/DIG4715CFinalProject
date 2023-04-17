@@ -787,6 +787,8 @@ public class PlayerController : MonoBehaviour
 
         if (collider.CompareTag("PlatformPickUp"))
         {
+            AudioManager.Instance.PlaySFX("CheeseCollect");
+
             platformerCount += 1;
             Debug.Log("Platformer Object: " + platformerCount);
             Destroy(collider.gameObject);

@@ -22,12 +22,15 @@ public class FanButtonController : MonoBehaviour
     {
         if (other.tag == "Laser")
         {
+            AudioManager.Instance.PlaySFX("ButtonDestroy");
             DisableFan();
         }
     }
 
     private void DisableFan()
     {
+        // AudioManager.Instance.PlaySFX("FanShutDown");
+
         fan.GetComponent<FanScript>().enabled = false;
         Destroy(gameObject, 0.5f);
     }
