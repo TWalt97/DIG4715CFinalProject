@@ -727,9 +727,9 @@ public class PlayerController : MonoBehaviour
             Debug.Log("Win Object: " + winObject);
             timerActive = false;
             AudioManager.Instance.PlaySFX("WinSound");
-            transform.position = new Vector3(37.69f, 195.81f, -824.1f);
+            transform.position = startPos;
             Timer1.SetActive(false);
-            mazeDoor.transform.position = new Vector3(-2.76f, 207.2345f, -817.63f);
+            mazeDoor.transform.position = new Vector3(-319f, 207.2345f, -622f);
             mazeDoor.transform.rotation = Quaternion.Euler(0, 0, 0);
         }
 
@@ -746,8 +746,8 @@ public class PlayerController : MonoBehaviour
             transform.position = new Vector3(37.69f, 195.81f, -824.1f);
             Timer2.SetActive(false);
             // default.SetActive(true);
-            colDoor.transform.position = new Vector3(73.06473f, 207.2345f, -817.75f);
-            colDoor.transform.rotation = Quaternion.Euler(0, 180, 0);
+            colDoor.transform.position = new Vector3(-282f, 207.2345f, -659f);
+            colDoor.transform.rotation = Quaternion.Euler(0, 0, 0);
         }
 
         if (collider.CompareTag("winPlatformer"))
@@ -765,7 +765,7 @@ public class PlayerController : MonoBehaviour
             {
                 go.SetActive(true);
             }
-            platformerDoor.transform.position = new Vector3(35.3625f, 207.2345f, -855.0118f);
+            platformerDoor.transform.position = new Vector3(-281f, 207.2345f, -659f);
             platformerDoor.transform.rotation = Quaternion.Euler(0, 0, 0);
         }
 
