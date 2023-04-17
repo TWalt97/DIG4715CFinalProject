@@ -209,7 +209,11 @@ public class PlayerController : MonoBehaviour
 
         AudioManager.Instance.musicSource.Stop();
         AudioManager.Instance.PlayMusic("HubMusic");
-        // hud.isDefault = true;
+        
+        hud.isDefault = true;
+        hud.isMaze = false;
+        hud.isArena = false;
+        hud.isVent = false;
     }
 
     private void OnEnable()
@@ -397,6 +401,14 @@ public class PlayerController : MonoBehaviour
 
         if (pauseUi.hud == true)
         {
+            AudioManager.Instance.musicSource.Stop();
+            AudioManager.Instance.PlayMusic("HubMusic");
+            
+            hud.isDefault = true;
+            hud.isMaze = false;
+            hud.isArena = false;
+            hud.isVent = false;
+
             transform.position = startPos;
             timerActive = false;
             timerActive2 = false;
@@ -759,6 +771,8 @@ public class PlayerController : MonoBehaviour
 
         if (collider.CompareTag("startMaze"))
         {
+            hud.isDefault = false;
+            hud.isMaze = true;
             AudioManager.Instance.musicSource.Stop();
             AudioManager.Instance.PlayMusic("MazeMusic");
             timerActive = true;
@@ -786,7 +800,10 @@ public class PlayerController : MonoBehaviour
         {
             AudioManager.Instance.musicSource.Stop();
             AudioManager.Instance.PlayMusic("VentMusic");
-            
+
+            hud.isDefault = false;
+            hud.isVent = true;
+
             transform.position = platformerSpawnPos.position;
 
             foreach (GameObject go in directionLight)
