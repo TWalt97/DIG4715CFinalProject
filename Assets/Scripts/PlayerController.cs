@@ -736,6 +736,8 @@ public class PlayerController : MonoBehaviour
             if (winObject == 3)
             {
                 SceneManager.LoadScene("Win");
+                AudioManager.Instance.PlaySFX("WinSound");
+                Cursor.lockState = CursorLockMode.None;
             }
         }
 
@@ -749,14 +751,16 @@ public class PlayerController : MonoBehaviour
             Debug.Log("Win Object: " + winObject);
             timerActive2 = false;
             AudioManager.Instance.PlaySFX("WinSound");
-            transform.position = new Vector3(37.69f, 195.81f, -824.1f);
+            transform.position = startPos;
             Timer2.SetActive(false);
             // default.SetActive(true);
-            colDoor.transform.position = new Vector3(-282f, 207.2345f, -659f);
+            colDoor.transform.position = new Vector3(-244f, 207.2345f, -622f);
             colDoor.transform.rotation = Quaternion.Euler(0, 0, 0);
             if (winObject == 3)
             {
                 SceneManager.LoadScene("Win");
+                AudioManager.Instance.PlaySFX("WinSound");
+                Cursor.lockState = CursorLockMode.None;
             }
         }
 
@@ -779,6 +783,8 @@ public class PlayerController : MonoBehaviour
             if (winObject == 3)
             {
                 SceneManager.LoadScene("Win");
+                AudioManager.Instance.PlaySFX("WinSound");
+                Cursor.lockState = CursorLockMode.None;
             }
         }
 
