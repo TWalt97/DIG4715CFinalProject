@@ -33,10 +33,11 @@ public class Glow : MonoBehaviour
             }*/
             if (glowBool == true)
             {
+                AudioManager.Instance.PlaySFX("Glow");
                 glow.SetActive(true);
             }
             if (glowBool == false)
-            {
+            {   
                 glow.SetActive(false);
             }
         //}

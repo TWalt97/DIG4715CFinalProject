@@ -47,6 +47,7 @@ public class EnemyController : MonoBehaviour
 
     private void Hit()
     {
+        AudioManager.Instance.PlaySFX("SkeleDeath");
         animator.SetBool("Death", true);
         agent.enabled = false;
         Invoke("Die", 1f);

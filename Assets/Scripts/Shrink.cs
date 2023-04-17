@@ -27,7 +27,7 @@ public class Shrink : MonoBehaviour
     {
         if (shrinkBool == true)
         {
-            // AudioManager.Instance.PlaySFX("Shrink");
+            AudioManager.Instance.PlaySFX("Shrink");
             // Debug.Log("Pressing left control");
 
             // shrink size
@@ -37,6 +37,8 @@ public class Shrink : MonoBehaviour
         }
         if (shrinkBool == false)
         {
+            AudioManager.Instance.PlaySFX("Shrink");
+
             // Debug.Log("Release left control");
 
             // return to normal size
