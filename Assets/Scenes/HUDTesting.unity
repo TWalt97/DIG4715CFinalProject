@@ -846,27 +846,60 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1b681bdf8f75ebe49aadd0a032cdf9c4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 15
+  playerSpeed: 2
+  jumpHeight: 20
+  rotationSpeed: 5
+  maxSpeed: 0
+  groundedLayer:
+    serializedVersion: 2
+    m_Bits: 0
+  groundDrag: 0
+  distanceToGround: 0
   newSpeed: 15
   rotationSmoothTime: 0
-  jumpHeight: 20
   controller: {fileID: 247924087}
-  cam: {fileID: 1301907555}
-  zoomCam: {fileID: 1931471357}
-  aimColliderLayerMask:
-    serializedVersion: 2
-    m_Bits: 1
-  laserParticle: {fileID: 1454969340}
   winObject: 0
   winObjectText: {fileID: 1395530237}
   gameOver: 0
   dead: 0
   timeText: {fileID: 2063202153}
+  timeText2: {fileID: 0}
   timer: 60
+  timer2: 0
   newTime: 60
+  newTime2: 0
+  Timer1: {fileID: 0}
+  Timer2: {fileID: 0}
   loseText: {fileID: 405477423}
   winText: {fileID: 473723025}
   LoseTime: 5
+  maxLightIntensity: 0
+  glowLight: {fileID: 0}
+  barrelTransform: {fileID: 0}
+  particlePos: {fileID: 0}
+  particleParent: {fileID: 0}
+  aiming: 0
+  laserParticle: {fileID: 1454969340}
+  shrinkSize: 3
+  interactRange: 5
+  tutorialCamera: {fileID: 0}
+  gameCamera: {fileID: 0}
+  tutorialPos: {fileID: 0}
+  thirdPersonCamera: {fileID: 0}
+  aimCamera: {fileID: 0}
+  TVCinemachine: {fileID: 0}
+  interactUI: {fileID: 0}
+  hud: {fileID: 0}
+  colWin: {fileID: 0}
+  platformerCount: 0
+  platformerGoal: 0
+  platformerWin: {fileID: 0}
+  mazeDoor: {fileID: 0}
+  platformerDoor: {fileID: 0}
+  colDoor: {fileID: 0}
+  pauseUi: {fileID: 0}
+  colosseumDoor: {fileID: 0}
+  colosseumSpawners: {fileID: 0}
 --- !u!114 &247924082
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -881,6 +914,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   shrinkSize: 1
   normalSize: 2
+  shrinkBool: 0
 --- !u!114 &247924083
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -894,11 +928,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   glow: {fileID: 736743766}
-  glowOn: {fileID: 2100000, guid: 924af47249fdca5459d7f8039041bb20, type: 2}
-  glowOff: {fileID: 2100000, guid: 5309a261a575afa4cbb09705f3e4b5b9, type: 2}
-  isGlowing: 10
   glowBool: 0
-  cooldownTime: 20
 --- !u!4 &247924084
 Transform:
   m_ObjectHideFlags: 0
@@ -1007,6 +1037,7 @@ MonoBehaviour:
   arenaObjective: {fileID: 687415878}
   ventObjective: {fileID: 1077648221}
   defaultObjective: {fileID: 1489709317}
+  defaultText: {fileID: 0}
   shrinkButtonBorder: {fileID: 284936454}
   shrinkButtonBackground: {fileID: 1177705820}
   aimButtonBorder: {fileID: 1777098026}
@@ -1019,6 +1050,10 @@ MonoBehaviour:
   aimIcon: {fileID: 2107111949}
   laserIcon: {fileID: 307327234}
   glowIcon: {fileID: 1417353259}
+  glowing: 0
+  shrinking: 0
+  aiming: 0
+  shooting: 0
 --- !u!4 &258581914
 Transform:
   m_ObjectHideFlags: 0
@@ -1097,7 +1132,7 @@ MonoBehaviour:
   m_Colors:
     m_NormalColor: {r: 0.46037364, g: 0.28564438, b: 0.46226418, a: 1}
     m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
-    m_PressedColor: {r: 0.45882356, g: 0.28627452, b: 0.46274513, a: 0.5882353}
+    m_PressedColor: {r: 0.45882356, g: 0.28627452, b: 0.46274513, a: 0.36078432}
     m_SelectedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
     m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
     m_ColorMultiplier: 1
@@ -4130,7 +4165,7 @@ MonoBehaviour:
   m_Colors:
     m_NormalColor: {r: 0.46037364, g: 0.28564438, b: 0.46226418, a: 1}
     m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
-    m_PressedColor: {r: 0.45882356, g: 0.28627452, b: 0.46274513, a: 0.5882353}
+    m_PressedColor: {r: 0.45882356, g: 0.28627452, b: 0.46274513, a: 0.36078432}
     m_SelectedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
     m_DisabledColor: {r: 0.45882356, g: 0.28627452, b: 0.46274513, a: 0.5882353}
     m_ColorMultiplier: 1
@@ -6550,7 +6585,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1103424821}
-  m_LocalRotation: {x: 0.0302041, y: 0.7561899, z: -0.034992225, w: 0.65271753}
+  m_LocalRotation: {x: 0.030204097, y: 0.7561898, z: -0.034992214, w: 0.6527176}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -14575,7 +14610,7 @@ MonoBehaviour:
   m_Colors:
     m_NormalColor: {r: 0.46037364, g: 0.28564438, b: 0.46226418, a: 1}
     m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
-    m_PressedColor: {r: 0.45882356, g: 0.28627452, b: 0.46274513, a: 0.5882353}
+    m_PressedColor: {r: 0.45882356, g: 0.28627452, b: 0.46274513, a: 0.36078432}
     m_SelectedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
     m_DisabledColor: {r: 0.45882356, g: 0.28627452, b: 0.46274513, a: 0.5882353}
     m_ColorMultiplier: 1
@@ -15839,6 +15874,7 @@ GameObject:
   - component: {fileID: 1671516428}
   - component: {fileID: 1671516427}
   - component: {fileID: 1671516426}
+  - component: {fileID: 1671516430}
   m_Layer: 5
   m_Name: Canvas
   m_TagString: Untagged
@@ -15939,6 +15975,44 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
+--- !u!114 &1671516430
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1671516425}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c3d1c22e1655c6146898b55ffb3ea5c4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isDefault: 0
+  isMaze: 0
+  isArena: 0
+  isVent: 0
+  isGlow: 0
+  mazeObjective: {fileID: 1637250152}
+  arenaObjective: {fileID: 687415878}
+  ventObjective: {fileID: 1077648221}
+  defaultObjective: {fileID: 1489709317}
+  defaultText: {fileID: 100001113}
+  shrinkButtonBorder: {fileID: 284936454}
+  shrinkButtonBackground: {fileID: 1177705820}
+  aimButtonBorder: {fileID: 1777098026}
+  aimButtonBackground: {fileID: 671276002}
+  laserButtonBorder: {fileID: 1522803631}
+  laserButtonBackground: {fileID: 2124285748}
+  glowButtonBorder: {fileID: 814910859}
+  glowButtonBackground: {fileID: 1029320497}
+  shrinkIcon: {fileID: 379917382}
+  aimIcon: {fileID: 2107111949}
+  laserIcon: {fileID: 307327234}
+  glowIcon: {fileID: 1417353259}
+  glowing: 0
+  shrinking: 0
+  aiming: 0
+  shooting: 0
 --- !u!1 &1709853855
 GameObject:
   m_ObjectHideFlags: 0
@@ -16604,7 +16678,7 @@ MonoBehaviour:
   m_Colors:
     m_NormalColor: {r: 0.46037364, g: 0.28564438, b: 0.46226418, a: 1}
     m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
-    m_PressedColor: {r: 0.45882356, g: 0.28627452, b: 0.46274513, a: 0.5882353}
+    m_PressedColor: {r: 0.45882356, g: 0.28627452, b: 0.46274513, a: 0.36078432}
     m_SelectedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
     m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
     m_ColorMultiplier: 1

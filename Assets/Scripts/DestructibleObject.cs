@@ -20,6 +20,15 @@ public class DestructibleObject : MonoBehaviour
         }
     }
 
+    private void OnParticleCollision(GameObject other)
+    {
+        if (other.tag == "Laser")
+        {
+            TakeDamage(1);
+            other.GetComponent<ParticleSystem>().Stop(true, ParticleSystemStopBehavior.StopEmitting);
+        }
+    }
+
     void Die()
     {
         Destroy(gameObject);

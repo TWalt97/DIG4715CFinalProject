@@ -6,15 +6,17 @@ using TMPro;
 
 public class HUD : MonoBehaviour
 {
+    public static HUD Instance;
     // Testing
     // isDefault is testing too but need it to be enabled for now
+
     public bool isDefault;
-    // public bool isMaze;
-    // public bool isArena;
-    // public bool isVent;
+    public bool isMaze;
+    public bool isArena;
+    public bool isVent;
     // public bool isGlow;
 
-    private bool isAiming = false;
+    public bool isAiming = false;
 
     // Old Glow
     // private bool isCooldown = false;
@@ -69,24 +71,29 @@ public class HUD : MonoBehaviour
     private ColorBlock glowBackgroundColors;
 
     private Color defaultBorderButtonBaseColor = new Color(0.4603736f, 0.2856444f, 0.4622642f, 1.0f);
-    private Color defaultBorderButtonPressedColor = new Color(0.4603736f, 0.2856444f, 0.4622642f, 0.5882353f);
+    private Color defaultBorderButtonPressedColor = new Color(0.4603736f, 0.2856444f, 0.4622642f, 0.362f);
     private Color defaultBackgroundButtonBaseColor = new Color(0.6352941f, 0.3540406f, 0.6431373f, 1.0f);
-    private Color defaultBackgroundButtonPressedColor = new Color(0.6352941f, 0.3540406f, 0.6431373f,  0.5882353f);
+    private Color defaultBackgroundButtonPressedColor = new Color(0.6352941f, 0.3540406f, 0.6431373f,  0.362f);
 
     private Color mazeBorderButtonBaseColor = new Color(0.2470588f, 0.2392157f, 0.5882353f, 1.0f);
-    private Color mazeBorderButtonPressedColor = new Color(0.2470588f, 0.2392157f, 0.5882353f, 0.5882353f);
+    private Color mazeBorderButtonPressedColor = new Color(0.2470588f, 0.2392157f, 0.5882353f, 0.362f);
     private Color mazeBackgroundButtonBaseColor = new Color (0.6196079f, 0.7301583f, 0.8980392f, 1.0f);
-    private Color mazeBackgroundButtonPressedColor = new Color (0.6196079f, 0.7301583f, 0.8980392f, 0.5882353f);
+    private Color mazeBackgroundButtonPressedColor = new Color (0.6196079f, 0.7301583f, 0.8980392f, 0.362f);
 
     private Color arenaBorderButtonBaseColor = new Color(0.5843138f, 0.2352941f, 0.2388183f, 1.0f);
-    private Color arenaBorderButtonPressedColor = new Color(0.5843138f, 0.2352941f, 0.2388183f, 0.5882353f);
+    private Color arenaBorderButtonPressedColor = new Color(0.5843138f, 0.2352941f, 0.2388183f, 0.362f);
     private Color arenaBackgroundButtonBaseColor = new Color(0.8980392f, 0.6875842f, 0.6196079f, 1.0f);
-    private Color arenaBackgroundButtonPressedColor = new Color(0.8980392f, 0.6875842f, 0.6196079f, 0.5882353f);
+    private Color arenaBackgroundButtonPressedColor = new Color(0.8980392f, 0.6875842f, 0.6196079f, 0.362f);
 
     private Color ventBorderButtonBaseColor = new Color(0.8901961f, 0.8980393f, 0.6196079f, 1.0f);
-    private Color ventBorderButtonPressedColor = new Color(0.8901961f, 0.8980393f, 0.6196079f, 0.5882353f);
+    private Color ventBorderButtonPressedColor = new Color(0.8901961f, 0.8980393f, 0.6196079f, 0.362f);
     private Color ventBackgroundButtonBaseColor = new Color(0.8161573f, 0.8301887f, 0.3320754f, 1.0f);
-    private Color ventBackgroundButtonPressedColor = new Color(0.8161573f, 0.8301887f, 0.3320754f, 0.5882353f);
+    private Color ventBackgroundButtonPressedColor = new Color(0.8161573f, 0.8301887f, 0.3320754f, 0.362f);
+
+    public bool glowing;
+    public bool shrinking;
+    public bool aiming;
+    public bool shooting;
 
     // Start is called before the first frame update
     void Awake()
@@ -101,10 +108,10 @@ public class HUD : MonoBehaviour
         glowBackgroundColors = glowButtonBackground.colors;
         // player = GetComponent<PlayerController>();
 
-        mazeObjective.SetActive(false);
-        arenaObjective.SetActive(false);
-        ventObjective.SetActive(false);
-        defaultObjective.SetActive(false);
+        // mazeObjective.SetActive(false);
+        // arenaObjective.SetActive(false);
+        // ventObjective.SetActive(false);
+        // defaultObjective.SetActive(false);
 
         laserButtonBorder.interactable = false;
         laserButtonBackground.interactable = false;
@@ -113,32 +120,32 @@ public class HUD : MonoBehaviour
         glowButtonBackground.interactable = true;
 
         // Set default hud
-        SetDefault(isDefault);
+        // SetDefault(isDefault);
     }
 
     // Update is called once per frame
     void Update()
     {
         // Shrinking
-        if (Input.GetKeyDown(KeyCode.LeftControl))
+        if (shrinking == true)
         {
             UseAbility(shrinkButtonBorder);
             UseAbility(shrinkButtonBackground);
         }
-        else if (Input.GetKeyUp(KeyCode.LeftControl))
+        if (shrinking == false)
         {
             FadeToColor(shrinkButtonBorder.colors.normalColor, shrinkButtonBorder);
             FadeToColor(shrinkButtonBackground.colors.normalColor, shrinkButtonBackground);
         }
 
         // Aiming
-        if (Input.GetKeyDown(KeyCode.Mouse1))
+        if (aiming == true)
         {
             UseAbility(aimButtonBorder);
             UseAbility(aimButtonBackground);
             isAiming = true;
         }
-        else if (Input.GetKeyUp(KeyCode.Mouse1))
+        if (aiming == false)
         {
             FadeToColor(aimButtonBorder.colors.normalColor, aimButtonBorder);
             FadeToColor(aimButtonBackground.colors.normalColor, aimButtonBackground);
@@ -157,23 +164,34 @@ public class HUD : MonoBehaviour
         }
 
         // Fire Laser
-        if (isAiming && Input.GetKeyDown(KeyCode.Mouse0))
+        if (shooting == true)
         {
             UseAbility(laserButtonBorder);
             UseAbility(laserButtonBackground);
         }
-        else if (isAiming && Input.GetKeyUp(KeyCode.Mouse0))
+        if (shooting == false)
         {
             FadeToColor(laserButtonBorder.colors.normalColor, laserButtonBorder);
             FadeToColor(laserButtonBackground.colors.normalColor, laserButtonBackground);
         }
 
+        if (glowing == true)
+        {
+            glowButtonBorder.interactable = false;
+            glowButtonBackground.interactable = false;
+        }
+        else
+        {
+            glowButtonBorder.interactable = true;
+            glowButtonBackground.interactable = true;
+        }
+
         // Testing
         // isGlowing(isGlow);
-        // SetDefault(isDefault);
-        // SetMaze(isMaze);
-        // SetArena(isArena);
-        // SetVent(isVent);
+        SetDefault(isDefault);
+        SetMaze(isMaze);
+        SetArena(isArena);
+        SetVent(isVent);
 
         // Old Glowing
         // if (Input.GetKeyDown(KeyCode.E))
@@ -217,7 +235,7 @@ public class HUD : MonoBehaviour
     {
         if (isDefault)
         {
-            defaultObjective.SetActive(true);
+            // defaultObjective.SetActive(true);
 
             SetImageColor(shrinkIcon, defaultIconColor);
             SetImageColor(aimIcon, defaultIconColor);
@@ -235,7 +253,7 @@ public class HUD : MonoBehaviour
         }
         else
         {
-            defaultObjective.SetActive(false);
+            // defaultObjective.SetActive(false);
         }
     }
 
@@ -248,7 +266,7 @@ public class HUD : MonoBehaviour
     {
         if (isMaze)
         {
-            mazeObjective.SetActive(true);
+            // mazeObjective.SetActive(true);
 
             SetImageColor(shrinkIcon, mazeIconColor);
             SetImageColor(aimIcon, mazeIconColor);
@@ -266,7 +284,7 @@ public class HUD : MonoBehaviour
         }
         else
         {
-            mazeObjective.SetActive(false);
+            // mazeObjective.SetActive(false);
             SetDefault(isDefault);
         }
     }
@@ -275,7 +293,7 @@ public class HUD : MonoBehaviour
     {
         if (isArena)
         {
-            arenaObjective.SetActive(true);
+            // arenaObjective.SetActive(true);
 
             SetImageColor(shrinkIcon, arenaIconColor);
             SetImageColor(aimIcon, arenaIconColor);
@@ -293,7 +311,7 @@ public class HUD : MonoBehaviour
         }
         else
         {
-            arenaObjective.SetActive(false);
+            // arenaObjective.SetActive(false);
             SetDefault(isDefault);
         }
     }
@@ -302,7 +320,7 @@ public class HUD : MonoBehaviour
     {
         if (isVent)
         {
-            ventObjective.SetActive(true);
+            // ventObjective.SetActive(true);
 
             SetImageColor(shrinkIcon, ventIconColor);
             SetImageColor(aimIcon, ventIconColor);
@@ -320,7 +338,7 @@ public class HUD : MonoBehaviour
         }
         else
         {
-            ventObjective.SetActive(false);
+            // ventObjective.SetActive(false);
             SetDefault(isDefault);
         }
     }

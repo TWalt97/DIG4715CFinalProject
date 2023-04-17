@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Cinemachine;
 
 public class PauseUi : MonoBehaviour
 {
@@ -11,9 +12,13 @@ public class PauseUi : MonoBehaviour
     public GameObject mainPauseScreen;
     public GameObject creditsScreen;
     public GameObject howToPlayScreen;
+    public GameObject optionsScreen;
     public GameObject HUDOverlay;
 
     bool paused = false;
+    public bool hud;
+    public CinemachineBrain cinemachineBrain;
+
     //public GameObject ResumeButtonMenuUI;
 
     // Update is called once per frame
@@ -29,10 +34,12 @@ public class PauseUi : MonoBehaviour
                 pauseMenuUI.SetActive(true);
                 Cursor.lockState = CursorLockMode.None;
                 Cursor.visible = true;
+                //cinemachineBrain.m_UpdateMethod = CinemachineBrain.UpdateMethod.LateUpdate;
 
                 mainPauseScreen.SetActive(true);
                 creditsScreen.SetActive(false);
                 howToPlayScreen.SetActive(false);
+                optionsScreen.SetActive(false);
                 HUDOverlay.SetActive(false);
             }
             else
@@ -43,6 +50,7 @@ public class PauseUi : MonoBehaviour
                 HUDOverlay.SetActive(true);
                 Cursor.lockState = CursorLockMode.Locked;
                 Cursor.visible = false;
+                //cinemachineBrain.m_UpdateMethod = CinemachineBrain.UpdateMethod.SmartUpdate;
             }
         }
 
@@ -68,25 +76,16 @@ public class PauseUi : MonoBehaviour
         pauseMenuUI.SetActive(false);
         HUDOverlay.SetActive(true);
         Time.timeScale = 1f;
+        AudioListener.pause = false;
         GameIsPaused = false;
         Cursor.lockState = CursorLockMode.Locked;
     }
 
     // change to about
-    /*public void About()
+    public void HudTeleport()
     {
-        ResumeButtonMenuUI.SetActive(true);
-        pauseMenuUI.SetActive(false);
-        Time.timeScale = 0f;
+        hud = true;
     }
-
-    public void ResumeAbout()
-    {
-        ResumeButtonMenuUI.SetActive(false);
-        Time.timeScale = 1f;
-        GameIsPaused = false;
-        Cursor.lockState = CursorLockMode.Locked;
-    }*/
 
     // pause game
     void Pause()
