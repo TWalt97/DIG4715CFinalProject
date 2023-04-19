@@ -9,6 +9,8 @@ public class BrightnessScripts : MonoBehaviour
 
     [Header("Point Light")]
     GameObject[] directionLight;
+    [SerializeField]
+    private NewLightController newLightController;
 
     void Start()
     {

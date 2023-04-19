@@ -25220,6 +25220,10 @@ PrefabInstance:
       value: 1.5
       objectReference: {fileID: 0}
     - target: {fileID: 7494069694623438088, guid: 1f6854a47ff12f04e93acd010bd88041, type: 3}
+      propertyPath: maxSpeedPush
+      value: 200
+      objectReference: {fileID: 0}
+    - target: {fileID: 7494069694623438088, guid: 1f6854a47ff12f04e93acd010bd88041, type: 3}
       propertyPath: fullSpeedTime
       value: 6
       objectReference: {fileID: 0}
@@ -25595,6 +25599,10 @@ PrefabInstance:
     - target: {fileID: 7969696206136045820, guid: 6de130ff87faa4945a9f76062740cd8c, type: 3}
       propertyPath: m_Color.r
       value: 0.9368369
+      objectReference: {fileID: 0}
+    - target: {fileID: 7969696206136045820, guid: 6de130ff87faa4945a9f76062740cd8c, type: 3}
+      propertyPath: m_Intensity
+      value: 1.12
       objectReference: {fileID: 0}
     - target: {fileID: 7969696206136045821, guid: 6de130ff87faa4945a9f76062740cd8c, type: 3}
       propertyPath: m_RootOrder
@@ -36380,6 +36388,10 @@ PrefabInstance:
       propertyPath: m_Color.r
       value: 0.9368369
       objectReference: {fileID: 0}
+    - target: {fileID: 7969696206136045820, guid: 6de130ff87faa4945a9f76062740cd8c, type: 3}
+      propertyPath: m_Intensity
+      value: 1.12
+      objectReference: {fileID: 0}
     - target: {fileID: 7969696206136045821, guid: 6de130ff87faa4945a9f76062740cd8c, type: 3}
       propertyPath: m_RootOrder
       value: 47
@@ -38565,6 +38577,18 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 739431440, guid: d2746fa4911620f46b6a72639630fcf5, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 739431440, guid: d2746fa4911620f46b6a72639630fcf5, type: 3}
+      propertyPath: maxIntensity
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 739431440, guid: d2746fa4911620f46b6a72639630fcf5, type: 3}
+      propertyPath: lightCooldownTimer
+      value: 15
+      objectReference: {fileID: 0}
     - target: {fileID: 6149047558969403946, guid: d2746fa4911620f46b6a72639630fcf5, type: 3}
       propertyPath: m_UpdateMethod
       value: 2
@@ -38583,7 +38607,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6149047558969403948, guid: d2746fa4911620f46b6a72639630fcf5, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 11.275574
+      value: 11.262756
       objectReference: {fileID: 0}
     - target: {fileID: 6149047558969403985, guid: d2746fa4911620f46b6a72639630fcf5, type: 3}
       propertyPath: m_Layer
@@ -38770,6 +38794,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 2119142772}
     - target: {fileID: 6149047560892377695, guid: d2746fa4911620f46b6a72639630fcf5, type: 3}
+      propertyPath: colosseumTimer
+      value: 60
+      objectReference: {fileID: 0}
+    - target: {fileID: 6149047560892377695, guid: d2746fa4911620f46b6a72639630fcf5, type: 3}
       propertyPath: pickupParticle
       value: 
       objectReference: {fileID: 703014427044323502, guid: 7ed2a3ed2426a6540be35330b5445fe6, type: 3}
@@ -38782,9 +38810,17 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 7672310985657922652}
     - target: {fileID: 6149047560892377695, guid: d2746fa4911620f46b6a72639630fcf5, type: 3}
+      propertyPath: colosseumTrigger
+      value: 
+      objectReference: {fileID: 1569077805}
+    - target: {fileID: 6149047560892377695, guid: d2746fa4911620f46b6a72639630fcf5, type: 3}
       propertyPath: colosseumSpawners
       value: 
       objectReference: {fileID: 1880459426}
+    - target: {fileID: 6149047560892377695, guid: d2746fa4911620f46b6a72639630fcf5, type: 3}
+      propertyPath: colosseumTimerText
+      value: 
+      objectReference: {fileID: 893933429}
     - target: {fileID: 6149047560892377695, guid: d2746fa4911620f46b6a72639630fcf5, type: 3}
       propertyPath: colosseumWinObject
       value: 
@@ -38797,6 +38833,10 @@ PrefabInstance:
       propertyPath: platformerWinObject
       value: 
       objectReference: {fileID: 759674250}
+    - target: {fileID: 6149047560892377695, guid: d2746fa4911620f46b6a72639630fcf5, type: 3}
+      propertyPath: colosseumTimerDisplay
+      value: 
+      objectReference: {fileID: 1462204976}
     - target: {fileID: 6982119055591125564, guid: d2746fa4911620f46b6a72639630fcf5, type: 3}
       propertyPath: m_Layer
       value: 0
@@ -38811,7 +38851,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6982119055779351445, guid: d2746fa4911620f46b6a72639630fcf5, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 5.1125183
+      value: 5.1053467
       objectReference: {fileID: 0}
     - target: {fileID: 6982119055779351445, guid: d2746fa4911620f46b6a72639630fcf5, type: 3}
       propertyPath: m_LocalPosition.y
@@ -38843,7 +38883,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6982119055873100630, guid: d2746fa4911620f46b6a72639630fcf5, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 11.275574
+      value: 11.262756
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 739431440, guid: d2746fa4911620f46b6a72639630fcf5, type: 3}
@@ -49663,8 +49703,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6755fd5b9514a8047b01e02e6b461492, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isLight: 10
-  cooldownTime: 10
+  isLight: 0
+  lightTime: 10
+  darknessTime: 10
+  cooldownTime: 0
   nextFireTime: 0
 --- !u!4 &1482866599 stripped
 Transform:
@@ -52965,7 +53007,7 @@ GameObject:
   - component: {fileID: 1569077807}
   m_Layer: 0
   m_Name: ColosseumEntranceTrigger
-  m_TagString: startColiseum
+  m_TagString: startColosseum
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -55547,6 +55589,10 @@ PrefabInstance:
     - target: {fileID: 7494069694623438088, guid: 1f6854a47ff12f04e93acd010bd88041, type: 3}
       propertyPath: normalSpeed
       value: 1.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 7494069694623438088, guid: 1f6854a47ff12f04e93acd010bd88041, type: 3}
+      propertyPath: maxSpeedPush
+      value: 175
       objectReference: {fileID: 0}
     - target: {fileID: 7494069694623438088, guid: 1f6854a47ff12f04e93acd010bd88041, type: 3}
       propertyPath: fullSpeedTime
@@ -67264,6 +67310,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   slider: {fileID: 536800786}
+  newLightController: {fileID: 0}
 --- !u!114 &2018596903
 MonoBehaviour:
   m_ObjectHideFlags: 0

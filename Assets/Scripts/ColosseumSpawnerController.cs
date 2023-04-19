@@ -7,44 +7,40 @@ public class ColosseumSpawnerController : MonoBehaviour
     [SerializeField]
     PlayerController playerController;
     // Start is called before the first frame update
-    void Start()
+    void OnEnable()
     {
-        
+        transform.GetChild(0).gameObject.SetActive(false);
+        transform.GetChild(1).gameObject.SetActive(false);
+        transform.GetChild(2).gameObject.SetActive(false);
+        transform.GetChild(3).gameObject.SetActive(false);
+        transform.GetChild(4).gameObject.SetActive(false);
+        transform.GetChild(5).gameObject.SetActive(false);
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (playerController.timer2 == 60)
-        {
-            transform.GetChild(0).gameObject.SetActive(false);
-            transform.GetChild(1).gameObject.SetActive(false);
-            transform.GetChild(2).gameObject.SetActive(false);
-            transform.GetChild(3).gameObject.SetActive(false);
-            transform.GetChild(4).gameObject.SetActive(false);
-            transform.GetChild(5).gameObject.SetActive(false);
-        }
-        if (playerController.timer2 < 60)
+        if (playerController.colosseumTimer < 60)
         {
             transform.GetChild(0).gameObject.SetActive(true);
         }
-        if (playerController.timer2 < 55)
+        if (playerController.colosseumTimer < 55)
         {
             transform.GetChild(1).gameObject.SetActive(true);
         }
-        if (playerController.timer2 < 45)
+        if (playerController.colosseumTimer < 45)
         {
             transform.GetChild(2).gameObject.SetActive(true);
         }
-        if (playerController.timer2 < 35)
+        if (playerController.colosseumTimer < 35)
         {
             transform.GetChild(3).gameObject.SetActive(true);
         }
-        if (playerController.timer2 < 25)
+        if (playerController.colosseumTimer < 25)
         {
             transform.GetChild(4).gameObject.SetActive(true);
         }
-        if (playerController.timer2 < 15)
+        if (playerController.colosseumTimer < 15)
         {
             transform.GetChild(5).gameObject.SetActive(true);
         }

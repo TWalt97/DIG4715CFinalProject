@@ -4,13 +4,15 @@ using UnityEngine;
 
 public class FanScript : MonoBehaviour
 {
-    float speed;
+    private float speed;
 
-    public float speedPush;
+    private float speedPush;
+    [SerializeField]
+    private float maxSpeedPush;
 
-    float fanTimer = 20f;
+    private float fanTimer = 20f;
 
-    FieldOfView fieldOfView;
+    private FieldOfView fieldOfView;
 
     public GameObject player;
 
@@ -47,7 +49,7 @@ public class FanScript : MonoBehaviour
 
         if (fieldOfView != null)
         {
-            if ((speed == fullSpeed) && (fieldOfView.canSeePlayer == true))
+            if (fieldOfView.canSeePlayer == true)
             {
                 //Push Player back
                 PushBack();
@@ -59,12 +61,12 @@ public class FanScript : MonoBehaviour
     IEnumerator FanTime(float fullSpeedTime)
     {
         //speed = fullSpeed;
-        StartCoroutine(ChangeFanSpeed.StartFade(this.gameObject.GetComponent<FanScript>(), 2f, fullSpeed));
+        StartCoroutine(ChangeFanSpeed.StartFade(this.gameObject.GetComponent<FanScript>(), 2f, fullSpeed, maxSpeedPush));
 
         yield return new WaitForSeconds(fullSpeedTime);
 
         //speed = normalSpeed;
-        StartCoroutine(ChangeFanSpeed.StartFade(this.gameObject.GetComponent<FanScript>(), 2f, normalSpeed));      
+        StartCoroutine(ChangeFanSpeed.StartFade(this.gameObject.GetComponent<FanScript>(), 2f, normalSpeed, 0));      
     }
 
     void PushBack()
@@ -74,14 +76,16 @@ public class FanScript : MonoBehaviour
 
     public static class ChangeFanSpeed
     {
-        public static IEnumerator StartFade(FanScript fanScript, float duration, float targetSpeed)
+        public static IEnumerator StartFade(FanScript fanScript, float duration, float targetSpeed, float targetPushSpeed)
         {
             float currentTime = 0;
             float start = fanScript.speed;
+            float pushStart = fanScript.speedPush;
             while (currentTime < duration)
             {
                 currentTime += Time.deltaTime;
                 fanScript.speed = Mathf.Lerp(start, targetSpeed, currentTime / duration);
+                fanScript.speedPush = Mathf.Lerp(pushStart, targetPushSpeed, currentTime / duration);
                 yield return null;
             }
             yield break;

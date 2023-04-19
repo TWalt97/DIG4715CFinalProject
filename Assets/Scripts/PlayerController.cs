@@ -53,12 +53,8 @@ public class PlayerController : MonoBehaviour
     [Header("Timer")]
     [Header("Maze")]
     public TextMeshProUGUI timeText;
-    [Header("Coliseum")]
-    public TextMeshProUGUI timeText2;
     [Header("Maze")]
     public float timer;
-    [Header("Coliseum")]
-    public float timer2;
     [Header("Timer After Lose")]
     [Header("Maze")]
     public float newTime;
@@ -66,12 +62,26 @@ public class PlayerController : MonoBehaviour
     public float newTime2;
     [Header("Maze")]
     bool timerActive = false;
-    [Header("Coliseum")]
-    bool timerActive2 = false;
+
+    [Header("Colosseum")]
+    public float colosseumTimer;
+    [SerializeField]
+    private GameObject colosseumTimerDisplay;
+    [SerializeField]
+    private TextMeshProUGUI colosseumTimerText;
+    [SerializeField]
+    private GameObject colosseumDoor;
+    [SerializeField]
+    private GameObject colosseumSpawners;
+    [SerializeField]
+    private GameObject colosseumTrigger;
+    [SerializeField]
+    private Transform colosseumSpawn;
+    [SerializeField]
+    private GameObject colosseumWinObject;
+
     [Header("Maze")]
     public GameObject Timer1;
-    [Header("Coliseum")]
-    public GameObject Timer2;
     // [Header("Default")]
     // public GameObject default;
 
@@ -153,7 +163,7 @@ public class PlayerController : MonoBehaviour
 
     bool deathCol = false;
 
-    public GameObject colWin;
+    
 
     GameObject[] directionLight;
 
@@ -175,20 +185,16 @@ public class PlayerController : MonoBehaviour
 
     private Vector3 startPos;
     private Vector3 cameraStartPos;
-    public GameObject colosseumDoor;
-    [SerializeField]
-    private GameObject colosseumSpawners;
-    private GameObject colosseumTrigger;
-    [SerializeField]
-    private Transform colosseumSpawn;
+
     [SerializeField]
     private GameObject platformerWinObject;
     [SerializeField]
     private Transform mazeSpawn;
-    [SerializeField]
-    private GameObject colosseumWinObject;
+
     [SerializeField]
     private GameObject pickupParticle;
+
+
 
     private void Awake()
     {
@@ -403,6 +409,7 @@ public class PlayerController : MonoBehaviour
 
         if (pauseUi.hud == true)
         {
+            ResetColosseum();
             AudioManager.Instance.musicSource.Stop();
             AudioManager.Instance.PlayMusic("HubMusic");
 
@@ -413,10 +420,8 @@ public class PlayerController : MonoBehaviour
 
             transform.position = startPos;
             timerActive = false;
-            timerActive2 = false;
             // default.SetActive(false);
             Timer1.SetActive(false);
-            Timer2.SetActive(false);
             pauseUi.hud = false;
             pauseUi.Resume();
         }
@@ -464,23 +469,26 @@ public class PlayerController : MonoBehaviour
             timer = 0;
         }
 
-        // coliseum
-        if (timerActive2 == true)
+        // colosseum
+        if (colosseumTimerDisplay.activeSelf == true)
         {
-            timer2 -= Time.deltaTime;
-            timeText2.text = timer2.ToString("F2");
-            colosseumDoor.SetActive(true);
-            colosseumSpawners.SetActive(true);
+            colosseumTimer -= Time.deltaTime;
+            colosseumTimerText.text = colosseumTimer.ToString("F2");
         }
-        if (timer2 < 0)
+        if (colosseumTimer < 0)
         {
-            timer2 = 0;
+            colosseumTimer = 0;
             colosseumDoor.SetActive(false);
             colosseumSpawners.SetActive(false);
             colosseumWinObject.SetActive(true);
             GameObject[] enemies = GameObject.FindGameObjectsWithTag("Enemy");
-            foreach (GameObject enemy in enemies)
-                GameObject.Destroy(enemy);
+            //foreach (GameObject enemy in enemies)
+            //GameObject.Destroy(enemy);
+
+            for (int i = 0; i < enemies.Length; i++)
+            {
+                enemies[i].GetComponent<EnemyController>().Hit();
+            }
         }
 
         // timeText.text = timer.ToString("F2");
@@ -517,23 +525,25 @@ public class PlayerController : MonoBehaviour
         {
             transform.position = colosseumSpawn.position;
             AudioManager.Instance.PlaySFX("LoseSound");
-            // timer2 = newTime2;
-            timerActive2 = false;
-            Timer2.SetActive(false);
+            colosseumTimerDisplay.SetActive(false);
             // default.SetActive(true);
             colosseumDoor.SetActive(false);
             deathCol = false;
             colosseumSpawners.SetActive(false);
             GameObject[] enemies = GameObject.FindGameObjectsWithTag("Enemy");
-            foreach (GameObject enemy in enemies)
-                GameObject.Destroy(enemy);
+            //foreach (GameObject enemy in enemies)
+            //GameObject.Destroy(enemy);
+
+            for (int i = 0; i < enemies.Length; i++)
+            {
+                enemies[i].GetComponent<EnemyController>().Hit();
+            }
         }
 
         // win coliseum
-        if ((timer2 == 0))
+        if ((colosseumTimer == 0))
         {
-            timerActive2 = false;
-            colWin.SetActive(true);
+            colosseumWinObject.SetActive(true);
         }
 
         // lose platformer
@@ -557,10 +567,10 @@ public class PlayerController : MonoBehaviour
         // maze
         string timerStr = timer.ToString("00.00");
         // coliseum
-        string timerStr2 = timer2.ToString("00.00");
+        string timerStr2 = colosseumTimer.ToString("00.00");
         // maze
         timeText.SetText($"<mspace={charWidth}em>{timerStr}");
-        timeText2.SetText($"<mspace={charWidth}em>{timerStr2}");
+        colosseumTimerText.SetText($"<mspace={charWidth}em>{timerStr2}");
         // coliseum
         //timeText2.SetText($"<mspace={charWidth}em>{timerStr2}");
 
@@ -750,10 +760,9 @@ public class PlayerController : MonoBehaviour
 
             winObject += 1;
             Debug.Log("Win Object: " + winObject);
-            timerActive2 = false;
             AudioManager.Instance.PlaySFX("WinSound");
             transform.position = startPos;
-            Timer2.SetActive(false);
+            colosseumTimerDisplay.SetActive(false);
             // default.SetActive(true);
             colDoor.transform.position = new Vector3(-244f, 207.2345f, -622f);
             colDoor.transform.rotation = Quaternion.Euler(0, 0, 0);
@@ -802,20 +811,13 @@ public class PlayerController : MonoBehaviour
             timer = newTime;
         }
 
-        if (collider.CompareTag("startColiseum"))
+        if (collider.CompareTag("startColosseum"))
         {
-            AudioManager.Instance.musicSource.Stop();
-            AudioManager.Instance.PlayMusic("ArenaMusic");
-            hud.isDefault = false;
-            hud.isArena = true;
-            colosseumTrigger = collider.gameObject;
-            colosseumTrigger.SetActive(false);
-            timerActive2 = true;
-            Timer2.SetActive(true);
+            StartColosseum();
+
             // default.SetActive(false);
             // HUD.Instance.SetDefault(isDefault);
             // HUD.Instance.SetArena(isArena);
-            timer2 = newTime2;
         }
 
         if (collider.CompareTag("startPlatformer"))
@@ -885,6 +887,37 @@ public class PlayerController : MonoBehaviour
             Destroy(collision.gameObject);
             colosseumTrigger.SetActive(true);
             //Debug.Log("Enemy");
+        }
+    }
+
+    private void StartColosseum()
+    {
+        colosseumTimerDisplay.SetActive(true);
+        colosseumTrigger.SetActive(false);
+        colosseumDoor.SetActive(true);
+        colosseumSpawners.SetActive(true);
+        colosseumTimer = 60;
+        AudioManager.Instance.musicSource.Stop();
+        AudioManager.Instance.PlayMusic("ArenaMusic");
+        hud.isDefault = false;
+        hud.isArena = true;
+    }
+
+    private void ResetColosseum()
+    {
+        colosseumTimerDisplay.SetActive(false);
+        colosseumTrigger.SetActive(true);
+        colosseumDoor.SetActive(false);
+        colosseumSpawners.SetActive(false);
+        AudioManager.Instance.musicSource.Stop();
+        AudioManager.Instance.PlayMusic("HubMusic");
+        GameObject[] enemies = GameObject.FindGameObjectsWithTag("Enemy");
+        //foreach (GameObject enemy in enemies)
+            //GameObject.Destroy(enemy);
+
+        for (int i = 0; i < enemies.Length; i++)
+        {
+            enemies[i].GetComponent<EnemyController>().Hit();
         }
     }
 
