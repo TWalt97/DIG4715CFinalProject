@@ -4954,7 +4954,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 178829146}
-  m_Layer: 6
+  m_Layer: 2
   m_Name: MazeStartPos
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -12314,7 +12314,7 @@ GameObject:
   m_Component:
   - component: {fileID: 422184562}
   - component: {fileID: 422184563}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: PlayerSpawn
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -38685,6 +38685,10 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6149047560892377666, guid: d2746fa4911620f46b6a72639630fcf5, type: 3}
+      propertyPath: m_Constraints
+      value: 112
+      objectReference: {fileID: 0}
     - target: {fileID: 6149047560892377669, guid: d2746fa4911620f46b6a72639630fcf5, type: 3}
       propertyPath: m_Size.y
       value: 0.6563375
@@ -38837,6 +38841,10 @@ PrefabInstance:
       propertyPath: colosseumTimerDisplay
       value: 
       objectReference: {fileID: 1462204976}
+    - target: {fileID: 6149047560892377695, guid: d2746fa4911620f46b6a72639630fcf5, type: 3}
+      propertyPath: shootableMasks.m_Bits
+      value: 3649
+      objectReference: {fileID: 0}
     - target: {fileID: 6982119055591125564, guid: d2746fa4911620f46b6a72639630fcf5, type: 3}
       propertyPath: m_Layer
       value: 0
@@ -52500,7 +52508,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1553383921}
   - component: {fileID: 1553383922}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: MazeEntranceTrigger
   m_TagString: startMaze
   m_Icon: {fileID: 0}
@@ -53005,7 +53013,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1569077806}
   - component: {fileID: 1569077807}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: ColosseumEntranceTrigger
   m_TagString: startColosseum
   m_Icon: {fileID: 0}

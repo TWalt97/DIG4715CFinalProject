@@ -121,6 +121,8 @@ public class PlayerController : MonoBehaviour
     public bool aiming;
     public ParticleSystem laserParticle;
     private bool laserCooldown = false;
+    [SerializeField]
+    private LayerMask shootableMasks;
 
     [Header("Shrink")]
     [SerializeField]
@@ -350,7 +352,7 @@ public class PlayerController : MonoBehaviour
         RaycastHit hit;
         hud.shooting = false;
         laserCooldown = false;
-        if (Physics.Raycast(cameraTransform.position, cameraTransform.forward, out hit, Mathf.Infinity))
+        if (Physics.Raycast(cameraTransform.position, cameraTransform.forward, out hit, Mathf.Infinity, shootableMasks))
         {
             Vector3 directionToTarget = (hit.point - particlePos.transform.position).normalized;
             Quaternion lookRotation = Quaternion.LookRotation(directionToTarget);
