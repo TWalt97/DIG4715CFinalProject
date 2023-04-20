@@ -1029,7 +1029,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 703005342503299963, guid: 27341e7d123eb4d43ba61056bc910772, type: 3}
       propertyPath: m_RootOrder
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 703005342503299963, guid: 27341e7d123eb4d43ba61056bc910772, type: 3}
       propertyPath: m_LocalPosition.x
@@ -2387,7 +2387,7 @@ Transform:
   - {fileID: 1928865609}
   - {fileID: 2105266198}
   m_Father: {fileID: 0}
-  m_RootOrder: 5
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &75723669 stripped
 GameObject:
@@ -8858,7 +8858,7 @@ Transform:
   - {fileID: 312277777}
   - {fileID: 1019578265}
   m_Father: {fileID: 0}
-  m_RootOrder: 7
+  m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &298797443 stripped
 Transform:
@@ -13035,9 +13035,10 @@ GameObject:
   - component: {fileID: 437595985}
   - component: {fileID: 437595987}
   - component: {fileID: 437595986}
+  - component: {fileID: 437595988}
   m_Layer: 0
-  m_Name: Spot Light (1)
-  m_TagString: Untagged
+  m_Name: ColosseumLight
+  m_TagString: ColosseumLight
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -13139,6 +13140,19 @@ Light:
   m_UseViewFrustumForShadowCasterCull: 1
   m_ShadowRadius: 0
   m_ShadowAngle: 0
+--- !u!114 &437595988
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 437595984}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 72b6c87590707114e8f26ff19eb31fac, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerController: {fileID: 1482647704}
 --- !u!4 &442896845 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 65d70d0f807608a4aa90dd81fee7f355, type: 3}
@@ -15380,7 +15394,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 9165301650736698028, guid: c4d0a7b4eec0506409d0cbf5cbc9b9ba, type: 3}
       propertyPath: m_RootOrder
-      value: 6
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 9165301650736698028, guid: c4d0a7b4eec0506409d0cbf5cbc9b9ba, type: 3}
       propertyPath: m_LocalScale.x
@@ -16193,6 +16207,10 @@ PrefabInstance:
       propertyPath: player
       value: 
       objectReference: {fileID: 1482647703}
+    - target: {fileID: 7692762830272343180, guid: eaa3147629f51cc4d8e6ab882ff66902, type: 3}
+      propertyPath: skeleDeathClip
+      value: 
+      objectReference: {fileID: 8300000, guid: f75fed5e7d76a334ba8b9f5a2ba331ec, type: 3}
     - target: {fileID: 7692762830272343181, guid: eaa3147629f51cc4d8e6ab882ff66902, type: 3}
       propertyPath: m_Name
       value: SkeletonRatSpawner (3)
@@ -20057,6 +20075,10 @@ PrefabInstance:
       propertyPath: player
       value: 
       objectReference: {fileID: 1482647703}
+    - target: {fileID: 7692762830272343180, guid: eaa3147629f51cc4d8e6ab882ff66902, type: 3}
+      propertyPath: skeleDeathClip
+      value: 
+      objectReference: {fileID: 8300000, guid: f75fed5e7d76a334ba8b9f5a2ba331ec, type: 3}
     - target: {fileID: 7692762830272343181, guid: eaa3147629f51cc4d8e6ab882ff66902, type: 3}
       propertyPath: m_Name
       value: SkeletonRatSpawner (5)
@@ -20733,7 +20755,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 703005342503299963, guid: 27341e7d123eb4d43ba61056bc910772, type: 3}
       propertyPath: m_RootOrder
-      value: 3
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 703005342503299963, guid: 27341e7d123eb4d43ba61056bc910772, type: 3}
       propertyPath: m_LocalPosition.x
@@ -22771,6 +22793,10 @@ PrefabInstance:
       propertyPath: player
       value: 
       objectReference: {fileID: 1482647703}
+    - target: {fileID: 7692762830272343180, guid: eaa3147629f51cc4d8e6ab882ff66902, type: 3}
+      propertyPath: skeleDeathClip
+      value: 
+      objectReference: {fileID: 8300000, guid: f75fed5e7d76a334ba8b9f5a2ba331ec, type: 3}
     - target: {fileID: 7692762830272343181, guid: eaa3147629f51cc4d8e6ab882ff66902, type: 3}
       propertyPath: m_Name
       value: SkeletonRatSpawner (2)
@@ -26370,7 +26396,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: f7e6d8c3d1d393f4da75e428449af145, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 14.469132
+      value: 114.1
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: f7e6d8c3d1d393f4da75e428449af145, type: 3}
       propertyPath: m_LocalPosition.y
@@ -26378,7 +26404,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: f7e6d8c3d1d393f4da75e428449af145, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -117.71527
+      value: -70.3
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: f7e6d8c3d1d393f4da75e428449af145, type: 3}
       propertyPath: m_LocalRotation.w
@@ -34736,6 +34762,10 @@ PrefabInstance:
       propertyPath: player
       value: 
       objectReference: {fileID: 1482647703}
+    - target: {fileID: 7692762830272343180, guid: eaa3147629f51cc4d8e6ab882ff66902, type: 3}
+      propertyPath: skeleDeathClip
+      value: 
+      objectReference: {fileID: 8300000, guid: f75fed5e7d76a334ba8b9f5a2ba331ec, type: 3}
     - target: {fileID: 7692762830272343181, guid: eaa3147629f51cc4d8e6ab882ff66902, type: 3}
       propertyPath: m_Name
       value: SkeletonRatSpawner
@@ -37436,7 +37466,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 9165301650736698028, guid: c4d0a7b4eec0506409d0cbf5cbc9b9ba, type: 3}
       propertyPath: m_RootOrder
-      value: 4
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 9165301650736698028, guid: c4d0a7b4eec0506409d0cbf5cbc9b9ba, type: 3}
       propertyPath: m_LocalPosition.x
@@ -38622,12 +38652,16 @@ PrefabInstance:
       value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 6149047559196471614, guid: d2746fa4911620f46b6a72639630fcf5, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6149047559196471614, guid: d2746fa4911620f46b6a72639630fcf5, type: 3}
       propertyPath: m_TagString
       value: Player
       objectReference: {fileID: 0}
     - target: {fileID: 6149047559196471615, guid: d2746fa4911620f46b6a72639630fcf5, type: 3}
       propertyPath: m_RootOrder
-      value: 8
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6149047559196471615, guid: d2746fa4911620f46b6a72639630fcf5, type: 3}
       propertyPath: m_LocalPosition.x
@@ -42729,7 +42763,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 703005342503299963, guid: 27341e7d123eb4d43ba61056bc910772, type: 3}
       propertyPath: m_RootOrder
-      value: 2
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 703005342503299963, guid: 27341e7d123eb4d43ba61056bc910772, type: 3}
       propertyPath: m_LocalPosition.x
@@ -48431,6 +48465,10 @@ PrefabInstance:
       propertyPath: player
       value: 
       objectReference: {fileID: 1482647703}
+    - target: {fileID: 7692762830272343180, guid: eaa3147629f51cc4d8e6ab882ff66902, type: 3}
+      propertyPath: skeleDeathClip
+      value: 
+      objectReference: {fileID: 8300000, guid: f75fed5e7d76a334ba8b9f5a2ba331ec, type: 3}
     - target: {fileID: 7692762830272343181, guid: eaa3147629f51cc4d8e6ab882ff66902, type: 3}
       propertyPath: m_Name
       value: SkeletonRatSpawner (1)
@@ -58554,6 +58592,10 @@ PrefabInstance:
       propertyPath: player
       value: 
       objectReference: {fileID: 1482647703}
+    - target: {fileID: 7692762830272343180, guid: eaa3147629f51cc4d8e6ab882ff66902, type: 3}
+      propertyPath: skeleDeathClip
+      value: 
+      objectReference: {fileID: 8300000, guid: f75fed5e7d76a334ba8b9f5a2ba331ec, type: 3}
     - target: {fileID: 7692762830272343181, guid: eaa3147629f51cc4d8e6ab882ff66902, type: 3}
       propertyPath: m_Name
       value: SkeletonRatSpawner (4)
