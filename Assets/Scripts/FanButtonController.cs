@@ -25,7 +25,7 @@ public class FanButtonController : MonoBehaviour
         {
             particle = this.transform.GetChild(0).gameObject;
             particle.GetComponent<ParticleSystem>().Play();
-            AudioManager.Instance.PlaySFX("ButtonDestroy");
+            
             DisableFan();
         }
     }
@@ -33,6 +33,7 @@ public class FanButtonController : MonoBehaviour
     private void DisableFan()
     {
         // AudioManager.Instance.PlaySFX("FanShutDown");
+        AudioManager.Instance.PlaySFX("ButtonDestroy");
 
         fan.GetComponent<FanScript>().enabled = false;
         Destroy(gameObject, 1.5f);
