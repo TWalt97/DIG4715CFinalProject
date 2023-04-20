@@ -291,6 +291,14 @@ public class PlayerController : MonoBehaviour
         cameraTransform = tutorialCamera.transform;
 
         TVCinemachine.GetComponent<CinemachineVirtualCamera>().Priority -= 10;
+
+        foreach (GameObject go in directionLight)
+        {
+            go.SetActive(false);
+        }
+
+        // disable script
+        GetComponent<LightScript>().enabled = false;
     }
 
     private void ExitTutorialLevel()
@@ -306,6 +314,8 @@ public class PlayerController : MonoBehaviour
 
         TVCinemachine.GetComponent<CinemachineVirtualCamera>().Priority -= 10;
         interactUI.transform.localScale = new Vector3(1, 1, 1);
+
+        GetComponent<LightScript>().enabled = true;
     }
     private void Shrink()
     {
@@ -426,6 +436,8 @@ public class PlayerController : MonoBehaviour
             Timer1.SetActive(false);
             pauseUi.hud = false;
             pauseUi.Resume();
+
+            GetComponent<LightScript>().enabled = true;
         }
         if (Physics.CheckSphere(transform.position, distanceToGround, groundedLayer))
         {

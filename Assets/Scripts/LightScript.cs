@@ -23,17 +23,18 @@ public class LightScript : MonoBehaviour
     public float nextFireTime = 0;
 
 
-    void Start()
+
+    void Awake()
     {
         directionLight = GameObject.FindGameObjectsWithTag("light");
-        resetTime = lightTime;
+        resetTime = 10f;
 
     }
     // Update is called once per frame
     void Update()
     {
         lightTime -= Time.deltaTime;
-        if (lightTime < 0 && lightTime > -0.1)
+        if ((lightTime < 0 && lightTime > -0.1))
         {
             StartCoroutine(DisableLight(darknessTime));
         }
