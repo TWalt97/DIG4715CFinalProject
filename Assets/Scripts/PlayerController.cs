@@ -316,6 +316,10 @@ public class PlayerController : MonoBehaviour
         interactUI.transform.localScale = new Vector3(1, 1, 1);
 
         GetComponent<LightScript>().enabled = true;
+
+        hud.glowing = false;
+        glowLight.intensity = 0f;
+        lightToggle = false;
     }
     private void Shrink()
     {
@@ -439,7 +443,7 @@ public class PlayerController : MonoBehaviour
 
             GetComponent<LightScript>().enabled = true;
         }
-        if (Physics.CheckSphere(transform.position, distanceToGround, groundedLayer))
+        if (Physics.CheckSphere(transform.position + (Vector3.up * 5), distanceToGround, groundedLayer))
         {
             groundedPlayer = true;
         }
