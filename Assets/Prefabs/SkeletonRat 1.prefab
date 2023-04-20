@@ -4539,6 +4539,7 @@ GameObject:
   - component: {fileID: 7918105426904369445}
   - component: {fileID: 7918105426904369446}
   - component: {fileID: 5885707612456977625}
+  - component: {fileID: 4252952725872398993}
   m_Layer: 10
   m_Name: SkeletonRat 1
   m_TagString: Enemy
@@ -4651,6 +4652,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerLocation: {fileID: 0}
   health: 2
+  deathClip: {fileID: 0}
 --- !u!82 &5885707612456977625
 AudioSource:
   m_ObjectHideFlags: 0
@@ -4747,6 +4749,18 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &4252952725872398993
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8218534439834013983}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2ae5b77c5136ca04ba56d8267e200f3c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &8253186755022701093
 GameObject:
   m_ObjectHideFlags: 0

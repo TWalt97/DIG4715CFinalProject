@@ -267,6 +267,8 @@ public class PlayerController : MonoBehaviour
                     TVCinemachine.GetComponent<CinemachineVirtualCamera>().Priority += 10;
                     interactUI.transform.localScale = new Vector3(0, 0, 0);
                     Invoke("EnterTutorialLevel", 1.5f);
+
+                    AudioManager.Instance.PlaySFX("TVZoomIn");
                 }
             }
         }
@@ -275,6 +277,8 @@ public class PlayerController : MonoBehaviour
             interacting = !interacting;
             TVCinemachine.GetComponent<CinemachineVirtualCamera>().Priority += 10;
             Invoke("ExitTutorialLevel", 1.5f);
+
+            AudioManager.Instance.PlaySFX("TVZoomOut");
         }
     }
 
@@ -562,6 +566,7 @@ public class PlayerController : MonoBehaviour
         if ((colosseumTimer == 0))
         {
             colosseumWinObject.SetActive(true);
+            AudioManager.Instance.PlaySFX("CollectibleSpawn");
         }
 
         // lose platformer
@@ -576,6 +581,7 @@ public class PlayerController : MonoBehaviour
         if (platformerCount == platformerGoal)
         {
             //platformerWin.SetActive(true);
+            // AudioManager.Instance.PlaySFX("CollectibleSpawn");
         }
 
     }
@@ -746,12 +752,16 @@ public class PlayerController : MonoBehaviour
         {
             interacting = !interacting;
             TVCinemachine.GetComponent<CinemachineVirtualCamera>().Priority += 10;
+            AudioManager.Instance.PlaySFX("TVZoomOut");
             Invoke("ExitTutorialLevel", 1.5f);
         }
         if (collider.CompareTag("winMaze"))
         {
             AudioManager.Instance.musicSource.Stop();
             AudioManager.Instance.PlayMusic("HubMusic");
+
+            hud.isMaze = false;
+            hud.isDefault = true;
 
             winObject += 1;
             Debug.Log("Win Object: " + winObject);
@@ -776,6 +786,9 @@ public class PlayerController : MonoBehaviour
             AudioManager.Instance.musicSource.Stop();
             AudioManager.Instance.PlayMusic("HubMusic");
 
+            hud.isArena = false;
+            hud.isDefault = true;
+
             winObject += 1;
             Debug.Log("Win Object: " + winObject);
             AudioManager.Instance.PlaySFX("WinSound");
@@ -797,6 +810,9 @@ public class PlayerController : MonoBehaviour
         {
             AudioManager.Instance.musicSource.Stop();
             AudioManager.Instance.PlayMusic("HubMusic");
+
+            hud.isVent = false;
+            hud.isDefault = true;
 
             winObject += 1;
             Debug.Log("Win Object: " + winObject);
@@ -868,6 +884,7 @@ public class PlayerController : MonoBehaviour
             Destroy(collider.gameObject);
             if (platformerCount == 3)
             {
+                AudioManager.Instance.PlaySFX("CollectibleSpawn");
                 platformerWinObject.SetActive(true);
             }
         }
