@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Cinemachine;
+using TMPro;
 
 public class PauseUi : MonoBehaviour
 {
@@ -18,6 +19,8 @@ public class PauseUi : MonoBehaviour
     bool paused = false;
     public bool hud;
     public CinemachineBrain cinemachineBrain;
+    [SerializeField]
+    private TextMeshProUGUI areaText;
 
     //public GameObject ResumeButtonMenuUI;
 
@@ -34,6 +37,7 @@ public class PauseUi : MonoBehaviour
                 pauseMenuUI.SetActive(true);
                 Cursor.lockState = CursorLockMode.None;
                 Cursor.visible = true;
+                areaText.enabled = false;
                 //cinemachineBrain.m_UpdateMethod = CinemachineBrain.UpdateMethod.LateUpdate;
 
                 mainPauseScreen.SetActive(true);
@@ -50,6 +54,7 @@ public class PauseUi : MonoBehaviour
                 HUDOverlay.SetActive(true);
                 Cursor.lockState = CursorLockMode.Locked;
                 Cursor.visible = false;
+                areaText.enabled = true;
                 //cinemachineBrain.m_UpdateMethod = CinemachineBrain.UpdateMethod.SmartUpdate;
             }
         }

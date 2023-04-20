@@ -8,6 +8,7 @@ public class ColosseumLightController : MonoBehaviour
     private PlayerController playerController;
     private GameObject colosseumLight;
     private Light cLight;
+    bool coroutineActive = false;
     // Start is called before the first frame update
     void Start()
     {
@@ -19,13 +20,18 @@ public class ColosseumLightController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (playerController.colosseumTimer == 60 || playerController.colosseumTimer == 0)
+        if (((playerController.colosseumTimer > 55 && playerController.colosseumTimer < 60) || playerController.colosseumTimer < 0) && coroutineActive == true)
         {
+            coroutineActive = false;
+            StopAllCoroutines();
             cLight.intensity = 30000;
+            Debug.Log("Coroutine stopped, intensity set to 30,000");
         }
-        if (playerController.colosseumTimer < 60 && (playerController.colosseumTimer > 0))
+        if (((playerController.colosseumTimer < 55) && (playerController.colosseumTimer > 0)) && coroutineActive == false)
         {
             StartCoroutine(FadeLightSource.StartFade(cLight, 60f, 0));
+            coroutineActive = true;
+            Debug.Log("Coroutine started");
         }
     }
 
