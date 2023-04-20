@@ -36,6 +36,7 @@ public class FanButtonController : MonoBehaviour
         AudioManager.Instance.PlaySFX("ButtonDestroy");
 
         fan.GetComponent<FanScript>().enabled = false;
+        fan.GetComponent<AudioSource>().enabled = false;
         Destroy(gameObject, 1.5f);
     }
 }
