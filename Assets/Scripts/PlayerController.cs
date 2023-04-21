@@ -84,6 +84,8 @@ public class PlayerController : MonoBehaviour
 
     [Header("Maze")]
     public GameObject Timer1;
+    [SerializeField]
+    private GameObject mazeBlockingDoor;
     // [Header("Default")]
     // public GameObject default;
 
@@ -439,6 +441,8 @@ public class PlayerController : MonoBehaviour
         {
             ResetColosseum();
             ResetVent();
+            mazeBlockingDoor.SetActive(false);
+
             AudioManager.Instance.musicSource.Stop();
             AudioManager.Instance.PlayMusic("HubMusic");
 
@@ -507,7 +511,6 @@ public class PlayerController : MonoBehaviour
             colosseumTimerText.text = colosseumTimer.ToString("F2");
         }
 
-        // TODO Breaks the timer
         if (colosseumTimer <= 0 && colWinObjectSpawned == false)
         {
             colosseumDoor.SetActive(false);
@@ -527,12 +530,11 @@ public class PlayerController : MonoBehaviour
             }
         }
 
-        // win coliseum
+        // Force timer to zero (even after win object spawned)
         if ((colosseumTimer <= 0))
         {
             colosseumTimer = 0;
-            // Is super messed up bcs in update
-            // AudioManager.Instance.PlaySFX("CollectibleSpawn");
+
         }
 
         // timeText.text = timer.ToString("F2");
@@ -773,6 +775,11 @@ public class PlayerController : MonoBehaviour
         }
         if (collider.CompareTag("winMaze"))
         {
+            if (winObject == 3)
+            {
+                WinState();
+            }
+
             AudioManager.Instance.musicSource.Stop();
             AudioManager.Instance.PlayMusic("HubMusic");
 
@@ -785,19 +792,17 @@ public class PlayerController : MonoBehaviour
             AudioManager.Instance.PlaySFX("WinSound");
             transform.position = startPos;
             Timer1.SetActive(false);
+            mazeBlockingDoor.SetActive(false);
             mazeDoor.transform.position = new Vector3(-319f, 207.2345f, -622f);
             mazeDoor.transform.rotation = Quaternion.Euler(0, 0, 0);
-            if (winObject == 3)
-            {
-                SceneManager.LoadScene("Win");
-                AudioManager.Instance.PlaySFX("WinSound");
-                Cursor.lockState = CursorLockMode.None;
-                Cursor.visible = true;
-            }
         }
 
         if (collider.CompareTag("winColiseum"))
         {
+            if (winObject == 3)
+            {
+                WinState();
+            }
 
             AudioManager.Instance.musicSource.Stop();
             AudioManager.Instance.PlayMusic("HubMusic");
@@ -813,17 +818,15 @@ public class PlayerController : MonoBehaviour
             // default.SetActive(true);
             colDoor.transform.position = new Vector3(-244f, 207.2345f, -622f);
             colDoor.transform.rotation = Quaternion.Euler(0, 0, 0);
-            if (winObject == 3)
-            {
-                SceneManager.LoadScene("Win");
-                AudioManager.Instance.PlaySFX("WinSound");
-                Cursor.lockState = CursorLockMode.None;
-                Cursor.visible = true;
-            }
         }
 
         if (collider.CompareTag("winPlatformer"))
         {
+            if (winObject == 3)
+            {
+                WinState();
+            }
+
             AudioManager.Instance.musicSource.Stop();
             AudioManager.Instance.PlayMusic("HubMusic");
 
@@ -842,24 +845,21 @@ public class PlayerController : MonoBehaviour
             }
             platformerDoor.transform.position = new Vector3(-281f, 207.2345f, -659f);
             platformerDoor.transform.rotation = Quaternion.Euler(0, 0, 0);
-            if (winObject == 3)
-            {
-                SceneManager.LoadScene("Win");
-                AudioManager.Instance.PlaySFX("WinSound");
-                Cursor.lockState = CursorLockMode.None;
-                Cursor.visible = true;
-            }
         }
 
         if (collider.CompareTag("startMaze"))
         {
-            hud.isDefault = false;
-            hud.isMaze = true;
-            AudioManager.Instance.musicSource.Stop();
-            AudioManager.Instance.PlayMusic("MazeMusic");
-            timerActive = true;
-            Timer1.SetActive(true);
-            timer = newTime;
+            if (timerActive == false)
+            {
+                hud.isDefault = false;
+                hud.isMaze = true;
+                AudioManager.Instance.musicSource.Stop();
+                AudioManager.Instance.PlayMusic("MazeMusic");
+                timerActive = true;
+                mazeBlockingDoor.SetActive(true);
+                Timer1.SetActive(true);
+                timer = newTime;
+            }
         }
 
         if (collider.CompareTag("startColosseum"))
@@ -986,6 +986,14 @@ public class PlayerController : MonoBehaviour
         // ventCounterText.text = 
         AudioManager.Instance.musicSource.Stop();
         AudioManager.Instance.PlayMusic("HubMusic");
+    }
+    
+    private void WinState()
+    {
+        SceneManager.LoadScene("Win");
+        AudioManager.Instance.PlaySFX("WinSound");
+        Cursor.lockState = CursorLockMode.None;
+        Cursor.visible = true;
     }
 
     public static class ChangeScale
