@@ -85,6 +85,13 @@ public class PlayerController : MonoBehaviour
     // [Header("Default")]
     // public GameObject default;
 
+    [Header("Vent")]
+    public GameObject ventCounterDisplay;
+    [SerializeField]
+    private TextMeshProUGUI ventCounterText;
+    [SerializeField]
+    private GameObject platformerWinObject;
+
     [Header("Lose State")]
     public GameObject loseText;
     [Header("Win State")]
@@ -188,8 +195,6 @@ public class PlayerController : MonoBehaviour
     private Vector3 startPos;
     private Vector3 cameraStartPos;
 
-    [SerializeField]
-    private GameObject platformerWinObject;
     [SerializeField]
     private Transform mazeSpawn;
 
@@ -430,6 +435,7 @@ public class PlayerController : MonoBehaviour
         if (pauseUi.hud == true)
         {
             ResetColosseum();
+            ResetVent();
             AudioManager.Instance.musicSource.Stop();
             AudioManager.Instance.PlayMusic("HubMusic");
 
@@ -566,7 +572,7 @@ public class PlayerController : MonoBehaviour
         if ((colosseumTimer == 0))
         {
             colosseumWinObject.SetActive(true);
-            // Is super messed up rn
+            // Is super messed up bcs in update
             // AudioManager.Instance.PlaySFX("CollectibleSpawn");
         }
 
@@ -820,6 +826,7 @@ public class PlayerController : MonoBehaviour
             Debug.Log("Win Object: " + winObject);
             AudioManager.Instance.PlaySFX("WinSound");
             transform.position = startPos;
+            ventCounterDisplay.SetActive(false);
             GetComponent<LightScript>().enabled = true;
             foreach (GameObject go in directionLight)
             {
@@ -865,6 +872,8 @@ public class PlayerController : MonoBehaviour
             hud.isVent = true;
 
             transform.position = platformerSpawnPos.position;
+            ventCounterDisplay.SetActive(true);
+            ventCounterText.text = ": " + platformerCount + "/3";
 
             foreach (GameObject go in directionLight)
             {
@@ -882,6 +891,8 @@ public class PlayerController : MonoBehaviour
             AudioManager.Instance.PlaySFX("CheeseCollect");
 
             platformerCount += 1;
+            ventCounterText.text = ": " + platformerCount + "/3";
+
             Debug.Log("Platformer Object: " + platformerCount);
             Destroy(collider.gameObject);
             if (platformerCount == 3)
@@ -958,6 +969,13 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+    private void ResetVent()
+    {
+        ventCounterDisplay.SetActive(false);
+        // ventCounterText.text = 
+        AudioManager.Instance.musicSource.Stop();
+        AudioManager.Instance.PlayMusic("HubMusic");
+    }
 
     public static class ChangeScale
     {
