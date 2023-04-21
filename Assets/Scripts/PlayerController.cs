@@ -80,6 +80,8 @@ public class PlayerController : MonoBehaviour
     [SerializeField]
     private GameObject colosseumWinObject;
 
+    private bool colWinObjectSpawned;
+
     [Header("Maze")]
     public GameObject Timer1;
     // [Header("Default")]
@@ -416,8 +418,9 @@ public class PlayerController : MonoBehaviour
         winText.SetActive(false);
 
         Cursor.lockState = CursorLockMode.Locked;
-
         directionLight = GameObject.FindGameObjectsWithTag("light");
+
+        colWinObjectSpawned = false;
     }
 
     void OnEscape()
@@ -503,13 +506,18 @@ public class PlayerController : MonoBehaviour
             colosseumTimer -= Time.deltaTime;
             colosseumTimerText.text = colosseumTimer.ToString("F2");
         }
-        if (colosseumTimer < 0)
+
+        // TODO Breaks the timer
+        if (colosseumTimer <= 0 && colWinObjectSpawned == false)
         {
-            colosseumTimer = 0;
             colosseumDoor.SetActive(false);
             colosseumSpawners.SetActive(false);
             colosseumWinObject.SetActive(true);
             GameObject[] enemies = GameObject.FindGameObjectsWithTag("Enemy");
+
+            AudioManager.Instance.PlaySFX("CollectibleSpawn");
+
+            colWinObjectSpawned = true;
             //foreach (GameObject enemy in enemies)
             //GameObject.Destroy(enemy);
 
@@ -517,6 +525,14 @@ public class PlayerController : MonoBehaviour
             {
                 enemies[i].GetComponent<EnemyController>().Hit();
             }
+        }
+
+        // win coliseum
+        if ((colosseumTimer <= 0))
+        {
+            colosseumTimer = 0;
+            // Is super messed up bcs in update
+            // AudioManager.Instance.PlaySFX("CollectibleSpawn");
         }
 
         // timeText.text = timer.ToString("F2");
@@ -566,14 +582,6 @@ public class PlayerController : MonoBehaviour
             {
                 enemies[i].GetComponent<EnemyController>().Hit();
             }
-        }
-
-        // win coliseum
-        if ((colosseumTimer == 0))
-        {
-            colosseumWinObject.SetActive(true);
-            // Is super messed up bcs in update
-            // AudioManager.Instance.PlaySFX("CollectibleSpawn");
         }
 
         // lose platformer
@@ -940,15 +948,18 @@ public class PlayerController : MonoBehaviour
 
     private void StartColosseum()
     {
-        colosseumTimerDisplay.SetActive(true);
-        colosseumTrigger.SetActive(false);
-        colosseumDoor.SetActive(true);
-        colosseumSpawners.SetActive(true);
-        colosseumTimer = 60;
-        AudioManager.Instance.musicSource.Stop();
-        AudioManager.Instance.PlayMusic("ArenaMusic");
-        hud.isDefault = false;
-        hud.isArena = true;
+        if (colWinObjectSpawned == false)
+        {
+            colosseumTimerDisplay.SetActive(true);
+            colosseumTrigger.SetActive(false);
+            colosseumDoor.SetActive(true);
+            colosseumSpawners.SetActive(true);
+            colosseumTimer = 60;
+            AudioManager.Instance.musicSource.Stop();
+            AudioManager.Instance.PlayMusic("ArenaMusic");
+            hud.isDefault = false;
+            hud.isArena = true;
+        }
     }
 
     private void ResetColosseum()

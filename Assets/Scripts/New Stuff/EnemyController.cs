@@ -51,12 +51,12 @@ public class EnemyController : MonoBehaviour
     {
         GameObject particle = this.transform.GetChild(0).gameObject;
         particle.GetComponent<ParticleSystem>().Play();
-        AudioManager.Instance.PlaySFX("SkeleDeath");
+        // AudioManager.Instance.PlaySFX("SkeleDeath");
         animator.SetBool("Death", true);
         agent.enabled = false;
         Invoke("Die", 1f);
-        // AudioSource audioSource = GetComponent<AudioSource>();
-        // audioSource.PlayOneShot(deathClip, 1f);
+        AudioSource audioSource = GetComponent<AudioSource>();
+        audioSource.PlayOneShot(deathClip, 1f);
     }
 
     private void Die()
