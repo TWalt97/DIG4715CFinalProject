@@ -566,7 +566,8 @@ public class PlayerController : MonoBehaviour
         if ((colosseumTimer == 0))
         {
             colosseumWinObject.SetActive(true);
-            AudioManager.Instance.PlaySFX("CollectibleSpawn");
+            // Is super messed up rn
+            // AudioManager.Instance.PlaySFX("CollectibleSpawn");
         }
 
         // lose platformer
@@ -753,6 +754,7 @@ public class PlayerController : MonoBehaviour
             interacting = !interacting;
             TVCinemachine.GetComponent<CinemachineVirtualCamera>().Priority += 10;
             AudioManager.Instance.PlaySFX("TVZoomOut");
+            AudioManager.Instance.PlaySFX("CheeseCollect");
             Invoke("ExitTutorialLevel", 1.5f);
         }
         if (collider.CompareTag("winMaze"))

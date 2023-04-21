@@ -152,16 +152,16 @@ public class HUD : MonoBehaviour
             isAiming = false;
         }
 
-        if (isAiming)
-        {
-            laserButtonBorder.interactable = true;
-            laserButtonBackground.interactable = true;
-        }
-        else
-        {
-            laserButtonBorder.interactable = false;
-            laserButtonBackground.interactable = false;
-        }
+        // if (isAiming)
+        // {
+        //     laserButtonBorder.interactable = true;
+        //     laserButtonBackground.interactable = true;
+        // }
+        // else
+        // {
+        //     laserButtonBorder.interactable = false;
+        //     laserButtonBackground.interactable = false;
+        // }
 
         // Fire Laser
         if (shooting == true)
