@@ -15,6 +15,8 @@ public class LaserController : MonoBehaviour
     public ParticleSystem laserParticle;
 
     private PlayerControls playerControls;
+    private HUD hud;
+
     public LayerMask layerMask;
     Animator animator;
 
@@ -73,13 +75,22 @@ public class LaserController : MonoBehaviour
             mainCamera.SetActive(false);
             zoomCamera.SetActive(true);
             crosshair.SetActive(true);
+
+            // Idk why this isn't working it did in my hud test :(
+            hud.laserButtonBorder.interactable = true;
+            hud.laserButtonBackground.interactable = true;
+
         }
         else
         {
             mainCamera.SetActive(true);
             zoomCamera.SetActive(false);
             crosshair.SetActive(false);
+
+            hud.laserButtonBorder.interactable = false;
+            hud.laserButtonBackground.interactable = false;
             aiming = false;
+
         }
     }
 
