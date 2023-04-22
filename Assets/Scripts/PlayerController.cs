@@ -475,6 +475,12 @@ public class PlayerController : MonoBehaviour
             {
                 pickup.SetActive(true);
             }
+
+            foreach (DestructibleObject plank in destructibleObject)
+            {
+                plank.gameObject.SetActive(true);
+            }
+
             platformerCount = 0;
             ventCounterText.text = ": " + platformerCount + "/3";
         }
