@@ -1603,7 +1603,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -0.00015258789, y: -100.41667}
+  m_AnchoredPosition: {x: -0.00018310547, y: -113.33331}
   m_SizeDelta: {x: 238.2164, y: 155.242}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &331692170
@@ -1633,16 +1633,18 @@ MonoBehaviour:
     Jump - Space
     Bar/A Button
 
-    F - Interact
+    F - Interact/Y Button
 
     Shrink - Left CTRL
 
-    Aim - Right Click/RMB
+    Aim - Right
+    Click/RB
 
-    Shoot
-    - Left Click/LMB
+    Shoot - Left Click/LB
 
-    E - Glow'
+    E - Glow
+
+    P - Pause'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: b3b01cd5cfa6f1744a2af553b0e9691c, type: 2}
   m_sharedMaterial: {fileID: -8199725511529017043, guid: b3b01cd5cfa6f1744a2af553b0e9691c, type: 2}
@@ -4411,8 +4413,8 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Use your abilities and your wits to survive Dr. H's sinister trials! Collect
-    the cheese at the end of the levels to win!
+  m_text: Use your abilities to survive Dr. H's sinister trials! Collect the items
+    at the end of each level to escape!
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: b3b01cd5cfa6f1744a2af553b0e9691c, type: 2}
   m_sharedMaterial: {fileID: -8199725511529017043, guid: b3b01cd5cfa6f1744a2af553b0e9691c, type: 2}
@@ -4635,7 +4637,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -330, y: 112}
+  m_AnchoredPosition: {x: -330, y: 141}
   m_SizeDelta: {x: 89.4665, y: 35.8893}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1005969375

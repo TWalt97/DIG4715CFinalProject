@@ -72,6 +72,8 @@ public class PlayerController : MonoBehaviour
     [SerializeField]
     private GameObject colosseumDoor;
     [SerializeField]
+    private GameObject colosseumLevelBlocker;
+    [SerializeField]
     private GameObject colosseumSpawners;
     [SerializeField]
     private GameObject colosseumTrigger;
@@ -208,6 +210,13 @@ public class PlayerController : MonoBehaviour
     private DestructibleObject[] destructibleObject;
     private GameObject[] cheese;
 
+    [Header("DisplayWinObjects")]
+    [SerializeField]
+    private GameObject displayMazeWin;
+    [SerializeField]
+    private GameObject displayArenaWin;
+    [SerializeField]
+    private GameObject displayVentWin;
 
     private void Awake()
     {
@@ -238,6 +247,10 @@ public class PlayerController : MonoBehaviour
 
         cheese = GameObject.FindGameObjectsWithTag("PlatformPickUp");
         destructibleObject = (DestructibleObject[])FindObjectsOfType(typeof(DestructibleObject));
+
+        displayMazeWin.SetActive(false);
+        displayArenaWin.SetActive(false);
+        displayVentWin.SetActive(false);
     }
 
     private void OnEnable()
@@ -453,6 +466,7 @@ public class PlayerController : MonoBehaviour
             ResetColosseum();
             ResetVent();
             mazeBlockingDoor.SetActive(false);
+            colosseumLevelBlocker.SetActive(false);
 
             AudioManager.Instance.musicSource.Stop();
             AudioManager.Instance.PlayMusic("HubMusic");
@@ -825,6 +839,8 @@ public class PlayerController : MonoBehaviour
             mazeBlockingDoor.SetActive(false);
             mazeDoor.transform.position = new Vector3(-319f, 207.2345f, -622f);
             mazeDoor.transform.rotation = Quaternion.Euler(0, 0, 0);
+
+            displayMazeWin.SetActive(true);
         }
 
         if (collider.CompareTag("winColiseum"))
@@ -844,10 +860,13 @@ public class PlayerController : MonoBehaviour
             Debug.Log("Win Object: " + winObject);
             AudioManager.Instance.PlaySFX("WinSound");
             transform.position = startPos;
+            colosseumLevelBlocker.SetActive(false);
             colosseumTimerDisplay.SetActive(false);
             // default.SetActive(true);
             colDoor.transform.position = new Vector3(-244f, 207.2345f, -622f);
             colDoor.transform.rotation = Quaternion.Euler(0, 0, 0);
+
+            displayArenaWin.SetActive(true);
         }
 
         if (collider.CompareTag("winPlatformer"))
@@ -875,6 +894,8 @@ public class PlayerController : MonoBehaviour
             }
             platformerDoor.transform.position = new Vector3(-281f, 207.2345f, -659f);
             platformerDoor.transform.rotation = Quaternion.Euler(0, 0, 0);
+
+            displayVentWin.SetActive(true);
         }
 
         if (collider.CompareTag("startMaze"))
@@ -986,6 +1007,7 @@ public class PlayerController : MonoBehaviour
             colosseumTimerDisplay.SetActive(true);
             colosseumTrigger.SetActive(false);
             colosseumDoor.SetActive(true);
+            colosseumLevelBlocker.SetActive(true);
             colosseumSpawners.SetActive(true);
             colosseumTimer = 60;
             AudioManager.Instance.musicSource.Stop();
