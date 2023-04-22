@@ -20,7 +20,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: LaserShader_Material
+  m_Name: BeamShader_Material
   m_Shader: {fileID: -6465566751694194690, guid: 974cb33d9b24f5b42a3c0304ab0d2cec, type: 3}
   m_ValidKeywords: []
   m_InvalidKeywords: []
@@ -34,11 +34,11 @@ Material:
     serializedVersion: 3
     m_TexEnvs:
     - _MainTexture:
-        m_Texture: {fileID: 2800000, guid: 891a978fe9e600f46aecefb4487bc8bf, type: 3}
+        m_Texture: {fileID: 2800000, guid: 3e4307f74601db643b8bcd35a7c37af6, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _Mask:
-        m_Texture: {fileID: 2800000, guid: 0802dd9b60350ef4984d278ca40f190c, type: 3}
+        m_Texture: {fileID: 10300, guid: 0000000000000000f000000000000000, type: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - unity_Lightmaps:
@@ -55,14 +55,14 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
-    - _DissolveAmount: 0.144
-    - _NoiseAmount: 0.16
+    - _DissolveAmount: 0.028
+    - _NoiseAmount: 0.197
     - _NoisePower: 2
-    - _NoiseScale: 25
+    - _NoiseScale: 29.9
     - _QueueControl: 0
     - _QueueOffset: 0
     m_Colors:
-    - _Color: {r: 11.984314, g: 1.3176471, b: 1.3176471, a: 1}
-    - _MainSpeed: {r: -0.5, g: 0, b: 0, a: 0}
-    - _NoiseSpeed: {r: 1, g: 0, b: 0, a: 0}
+    - _Color: {r: 23.968628, g: 19.576471, b: 19.576471, a: 1}
+    - _MainSpeed: {r: 0, g: 0, b: 0, a: 0}
+    - _NoiseSpeed: {r: 0.73, g: 0.6, b: 0, a: 0}
   m_BuildTextureStacks: []
