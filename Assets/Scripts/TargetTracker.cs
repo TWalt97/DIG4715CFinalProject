@@ -17,7 +17,7 @@ public class TargetTracker : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        targetsDestroyed = 5 - this.gameObject.transform.childCount;
+        targetsDestroyed = 6 - this.gameObject.GetComponentsInChildren<Transform>().GetLength(0);
         targetTracker.text = ("Targets Destroyed: " + targetsDestroyed + "/5");
     }
 }

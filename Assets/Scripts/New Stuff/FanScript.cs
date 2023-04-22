@@ -15,6 +15,7 @@ public class FanScript : MonoBehaviour
     private FieldOfView fieldOfView;
 
     public GameObject player;
+    private Vector3 pushDirection;
 
     [Header("Full Speed")]
     public float fullSpeedTime;
@@ -71,7 +72,8 @@ public class FanScript : MonoBehaviour
 
     void PushBack()
     {
-        player.GetComponent<Rigidbody>().AddForce(transform.forward * speedPush, ForceMode.Force);
+        pushDirection = new Vector3(fieldOfView.directionToTarget.x, 0, fieldOfView.directionToTarget.z).normalized;
+        player.GetComponent<Rigidbody>().AddForce(pushDirection * speedPush, ForceMode.Force);
     }
 
     public static class ChangeFanSpeed

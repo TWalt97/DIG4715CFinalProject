@@ -176,7 +176,7 @@ public class PlayerController : MonoBehaviour
 
     bool deathCol = false;
 
-    
+
 
     GameObject[] directionLight;
 
@@ -205,6 +205,8 @@ public class PlayerController : MonoBehaviour
     [SerializeField]
     private GameObject pickupParticle;
 
+    private DestructibleObject[] destructibleObject;
+    private GameObject[] cheese;
 
 
     private void Awake()
@@ -233,6 +235,9 @@ public class PlayerController : MonoBehaviour
         hud.isMaze = false;
         hud.isArena = false;
         hud.isVent = false;
+
+        cheese = GameObject.FindGameObjectsWithTag("PlatformPickUp");
+        destructibleObject = (DestructibleObject[])FindObjectsOfType(typeof(DestructibleObject));
     }
 
     private void OnEnable()
@@ -312,6 +317,12 @@ public class PlayerController : MonoBehaviour
 
         // disable script
         GetComponent<LightScript>().enabled = false;
+
+        //Respawn target dummies
+        foreach (DestructibleObject plank in destructibleObject)
+        {
+            plank.gameObject.SetActive(true);
+        }
     }
 
     private void ExitTutorialLevel()
@@ -459,6 +470,13 @@ public class PlayerController : MonoBehaviour
             pauseUi.Resume();
 
             GetComponent<LightScript>().enabled = true;
+
+            foreach (GameObject pickup in cheese)
+            {
+                pickup.SetActive(true);
+            }
+            platformerCount = 0;
+            ventCounterText.text = ": " + platformerCount + "/3";
         }
         if (Physics.CheckSphere(transform.position + (Vector3.up * 5), distanceToGround, groundedLayer))
         {
@@ -591,6 +609,12 @@ public class PlayerController : MonoBehaviour
         {
             transform.position = platformerSpawnPos.position;
             deathPlat = false;
+            foreach (GameObject pickup in cheese)
+            {
+                pickup.SetActive(true);
+            }
+            platformerCount = 0;
+            ventCounterText.text = ": " + platformerCount + "/3";
             AudioManager.Instance.PlaySFX("LoseSound");
         }
 
@@ -859,6 +883,10 @@ public class PlayerController : MonoBehaviour
                 mazeBlockingDoor.SetActive(true);
                 Timer1.SetActive(true);
                 timer = newTime;
+                foreach (DestructibleObject plank in destructibleObject)
+                {
+                    plank.gameObject.SetActive(true);
+                }
             }
         }
 
@@ -902,7 +930,7 @@ public class PlayerController : MonoBehaviour
             ventCounterText.text = ": " + platformerCount + "/3";
 
             Debug.Log("Platformer Object: " + platformerCount);
-            Destroy(collider.gameObject);
+            collider.gameObject.SetActive(false);
             if (platformerCount == 3)
             {
                 AudioManager.Instance.PlaySFX("CollectibleSpawn");
@@ -913,7 +941,6 @@ public class PlayerController : MonoBehaviour
         if (collider.CompareTag("Trap"))
         {
             deathPlat = true;
-            Destroy(collider.gameObject);
         }
 
         if (collider.CompareTag("PlatformerDeathZone"))
@@ -972,7 +999,7 @@ public class PlayerController : MonoBehaviour
         AudioManager.Instance.PlayMusic("HubMusic");
         GameObject[] enemies = GameObject.FindGameObjectsWithTag("Enemy");
         //foreach (GameObject enemy in enemies)
-            //GameObject.Destroy(enemy);
+        //GameObject.Destroy(enemy);
 
         for (int i = 0; i < enemies.Length; i++)
         {
@@ -987,7 +1014,7 @@ public class PlayerController : MonoBehaviour
         AudioManager.Instance.musicSource.Stop();
         AudioManager.Instance.PlayMusic("HubMusic");
     }
-    
+
     private void WinState()
     {
         SceneManager.LoadScene("Win");
