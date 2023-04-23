@@ -447,6 +447,9 @@ public class PlayerController : MonoBehaviour
         directionLight = GameObject.FindGameObjectsWithTag("light");
 
         colWinObjectSpawned = false;
+
+        // Testing: works!
+        // VoicelinesController.Instance.PlayVoiceline("StartingVoiceline");
     }
 
     void OnEscape()
