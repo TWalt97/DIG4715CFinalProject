@@ -218,6 +218,10 @@ public class PlayerController : MonoBehaviour
     [SerializeField]
     private GameObject displayVentWin;
 
+    private GameObject button;
+    [SerializeField]
+    private GameObject primaryFan;
+
     private void Awake()
     {
         //getting reference for components on the Player
@@ -251,6 +255,8 @@ public class PlayerController : MonoBehaviour
         displayMazeWin.SetActive(false);
         displayArenaWin.SetActive(false);
         displayVentWin.SetActive(false);
+
+        button = GameObject.FindWithTag("FanButton");
     }
 
     private void OnEnable()
@@ -493,6 +499,10 @@ public class PlayerController : MonoBehaviour
                 pickup.SetActive(true);
             }
 
+            button.SetActive(true);
+            primaryFan.GetComponent<FanScript>().enabled = true;
+            primaryFan.GetComponent<AudioSource>().enabled = true;
+
             foreach (DestructibleObject plank in destructibleObject)
             {
                 plank.gameObject.SetActive(true);
@@ -636,6 +646,9 @@ public class PlayerController : MonoBehaviour
             {
                 pickup.SetActive(true);
             }
+            button.SetActive(true);
+            primaryFan.GetComponent<FanScript>().enabled = true;
+            primaryFan.GetComponent<AudioSource>().enabled = true;
             platformerCount = 0;
             ventCounterText.text = ": " + platformerCount + "/3";
             AudioManager.Instance.PlaySFX("LoseSound");
