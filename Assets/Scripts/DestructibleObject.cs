@@ -31,7 +31,7 @@ public class DestructibleObject : MonoBehaviour
 
     void Die()
     {
-        Destroy(gameObject);
+        this.gameObject.SetActive(false);
     }
 
 }

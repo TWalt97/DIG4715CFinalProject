@@ -7,22 +7,18 @@ public class FanButtonController : MonoBehaviour
     [SerializeField]
     private GameObject fan;
     private GameObject particle;
+    private bool buttonDestroyed = false;
     // Start is called before the first frame update
-    void Start()
+    void OnEnable()
     {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
+        buttonDestroyed = false;
     }
 
     private void OnParticleCollision(GameObject other)
     {
-        if (other.tag == "Laser")
+        if (other.tag == "Laser" && buttonDestroyed == false)
         {
+            buttonDestroyed = true;
             particle = this.transform.GetChild(0).gameObject;
             particle.GetComponent<ParticleSystem>().Play();
             
@@ -37,6 +33,12 @@ public class FanButtonController : MonoBehaviour
 
         fan.GetComponent<FanScript>().enabled = false;
         fan.GetComponent<AudioSource>().enabled = false;
-        Destroy(gameObject, 1.5f);
+
+        Invoke("SetInactive", 1.5f);
+    }
+
+    private void SetInactive()
+    {
+        this.gameObject.SetActive(false);
     }
 }
