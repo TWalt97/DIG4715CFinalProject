@@ -267,7 +267,7 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
                     ""id"": ""ed80fd3c-dc41-4fd4-b734-8601d4c972c9"",
                     ""path"": ""<XInputController>/rightStickPress"",
                     ""interactions"": """",
-                    ""processors"": """",
+                    ""processors"": ""Scale(factor=10)"",
                     ""groups"": """",
                     ""action"": ""Aim"",
                     ""isComposite"": false,
