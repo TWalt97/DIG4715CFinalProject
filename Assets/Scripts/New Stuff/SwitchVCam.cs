@@ -8,7 +8,6 @@ public class SwitchVCam : MonoBehaviour
     private PlayerInput playerInput;
     [SerializeField]
     private int priorityBoostAmount = 10;
-    [SerializeField]
     private Canvas aimCanvas;
     [SerializeField]
     PlayerController playerController;
@@ -22,6 +21,7 @@ public class SwitchVCam : MonoBehaviour
     {
         virtualCamera = GetComponent<CinemachineVirtualCamera>();
         aimAction = playerInput.actions["Aim"];
+        aimCanvas = gameObject.GetComponentInChildren<Canvas>();
     }
 
     private void OnEnable()
@@ -38,17 +38,23 @@ public class SwitchVCam : MonoBehaviour
 
     private void StartAim()
     {
-        virtualCamera.Priority += priorityBoostAmount;
-        aimCanvas.enabled = true;
-        playerController.aiming = true;
-        hud.aiming = true;
+        if (this != null)
+        {
+            virtualCamera.Priority += priorityBoostAmount;
+            aimCanvas.enabled = true;
+            playerController.aiming = true;
+            hud.aiming = true;
+        }   
     }
 
     private void CancelAim()
     {
-        virtualCamera.Priority -= priorityBoostAmount;
-        aimCanvas.enabled = false;
-        playerController.aiming = false;
-        hud.aiming = false;
+        if (this != null)
+        {
+            virtualCamera.Priority -= priorityBoostAmount;
+            aimCanvas.enabled = false;
+            playerController.aiming = false;
+            hud.aiming = false;
+        }       
     }
 }

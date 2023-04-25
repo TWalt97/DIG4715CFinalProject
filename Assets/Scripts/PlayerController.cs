@@ -238,6 +238,8 @@ public class PlayerController : MonoBehaviour
 
     bool deathEscape = false;
 
+    public Vector3 escapeCheckpoint;
+
     private void Awake()
     {
         //getting reference for components on the Player
@@ -273,6 +275,8 @@ public class PlayerController : MonoBehaviour
         displayVentWin.SetActive(false);
 
         button = GameObject.FindWithTag("FanButton");
+
+        escapeCheckpoint = this.transform.position;
     }
 
     private void OnEnable()
@@ -280,6 +284,7 @@ public class PlayerController : MonoBehaviour
         playerControls.Enable();
         shootAction.performed += _ => ShootGun();
         glowAction.performed += _ => Glow();
+        glowAction.Enable();
         shrinkAction.performed += _ => Shrink();
         shrinkAction.canceled += _ => ShrinkEnd();
         interactAction.performed += _ => Interact();
@@ -288,6 +293,12 @@ public class PlayerController : MonoBehaviour
     private void OnDisable()
     {
         playerControls.Disable();
+        shootAction.performed -= _ => ShootGun();
+        glowAction.performed -= _ => Glow();
+        glowAction.Disable();
+        shrinkAction.performed -= _ => Shrink();
+        shrinkAction.canceled -= _ => ShrinkEnd();
+        interactAction.performed -= _ => Interact();
     }
 
     public TutorialTeleporter GetInteractableObject()
@@ -382,73 +393,88 @@ public class PlayerController : MonoBehaviour
     }
     private void Shrink()
     {
-        if (playerSize == startSize)
+        if (this != null)
         {
-            AudioManager.Instance.PlaySFX("Shrink");
+            if (playerSize == startSize)
+            {
+                AudioManager.Instance.PlaySFX("Shrink");
 
-            hud.shrinking = true;
-            StartCoroutine(ChangeScale.StartFade(this.gameObject, 0.1f, shrinkSize));
-            animator.SetBool("Shrink", true);
-            Invoke("ShrinkAnimCancel", 0.5f);
-        }
+                hud.shrinking = true;
+                StartCoroutine(ChangeScale.StartFade(this.gameObject, 0.1f, shrinkSize));
+                animator.SetBool("Shrink", true);
+                Invoke("ShrinkAnimCancel", 0.5f);
+            }
+        }   
     }
 
     private void ShrinkEnd()
     {
-        if (playerSize == shrinkSize)
+        if (this != null)
         {
-            AudioManager.Instance.PlaySFX("Grow");
+            if (playerSize == shrinkSize)
+            {
+                AudioManager.Instance.PlaySFX("Grow");
 
-            hud.shrinking = false;
-            StartCoroutine(ChangeScale.StartFade(this.gameObject, 0.1f, startSize));
-            animator.SetBool("Shrink", true);
-            Invoke("ShrinkAnimCancel", 0.5f);
-        }
+                hud.shrinking = false;
+                StartCoroutine(ChangeScale.StartFade(this.gameObject, 0.1f, startSize));
+                animator.SetBool("Shrink", true);
+                Invoke("ShrinkAnimCancel", 0.5f);
+            }
+        }  
     }
 
     private void ShootGun()
     {
-        if (aiming == true && laserCooldown == false)
+        if (this != null)
         {
-            hud.shooting = true;
-            animator.SetBool("Shoot", true);
-            Invoke("Shoot", 0.5f);
-            laserCooldown = true;
-        }
+            if (aiming == true && laserCooldown == false)
+            {
+                hud.shooting = true;
+                animator.SetBool("Shoot", true);
+                Invoke("Shoot", 0.5f);
+                laserCooldown = true;
+            }
+        }   
     }
 
     private void Shoot()
     {
-        AudioManager.Instance.PlaySFX("LaserFire");
-
-        animator.SetBool("Shoot", false);
-        RaycastHit hit;
-        hud.shooting = false;
-        laserCooldown = false;
-        if (Physics.Raycast(cameraTransform.position, cameraTransform.forward, out hit, Mathf.Infinity, shootableMasks))
+        if (this != null)
         {
-            Vector3 directionToTarget = (hit.point - particlePos.transform.position).normalized;
-            Quaternion lookRotation = Quaternion.LookRotation(directionToTarget);
-            ParticleSystem laser = ParticleSystem.Instantiate(laserParticle, particlePos.position, lookRotation, particleParent);
-        }
+            AudioManager.Instance.PlaySFX("LaserFire");
+
+            animator.SetBool("Shoot", false);
+            RaycastHit hit;
+            hud.shooting = false;
+            laserCooldown = false;
+            if (Physics.Raycast(cameraTransform.position, cameraTransform.forward, out hit, Mathf.Infinity, shootableMasks))
+            {
+                Vector3 directionToTarget = (hit.point - particlePos.transform.position).normalized;
+                Quaternion lookRotation = Quaternion.LookRotation(directionToTarget);
+                ParticleSystem laser = ParticleSystem.Instantiate(laserParticle, particlePos.position, lookRotation, particleParent);
+            }
+        }    
     }
 
     private void Glow()
     {
-        lightToggle = !lightToggle;
-        if (lightToggle == true)
+        if (this != null)
         {
-            AudioManager.Instance.PlaySFX("Glow");
+            lightToggle = !lightToggle;
+            if (lightToggle == true)
+            {
+                AudioManager.Instance.PlaySFX("Glow");
 
-            hud.glowing = true;
-            StartCoroutine(FadeLightSource.StartFade(glowLight, 2f, maxLightIntensity));
-        }
-        if (lightToggle == false)
-        {
-            AudioManager.Instance.PlaySFX("GlowFade");
+                hud.glowing = true;
+                StartCoroutine(FadeLightSource.StartFade(glowLight, 2f, maxLightIntensity));
+            }
+            if (lightToggle == false)
+            {
+                AudioManager.Instance.PlaySFX("GlowFade");
 
-            hud.glowing = false;
-            StartCoroutine(FadeLightSource.StartFade(glowLight, 2f, 0f));
+                hud.glowing = false;
+                StartCoroutine(FadeLightSource.StartFade(glowLight, 2f, 0f));
+            }
         }
     }
 
@@ -673,7 +699,6 @@ public class PlayerController : MonoBehaviour
         // fall off during escape
         if (deathEscape == true)
         {
-            transform.position = curCheckpoint.position;
             AudioManager.Instance.PlaySFX("LoseSound");
             deathEscape = false;
         }
@@ -854,6 +879,10 @@ public class PlayerController : MonoBehaviour
 
     void OnTriggerEnter(Collider collider)
     {
+        if (collider.CompareTag("EscapeDeathZone"))
+        {
+            transform.position = escapeCheckpoint;
+        }
         if (collider.CompareTag("TutorialCheese"))
         {
             interacting = !interacting;
@@ -1020,23 +1049,6 @@ public class PlayerController : MonoBehaviour
             deathPlat = true;
         }
 
-        if (collider.CompareTag("EscapeCheckpoint1"))
-        {
-            curCheckpoint.position = escapeCheckpoint1.position;
-        }
-        if (collider.CompareTag("EscapeCheckpoint2"))
-        {
-            curCheckpoint.position = escapeCheckpoint2.position;
-        }
-        if (collider.CompareTag("EscapeCheckpoint3"))
-        {
-            curCheckpoint.position = escapeCheckpoint3.position;
-        }
-
-        if (collider.CompareTag("EscapeDeathZone"))
-        {
-            deathEscape = true;
-        }
         // if (collider.CompareTag("hubMusic"))
         // {
         //     AudioManager.Instance.musicSource.Stop();
