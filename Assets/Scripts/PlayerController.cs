@@ -1119,7 +1119,7 @@ public class PlayerController : MonoBehaviour
         SceneManager.LoadScene("New Escape");
 
         AudioManager.Instance.musicSource.Stop();
-        // AudioManager.Instance.PlayMusic("EscapeMusic");
+        AudioManager.Instance.PlayMusic("EscapeMusic");
     }
 
     public static class ChangeScale
