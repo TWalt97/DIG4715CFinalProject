@@ -185,6 +185,7 @@ public class PlayerController : MonoBehaviour
     public int platformerCount;
 
     bool deathPlat = false;
+
     [SerializeField]
     private Transform platformerSpawnPos;
 
@@ -221,6 +222,21 @@ public class PlayerController : MonoBehaviour
     private GameObject button;
     [SerializeField]
     private GameObject primaryFan;
+
+    [Header("EscapeCheckpoints")]
+    [SerializeField]
+    private Transform escapeCheckpoint1;
+    [SerializeField]
+    private Transform escapeCheckpoint2;
+    [SerializeField]
+    private Transform escapeCheckpoint3;
+    private Transform curCheckpoint;
+
+    // new Vector3(185.8f, 194.87f, -527.3f);
+    // new Vector3(-99.79999f, 199.09f, 100.1f);
+    // new Vector3(391.7f, 386.5f, -618.3f);
+
+    bool deathEscape = false;
 
     private void Awake()
     {
@@ -654,6 +670,14 @@ public class PlayerController : MonoBehaviour
             AudioManager.Instance.PlaySFX("LoseSound");
         }
 
+        // fall off during escape
+        if (deathEscape == true)
+        {
+            transform.position = curCheckpoint.position;
+            AudioManager.Instance.PlaySFX("LoseSound");
+            deathEscape = false;
+        }
+
         // win platformer
         if (platformerCount == platformerGoal)
         {
@@ -661,6 +685,11 @@ public class PlayerController : MonoBehaviour
             // AudioManager.Instance.PlaySFX("CollectibleSpawn");
         }
 
+        // For testing New Escape
+        if (Input.GetKeyDown(";"))
+        {
+            EscapeState();
+        }
     }
 
     void CenterText()
@@ -837,7 +866,7 @@ public class PlayerController : MonoBehaviour
         {
             if (winObject == 3)
             {
-                WinState();
+                EscapeState();
             }
 
             AudioManager.Instance.musicSource.Stop();
@@ -863,7 +892,7 @@ public class PlayerController : MonoBehaviour
         {
             if (winObject == 3)
             {
-                WinState();
+                EscapeState();
             }
 
             AudioManager.Instance.musicSource.Stop();
@@ -889,7 +918,7 @@ public class PlayerController : MonoBehaviour
         {
             if (winObject == 3)
             {
-                WinState();
+                EscapeState();
             }
 
             AudioManager.Instance.musicSource.Stop();
@@ -990,6 +1019,24 @@ public class PlayerController : MonoBehaviour
         {
             deathPlat = true;
         }
+
+        if (collider.CompareTag("EscapeCheckpoint1"))
+        {
+            curCheckpoint.position = escapeCheckpoint1.position;
+        }
+        if (collider.CompareTag("EscapeCheckpoint2"))
+        {
+            curCheckpoint.position = escapeCheckpoint2.position;
+        }
+        if (collider.CompareTag("EscapeCheckpoint3"))
+        {
+            curCheckpoint.position = escapeCheckpoint3.position;
+        }
+
+        if (collider.CompareTag("EscapeDeathZone"))
+        {
+            deathEscape = true;
+        }
         // if (collider.CompareTag("hubMusic"))
         // {
         //     AudioManager.Instance.musicSource.Stop();
@@ -1059,13 +1106,20 @@ public class PlayerController : MonoBehaviour
         AudioManager.Instance.PlayMusic("HubMusic");
     }
 
-    private void WinState()
+    private void EscapeState()
     {
-        SceneManager.LoadScene("Win");
-        // SceneManager.LoadScene("New Escape");
+        // SceneManager.LoadScene("Win");
+
+        // Cursor.lockState = CursorLockMode.None;
+        // Cursor.visible = true;
+
         AudioManager.Instance.PlaySFX("WinSound");
-        Cursor.lockState = CursorLockMode.None;
-        Cursor.visible = true;
+        // There should probably be some sort of delay here, from switching to Lab Rat
+        // scene to New Escape (blackout scene swap?)
+        SceneManager.LoadScene("New Escape");
+
+        AudioManager.Instance.musicSource.Stop();
+        // AudioManager.Instance.PlayMusic("EscapeMusic");
     }
 
     public static class ChangeScale
