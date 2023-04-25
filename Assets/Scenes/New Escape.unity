@@ -24542,7 +24542,7 @@ BoxCollider:
   m_GameObject: {fileID: 681708379}
   m_Material: {fileID: 13400000, guid: a32ffde8ba4bccb41813cac2185d53b4, type: 2}
   m_IsTrigger: 0
-  m_Enabled: 0
+  m_Enabled: 1
   serializedVersion: 2
   m_Size: {x: 485.89246, y: 17.785454, z: 74.84903}
   m_Center: {x: -0.000000012206469, y: 0.33552885, z: -6.249712e-10}
@@ -46104,7 +46104,7 @@ GameObject:
   - component: {fileID: 1175343940}
   - component: {fileID: 1175343939}
   - component: {fileID: 1175343941}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: side1 (2)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -74523,6 +74523,10 @@ PrefabInstance:
       value: hubwallwindow
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 50b7aa0a51defba449d9ea11d8952a92, type: 3}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 50b7aa0a51defba449d9ea11d8952a92, type: 3}
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
@@ -99848,7 +99852,7 @@ GameObject:
   - component: {fileID: 5003138463631299544}
   - component: {fileID: 7100558840668006162}
   - component: {fileID: 1058269043}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: bigtable (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -99883,7 +99887,7 @@ GameObject:
   - component: {fileID: 5003138463356104643}
   - component: {fileID: 7100558841468672777}
   - component: {fileID: 1058269046}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: book
   m_TagString: Untagged
   m_Icon: {fileID: 0}

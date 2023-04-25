@@ -1062,6 +1062,7 @@ public class PlayerController : MonoBehaviour
     private void WinState()
     {
         SceneManager.LoadScene("Win");
+        // SceneManager.LoadScene("New Escape");
         AudioManager.Instance.PlaySFX("WinSound");
         Cursor.lockState = CursorLockMode.None;
         Cursor.visible = true;
