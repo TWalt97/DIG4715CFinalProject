@@ -232,6 +232,9 @@ public class PlayerController : MonoBehaviour
     private Transform escapeCheckpoint3;
     private Transform curCheckpoint;
 
+    private CinemachineImpulseSource impulseSource;
+
+
     // new Vector3(185.8f, 194.87f, -527.3f);
     // new Vector3(-99.79999f, 199.09f, 100.1f);
     // new Vector3(391.7f, 386.5f, -618.3f);
@@ -242,6 +245,7 @@ public class PlayerController : MonoBehaviour
 
     private void Awake()
     {
+        impulseSource = GetComponent<CinemachineImpulseSource>();
         //getting reference for components on the Player
         animator = GetComponentInChildren<Animator>();
         playerInput = GetComponent<PlayerInput>();
@@ -1124,14 +1128,24 @@ public class PlayerController : MonoBehaviour
 
         // Cursor.lockState = CursorLockMode.None;
         // Cursor.visible = true;
+        StartCoroutine(EscapeScene());
 
-        AudioManager.Instance.PlaySFX("WinSound");
+        CameraShakeManager.instance.CameraShake(impulseSource);
+
         // There should probably be some sort of delay here, from switching to Lab Rat
         // scene to New Escape (blackout scene swap?)
-        SceneManager.LoadScene("New Escape");
+        //SceneManager.LoadScene("New Escape");
 
-        AudioManager.Instance.musicSource.Stop();
-        AudioManager.Instance.PlayMusic("EscapeMusic");
+        //AudioManager.Instance.musicSource.Stop();
+        //AudioManager.Instance.PlayMusic("EscapeMusic");
+    }
+
+    public static IEnumerator EscapeScene()
+    {
+        yield return new WaitForSeconds(3.5f);
+
+        SceneManager.LoadScene("New Escape");
+        yield return null;
     }
 
     public static class ChangeScale

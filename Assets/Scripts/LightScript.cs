@@ -30,6 +30,36 @@ public class LightScript : MonoBehaviour
         resetTime = 10f;
 
     }
+    void OnDisable()
+    {
+        if (this != null)
+        {
+            StopAllCoroutines();
+            foreach (GameObject light in directionLight)
+            {
+                if (light != null)
+                {
+                    light.SetActive(false);
+                }
+                
+            }
+        }     
+    }
+
+    void OnEnable()
+    {
+        if (this != null)
+        {
+            lightTime = resetTime;
+            foreach (GameObject light in directionLight)
+            {
+                if (light != null)
+                {
+                    light.SetActive(true);
+                }
+            }
+        }   
+    }
     // Update is called once per frame
     void Update()
     {
@@ -48,7 +78,7 @@ public class LightScript : MonoBehaviour
         }
     }
 
-    IEnumerator DisableLight(float timeLightsAreOff)
+    public IEnumerator DisableLight(float timeLightsAreOff)
     {
         foreach (GameObject light in directionLight)
         {
