@@ -8,6 +8,8 @@ public class MainMenu : MonoBehaviour
     public void PlayGame()
     {
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+        AudioManager.Instance.musicSource.Stop();
+        AudioManager.Instance.PlayMusic("HubMusic");
     }
 
     public void QuitGame()

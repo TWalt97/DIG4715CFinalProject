@@ -9,6 +9,9 @@ using Cinemachine;
 
 public class PlayerController : MonoBehaviour
 {
+    private Scene currentScene;
+    private string sceneName;
+
     [Header("Movement")]
     [SerializeField]
     private float playerSpeed = 2.0f;
@@ -175,6 +178,8 @@ public class PlayerController : MonoBehaviour
 
     [SerializeField]
     private HUD hud;
+    [SerializeField]
+    private UIFadeOut uiFade;
 
     bool deathCol = false;
 
@@ -242,6 +247,9 @@ public class PlayerController : MonoBehaviour
 
     private void Awake()
     {
+        currentScene = SceneManager.GetActiveScene();
+        sceneName = currentScene.name;
+
         //getting reference for components on the Player
         animator = GetComponentInChildren<Animator>();
         playerInput = GetComponent<PlayerInput>();
@@ -259,8 +267,8 @@ public class PlayerController : MonoBehaviour
         startSize = transform.localScale.x;
         startPos = transform.position;
 
-        AudioManager.Instance.musicSource.Stop();
-        AudioManager.Instance.PlayMusic("HubMusic");
+        // AudioManager.Instance.musicSource.Stop();
+        // AudioManager.Instance.PlayMusic("HubMusic");
 
         hud.isDefault = true;
         hud.isMaze = false;
@@ -519,8 +527,17 @@ public class PlayerController : MonoBehaviour
             mazeBlockingDoor.SetActive(false);
             colosseumLevelBlocker.SetActive(false);
 
-            AudioManager.Instance.musicSource.Stop();
-            AudioManager.Instance.PlayMusic("HubMusic");
+            if (sceneName == "Lab Rat")
+            {
+                AudioManager.Instance.musicSource.Stop();
+                AudioManager.Instance.PlayMusic("HubMusic");
+            }
+
+            if (sceneName == "New Escape")
+            {
+                AudioManager.Instance.musicSource.Stop();
+                AudioManager.Instance.PlayMusic("EscapeMusic");
+            }
 
             hud.isDefault = true;
             hud.isMaze = false;
@@ -882,6 +899,7 @@ public class PlayerController : MonoBehaviour
         if (collider.CompareTag("EscapeDeathZone"))
         {
             transform.position = escapeCheckpoint;
+            AudioManager.Instance.PlaySFX("LoseSound");
         }
         if (collider.CompareTag("TutorialCheese"))
         {
@@ -1047,6 +1065,11 @@ public class PlayerController : MonoBehaviour
         if (collider.CompareTag("PlatformerDeathZone"))
         {
             deathPlat = true;
+        }
+
+        if (collider.CompareTag("WinState"))
+        {
+            uiFade.FadeUI(5f);
         }
 
         // if (collider.CompareTag("hubMusic"))
