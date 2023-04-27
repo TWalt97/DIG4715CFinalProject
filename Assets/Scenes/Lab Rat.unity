@@ -47794,7 +47794,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 277.6488}
+  m_AnchoredPosition: {x: 0, y: 304}
   m_SizeDelta: {x: 240.5466, y: 65.4552}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1170056804
@@ -68688,7 +68688,7 @@ GameObject:
   - component: {fileID: 1696539740}
   - component: {fileID: 1696539743}
   m_Layer: 0
-  m_Name: WinTrigger
+  m_Name: BlackPanel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -68714,7 +68714,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 31321ba15b8f8eb4c954353edc038b1d, type: 2}
+  - {fileID: 2100000, guid: da4349094608f3946b97e0015a7c05b3, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -78099,6 +78099,10 @@ PrefabInstance:
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: d192d6fecdc9c564b8f5722f32a82c57, type: 2}
+    - target: {fileID: -7511558181221131132, guid: 50b7aa0a51defba449d9ea11d8952a92, type: 3}
+      propertyPath: m_Materials.Array.data[1]
+      value: 
+      objectReference: {fileID: 2100000, guid: b18ca64808017d741b6c16aa1fa9a5a9, type: 2}
     - target: {fileID: 919132149155446097, guid: 50b7aa0a51defba449d9ea11d8952a92, type: 3}
       propertyPath: m_Name
       value: hubwallwindow
@@ -91227,6 +91231,7 @@ MonoBehaviour:
   TVCinemachine: {fileID: 2384166962754031411}
   interactUI: {fileID: 378387471}
   hud: {fileID: 1967906429}
+  uiFade: {fileID: 0}
   platformerCount: 0
   platformerSpawnPos: {fileID: 422184562}
   platformerGoal: 0
