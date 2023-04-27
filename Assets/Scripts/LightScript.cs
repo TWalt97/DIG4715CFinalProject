@@ -52,6 +52,7 @@ public class LightScript : MonoBehaviour
     {
         foreach (GameObject light in directionLight)
         {
+            AudioManager.Instance.PlaySFX("FlickerOff");
             light.SetActive(false);
         }
 
@@ -66,7 +67,7 @@ public class LightScript : MonoBehaviour
 
         foreach (GameObject light in directionLight)
         {
-            light.SetActive(false);
+            light.SetActive(false);            
         }
 
         yield return new WaitForSeconds(0.15f);
@@ -94,6 +95,7 @@ public class LightScript : MonoBehaviour
 
         foreach (GameObject light in directionLight)
         {
+            AudioManager.Instance.PlaySFX("FlickerOff");
             light.SetActive(false);
         }
 
