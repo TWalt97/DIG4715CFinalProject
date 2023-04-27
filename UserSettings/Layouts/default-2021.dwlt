@@ -19,7 +19,7 @@ MonoBehaviour:
     width: 2560
     height: 1357
   m_ShowMode: 4
-  m_Title: Hierarchy
+  m_Title: Game
   m_RootView: {fileID: 6}
   m_MinSize: {x: 875, y: 300}
   m_MaxSize: {x: 10000, y: 10000}
@@ -76,7 +76,7 @@ MonoBehaviour:
   m_MinSize: {x: 200, y: 100}
   m_MaxSize: {x: 16192, y: 8096}
   vertical: 0
-  controlID: 99
+  controlID: 26
 --- !u!114 &4
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -128,7 +128,7 @@ MonoBehaviour:
   m_MinSize: {x: 200, y: 200}
   m_MaxSize: {x: 16192, y: 16192}
   vertical: 1
-  controlID: 98
+  controlID: 25
 --- !u!114 &6
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -224,7 +224,7 @@ MonoBehaviour:
   m_MinSize: {x: 300, y: 200}
   m_MaxSize: {x: 24288, y: 16192}
   vertical: 0
-  controlID: 97
+  controlID: 24
 --- !u!114 &10
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -1663,22 +1663,22 @@ MonoBehaviour:
     m_SkipHidden: 0
     m_SearchArea: 1
     m_Folders:
-    - Assets/Audio/Music
+    - Assets/Scripts
     m_Globs: []
     m_OriginalText: 
   m_ViewMode: 1
   m_StartGridSize: 64
   m_LastFolders:
-  - Assets/Audio/Music
+  - Assets/Scripts
   m_LastFoldersGridSize: -1
   m_LastProjectPath: C:\Users\Gabriel\Documents\GitHub\DIG4715CFinalProject
   m_LockTracker:
     m_IsLocked: 0
   m_FolderTreeState:
-    scrollPos: {x: 0, y: 0}
-    m_SelectedIDs: b0770000
-    m_LastClickedID: 30640
-    m_ExpandedIDs: 000000003e77000040770000427700004477000046770000487700004a7700005477000000ca9a3bffffff7f
+    scrollPos: {x: 0, y: 261}
+    m_SelectedIDs: aca90000
+    m_LastClickedID: 43436
+    m_ExpandedIDs: 0000000096a8000098a800009aa800009ca800009ea80000a0a80000a2a800008ca900008ea900005a6e0100be6e010000ca9a3bffffff7f
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -1706,7 +1706,7 @@ MonoBehaviour:
     scrollPos: {x: 0, y: 0}
     m_SelectedIDs: 
     m_LastClickedID: 0
-    m_ExpandedIDs: 000000003e77000040770000427700004477000046770000487700004a770000
+    m_ExpandedIDs: 0000000096a8000098a800009aa800009ca800009ea80000a0a80000a2a80000
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -1733,7 +1733,7 @@ MonoBehaviour:
   m_ListAreaState:
     m_SelectedInstanceIDs: 
     m_LastClickedInstanceID: 0
-    m_HadKeyboardFocusLastEvent: 0
+    m_HadKeyboardFocusLastEvent: 1
     m_ExpandedInstanceIDs: c62300009a7200007470000064800000367800006c5f0100
     m_RenameOverlay:
       m_UserAcceptedRename: 0
@@ -1793,23 +1793,23 @@ MonoBehaviour:
   m_SceneHierarchy:
     m_TreeViewState:
       scrollPos: {x: 0, y: 0}
-      m_SelectedIDs: fc730000
-      m_LastClickedID: 29692
-      m_ExpandedIDs: ecfaffff
+      m_SelectedIDs: ba1d0000
+      m_LastClickedID: 0
+      m_ExpandedIDs: 0a9afeff74e4feff3619ffff8277ffffd49fffff6ac5ffffecfaffff6090000068060100960e0100a8aa0100
       m_RenameOverlay:
         m_UserAcceptedRename: 0
-        m_Name: 
-        m_OriginalName: 
+        m_Name: EscapeCheckpoint2
+        m_OriginalName: EscapeCheckpoint2
         m_EditFieldRect:
           serializedVersion: 2
           x: 0
           y: 0
           width: 0
           height: 0
-        m_UserData: 0
+        m_UserData: 35184
         m_IsWaitingForDelay: 0
         m_IsRenaming: 0
-        m_OriginalEventType: 11
+        m_OriginalEventType: 0
         m_IsRenamingFilename: 0
         m_ClientGUIView: {fileID: 10}
       m_SearchString: 
@@ -2044,9 +2044,9 @@ MonoBehaviour:
   m_PlayAudio: 0
   m_AudioPlay: 0
   m_Position:
-    m_Target: {x: 223.98206, y: -16.832489, z: -325.18176}
+    m_Target: {x: 678.27435, y: 325.81528, z: -8.374977}
     speed: 2
-    m_Value: {x: 223.98206, y: -16.832489, z: -325.18176}
+    m_Value: {x: 678.27435, y: 325.81528, z: -8.374977}
   m_RenderMode: 0
   m_CameraMode:
     drawMode: 0
@@ -2093,13 +2093,13 @@ MonoBehaviour:
     m_GridAxis: 1
     m_gridOpacity: 0.5
   m_Rotation:
-    m_Target: {x: -0.15644175, y: -0.6925153, z: 0.15782487, w: -0.6862858}
+    m_Target: {x: 0.051572442, y: 0.010802374, z: -0.00056305045, w: 0.99860686}
     speed: 2
-    m_Value: {x: 0.15644175, y: 0.6925153, z: -0.15782487, w: 0.6862858}
+    m_Value: {x: 0.05157264, y: 0.010802415, z: -0.0005630526, w: 0.9986107}
   m_Size:
-    m_Target: 693.19086
+    m_Target: 600.5899
     speed: 2
-    m_Value: 693.19086
+    m_Value: 600.5899
   m_Ortho:
     m_Target: 0
     speed: 2
@@ -2279,7 +2279,7 @@ MonoBehaviour:
     m_ControlHash: -371814159
     m_PrefName: Preview_InspectorPreview
   m_LastInspectedObjectInstanceID: -1
-  m_LastVerticalScrollValue: 1898
+  m_LastVerticalScrollValue: 0
   m_GlobalObjectId: 
   m_InspectorMode: 0
   m_LockTracker:

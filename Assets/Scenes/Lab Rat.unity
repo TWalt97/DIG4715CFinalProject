@@ -68616,7 +68616,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 31321ba15b8f8eb4c954353edc038b1d, type: 2}
+  - {fileID: 2100000, guid: da4349094608f3946b97e0015a7c05b3, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -90951,7 +90951,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerInput: {fileID: 6149047559772426265}
   priorityBoostAmount: 10
-  aimCanvas: {fileID: 6149047560610952262}
   playerController: {fileID: 6149047559772426246}
   hud: {fileID: 1967906429}
 --- !u!1 &6149047559547368000
@@ -91147,6 +91146,7 @@ MonoBehaviour:
   escapeCheckpoint1: {fileID: 0}
   escapeCheckpoint2: {fileID: 0}
   escapeCheckpoint3: {fileID: 0}
+  escapeCheckpoint: {x: 0, y: 0, z: 0}
 --- !u!4 &6149047559772426247
 Transform:
   m_ObjectHideFlags: 0
@@ -91355,7 +91355,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6149047560080560136}
   m_LocalRotation: {x: 0.022537993, y: 0.37463376, z: -0.00910984, w: 0.9268542}
-  m_LocalPosition: {x: -9.212006, y: 7.1733704, z: -19.201904}
+  m_LocalPosition: {x: -8.879669, y: 7.1733704, z: -19.52301}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -92532,7 +92532,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6982119054751953358}
   m_LocalRotation: {x: 0.022537993, y: 0.37463376, z: -0.00910984, w: 0.9268542}
-  m_LocalPosition: {x: 0.79034424, y: 5.660675, z: -7.700989}
+  m_LocalPosition: {x: 0.9764404, y: 5.660675, z: -7.8808594}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -92694,7 +92694,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6982119054886727949}
   m_LocalRotation: {x: 0.022537993, y: 0.37463376, z: -0.00910984, w: 0.9268542}
-  m_LocalPosition: {x: -9.212006, y: 7.1733704, z: -19.201904}
+  m_LocalPosition: {x: -8.879669, y: 7.1733704, z: -19.52301}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:

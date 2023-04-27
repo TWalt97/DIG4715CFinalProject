@@ -897,7 +897,7 @@ public class PlayerController : MonoBehaviour
             {
                 EscapeState();
             }
-
+        
             AudioManager.Instance.musicSource.Stop();
             AudioManager.Instance.PlayMusic("HubMusic");
 
