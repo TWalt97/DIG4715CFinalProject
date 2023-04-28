@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class FadeManager : MonoBehaviour
 {
@@ -15,6 +16,8 @@ public class FadeManager : MonoBehaviour
 
     private void Start()
     {
+        AudioManager.Instance.musicSource.Stop();
+        AudioManager.Instance.PlayMusic("WinMusic");
         StartCoroutine(Fade(timeUntilFadeBack, fadeTime));
     }
 
@@ -40,6 +43,9 @@ public class FadeManager : MonoBehaviour
             yield return null;
         }
 
+        Cursor.lockState = CursorLockMode.None;
+        Cursor.visible = true;
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
         yield return null;
     }
 }

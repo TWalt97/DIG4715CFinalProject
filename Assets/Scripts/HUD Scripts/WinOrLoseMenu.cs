@@ -11,6 +11,8 @@ public class WinOrLoseMenu : MonoBehaviour
     }
     public void MainMenu()
     {
+        AudioManager.Instance.musicSource.Stop();
+        AudioManager.Instance.PlayMusic("MenuMusic");
         SceneManager.LoadScene(0);
     }
 
