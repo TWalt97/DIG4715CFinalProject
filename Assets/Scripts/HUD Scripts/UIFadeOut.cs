@@ -29,7 +29,8 @@ public class UIFadeOut : MonoBehaviour
             yield return null;
         }
 
-        Cursor.lockState = CursorLockMode.Confined;
+        Cursor.lockState = CursorLockMode.None;
+        Cursor.visible = true;
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
         yield return null;
     }

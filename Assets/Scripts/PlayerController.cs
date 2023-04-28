@@ -750,7 +750,7 @@ public class PlayerController : MonoBehaviour
         // For testing New Escape
         if (Input.GetKeyDown(";"))
         {
-            Invoke("EscapeState", 3.5f);
+            Invoke("EscapeState", 6f);
         }
     }
 
@@ -933,7 +933,7 @@ public class PlayerController : MonoBehaviour
         {
             if (winObject == 3)
             {
-                Invoke("EscapeState", 3.5f);
+                Invoke("EscapeState", 6f);
             }
         
             AudioManager.Instance.musicSource.Stop();
@@ -959,7 +959,7 @@ public class PlayerController : MonoBehaviour
         {
             if (winObject == 3)
             {
-                Invoke("EscapeState", 3.5f);
+                Invoke("EscapeState", 6f);
             }
 
             AudioManager.Instance.musicSource.Stop();
@@ -985,7 +985,7 @@ public class PlayerController : MonoBehaviour
         {
             if (winObject == 3)
             {
-                Invoke("EscapeState", 3.5f);
+                Invoke("EscapeState", 6f);
             }
 
             AudioManager.Instance.musicSource.Stop();
@@ -1184,7 +1184,7 @@ public class PlayerController : MonoBehaviour
     {
         AudioManager.Instance.PlaySFX("Earthquake");
 
-        yield return new WaitForSeconds(6f);
+        yield return new WaitForSeconds(7f);
 
         SceneManager.LoadScene("New Escape");
         AudioManager.Instance.sfxSource.Stop();
