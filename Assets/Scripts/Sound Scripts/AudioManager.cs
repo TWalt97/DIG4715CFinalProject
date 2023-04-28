@@ -1,11 +1,15 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Audio;
 using System;
 
 public class AudioManager : MonoBehaviour
 {
     public static AudioManager Instance;
+
+    // public AudioMixer musicMixer;
+    // public AudioMixer sfxMixer;
 
     public Sound[] musicSounds, sfxSounds;
     public AudioSource musicSource, sfxSource;
@@ -25,7 +29,7 @@ public class AudioManager : MonoBehaviour
 
     private void Start()
     {
-        PlayMusic("BGMusic");
+        PlayMusic("MenuMusic");
     }
 
     public void PlayMusic(string name) 
@@ -69,11 +73,13 @@ public class AudioManager : MonoBehaviour
 
     public void MusicVolume(float volume)
     {
+        // musicMixer.SetFloat ("MusicVol", Mathf.Log10 (volume) * 20);
         musicSource.volume = volume;
     }
 
     public void SFXVolume(float volume)
     {
+        // sfxMixer.SetFloat ("SFXVol", Mathf.Log10 (volume) * 20);
         sfxSource.volume = volume;
     }
 }

@@ -82,7 +82,7 @@ public class LightScript : MonoBehaviour
     {
         foreach (GameObject light in directionLight)
         {
-            AudioManager.Instance.PlaySFX("FlickerOff");
+            AudioManager.Instance.PlaySFX("Flicker");
             light.SetActive(false);
         }
 
@@ -118,6 +118,7 @@ public class LightScript : MonoBehaviour
 
         foreach (GameObject light in directionLight)
         {
+            AudioManager.Instance.PlaySFX("Flicker");
             light.SetActive(true);
         }
 
@@ -125,7 +126,6 @@ public class LightScript : MonoBehaviour
 
         foreach (GameObject light in directionLight)
         {
-            AudioManager.Instance.PlaySFX("FlickerOff");
             light.SetActive(false);
         }
 

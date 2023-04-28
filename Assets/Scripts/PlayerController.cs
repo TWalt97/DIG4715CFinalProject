@@ -239,6 +239,8 @@ public class PlayerController : MonoBehaviour
 
     private CinemachineImpulseSource impulseSource;
 
+    [SerializeField]
+    private Image earthquakePanel;
 
     // new Vector3(185.8f, 194.87f, -527.3f);
     // new Vector3(-99.79999f, 199.09f, 100.1f);
@@ -271,8 +273,17 @@ public class PlayerController : MonoBehaviour
         startSize = transform.localScale.x;
         startPos = transform.position;
 
-        // AudioManager.Instance.musicSource.Stop();
-        // AudioManager.Instance.PlayMusic("HubMusic");
+        if (sceneName == "Lab Rat")
+        {
+            AudioManager.Instance.musicSource.Stop();
+            AudioManager.Instance.PlayMusic("HubMusic");
+        }
+
+        if (sceneName == "New Escape")
+        {
+            AudioManager.Instance.musicSource.Stop();
+            AudioManager.Instance.PlayMusic("EscapeMusic");
+        }
 
         hud.isDefault = true;
         hud.isMaze = false;
@@ -289,6 +300,11 @@ public class PlayerController : MonoBehaviour
         button = GameObject.FindWithTag("FanButton");
 
         escapeCheckpoint = this.transform.position;
+        
+        if (earthquakePanel != null)
+        {
+            earthquakePanel.gameObject.SetActive(false);
+        }
     }
 
     private void OnEnable()
@@ -734,7 +750,7 @@ public class PlayerController : MonoBehaviour
         // For testing New Escape
         if (Input.GetKeyDown(";"))
         {
-            EscapeState();
+            Invoke("EscapeState", 3.5f);
         }
     }
 
@@ -917,7 +933,7 @@ public class PlayerController : MonoBehaviour
         {
             if (winObject == 3)
             {
-                EscapeState();
+                Invoke("EscapeState", 3.5f);
             }
         
             AudioManager.Instance.musicSource.Stop();
@@ -943,7 +959,7 @@ public class PlayerController : MonoBehaviour
         {
             if (winObject == 3)
             {
-                EscapeState();
+                Invoke("EscapeState", 3.5f);
             }
 
             AudioManager.Instance.musicSource.Stop();
@@ -969,7 +985,7 @@ public class PlayerController : MonoBehaviour
         {
             if (winObject == 3)
             {
-                EscapeState();
+                Invoke("EscapeState", 3.5f);
             }
 
             AudioManager.Instance.musicSource.Stop();
@@ -1152,6 +1168,7 @@ public class PlayerController : MonoBehaviour
         // Cursor.lockState = CursorLockMode.None;
         // Cursor.visible = true;
         StartCoroutine(EscapeScene());
+        StartCoroutine(EarthquakePanel());
 
         CameraShakeManager.instance.CameraShake(impulseSource);
 
@@ -1165,10 +1182,44 @@ public class PlayerController : MonoBehaviour
 
     public static IEnumerator EscapeScene()
     {
-        yield return new WaitForSeconds(3.5f);
+        AudioManager.Instance.PlaySFX("Earthquake");
+
+        yield return new WaitForSeconds(6f);
 
         SceneManager.LoadScene("New Escape");
+        AudioManager.Instance.sfxSource.Stop();
+
         yield return null;
+    }
+
+    private IEnumerator EarthquakePanel()
+    {
+        yield return new WaitForSeconds (1.5f);
+        earthquakePanel.gameObject.SetActive(true);
+        yield return new WaitForSeconds(0.15f);
+        earthquakePanel.gameObject.SetActive(false);
+        yield return new WaitForSeconds(0.15f);
+        earthquakePanel.gameObject.SetActive(true);
+        yield return new WaitForSeconds(0.15f);
+        earthquakePanel.gameObject.SetActive(false);
+        yield return new WaitForSeconds(0.15f);
+        earthquakePanel.gameObject.SetActive(true);
+        yield return new WaitForSeconds(0.15f);
+        earthquakePanel.gameObject.SetActive(false);
+        yield return new WaitForSeconds(0.1f);
+        earthquakePanel.gameObject.SetActive(true);
+        yield return new WaitForSeconds(0.1f);
+        earthquakePanel.gameObject.SetActive(false);
+        yield return new WaitForSeconds(0.1f);
+        earthquakePanel.gameObject.SetActive(true);
+        yield return new WaitForSeconds(0.1f);
+        earthquakePanel.gameObject.SetActive(false);
+        yield return new WaitForSeconds(0.1f);
+        earthquakePanel.gameObject.SetActive(true);
+        yield return new WaitForSeconds(0.1f);
+        earthquakePanel.gameObject.SetActive(false);
+        yield return new WaitForSeconds(0.1f);
+        earthquakePanel.gameObject.SetActive(true);
     }
 
     public static class ChangeScale

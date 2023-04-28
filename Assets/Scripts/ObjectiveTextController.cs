@@ -33,7 +33,7 @@ public class ObjectiveTextController : MonoBehaviour
             text.color = Color.Lerp(start, targetColor, currentTime / duration);
             yield return null;
         }
-        yield return new WaitForSeconds(3);
+        yield return new WaitForSeconds(1.5f);
         currentTime = 0;
         while (currentTime < duration)
         {
