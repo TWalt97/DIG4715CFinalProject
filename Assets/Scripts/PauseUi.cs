@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Cinemachine;
 using TMPro;
+using UnityEngine.InputSystem;
 
 public class PauseUi : MonoBehaviour
 {
@@ -22,14 +23,36 @@ public class PauseUi : MonoBehaviour
     [SerializeField]
     private TextMeshProUGUI areaText;
 
+    [SerializeField]
+    private PlayerInput playerInput;
+    private InputAction pauseAction;
+
     //public GameObject ResumeButtonMenuUI;
 
     // Update is called once per frame
+
+    private void Awake()
+    {
+        pauseAction = playerInput.actions["Pause"];
+    }
+    private void OnEnable()
+    {
+        pauseAction.performed += _ => Paused();
+        pauseAction.Enable();
+    }
+
+    private void OnDisable()
+    {
+        pauseAction.performed -= _ => Paused();
+        pauseAction.Disable();
+    }
+
+    void Paused()
+    {
+        paused = !paused;
+    }
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.P))
-        {
-            paused = !paused;
             if (paused == true)
             {
                 Time.timeScale = 0;
@@ -57,8 +80,6 @@ public class PauseUi : MonoBehaviour
                 areaText.enabled = true;
                 //cinemachineBrain.m_UpdateMethod = CinemachineBrain.UpdateMethod.SmartUpdate;
             }
-        }
-
 
         //The original version of pause, temporarily commenting it out until we find a fix.
         /*if (Input.GetKeyDown(KeyCode.P) && !GameIsPaused)
