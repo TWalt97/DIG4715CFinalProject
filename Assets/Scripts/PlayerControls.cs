@@ -319,6 +319,17 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
                 },
                 {
                     ""name"": """",
+                    ""id"": ""09d6196f-40fd-4b38-90c0-706f9ad0f5fd"",
+                    ""path"": ""<XInputController>/start"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Pause"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
                     ""id"": ""073c4e33-d27b-4d7e-bbf7-68657d28e2c1"",
                     ""path"": ""<XInputController>/rightStick"",
                     ""interactions"": """",
