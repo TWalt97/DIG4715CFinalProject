@@ -50,50 +50,33 @@ public class PauseUi : MonoBehaviour
     void Paused()
     {
         paused = !paused;
-    }
-    void Update()
-    {
-            if (paused == true)
-            {
-                Time.timeScale = 0;
-                AudioListener.pause = true;
-                pauseMenuUI.SetActive(true);
-                Cursor.lockState = CursorLockMode.None;
-                Cursor.visible = true;
-                areaText.enabled = false;
-                //cinemachineBrain.m_UpdateMethod = CinemachineBrain.UpdateMethod.LateUpdate;
-
-                mainPauseScreen.SetActive(true);
-                creditsScreen.SetActive(false);
-                howToPlayScreen.SetActive(false);
-                optionsScreen.SetActive(false);
-                HUDOverlay.SetActive(false);
-            }
-            else
-            {
-                Time.timeScale = 1;
-                AudioListener.pause = false;
-                pauseMenuUI.SetActive(false);
-                HUDOverlay.SetActive(true);
-                Cursor.lockState = CursorLockMode.Locked;
-                Cursor.visible = false;
-                areaText.enabled = true;
-                //cinemachineBrain.m_UpdateMethod = CinemachineBrain.UpdateMethod.SmartUpdate;
-            }
-
-        //The original version of pause, temporarily commenting it out until we find a fix.
-        /*if (Input.GetKeyDown(KeyCode.P) && !GameIsPaused)
+        if (paused == true)
         {
+            Time.timeScale = 0;
+            AudioListener.pause = true;
+            pauseMenuUI.SetActive(true);
             Cursor.lockState = CursorLockMode.None;
-            if (GameIsPaused)
-            {
-                Resume();
-            }
-            else
-            {
-                Pause();
-            }
-        }*/
+            Cursor.visible = true;
+            areaText.enabled = false;
+            //cinemachineBrain.m_UpdateMethod = CinemachineBrain.UpdateMethod.LateUpdate;
+
+            mainPauseScreen.SetActive(true);
+            creditsScreen.SetActive(false);
+            howToPlayScreen.SetActive(false);
+            optionsScreen.SetActive(false);
+            HUDOverlay.SetActive(false);
+        }
+        else
+        {
+            Time.timeScale = 1;
+            AudioListener.pause = false;
+            pauseMenuUI.SetActive(false);
+            HUDOverlay.SetActive(true);
+            Cursor.lockState = CursorLockMode.Locked;
+            Cursor.visible = false;
+            areaText.enabled = true;
+            //cinemachineBrain.m_UpdateMethod = CinemachineBrain.UpdateMethod.SmartUpdate;
+        }
     }
 
     // resume game
