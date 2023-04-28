@@ -49,34 +49,37 @@ public class PauseUi : MonoBehaviour
 
     void Paused()
     {
-        paused = !paused;
-        if (paused == true)
+        if (this != null)
         {
-            Time.timeScale = 0;
-            AudioListener.pause = true;
-            pauseMenuUI.SetActive(true);
-            Cursor.lockState = CursorLockMode.None;
-            Cursor.visible = true;
-            areaText.enabled = false;
-            //cinemachineBrain.m_UpdateMethod = CinemachineBrain.UpdateMethod.LateUpdate;
+            paused = !paused;
+            if (paused == true)
+            {
+                Time.timeScale = 0;
+                AudioListener.pause = true;
+                pauseMenuUI.SetActive(true);
+                Cursor.lockState = CursorLockMode.None;
+                Cursor.visible = true;
+                areaText.enabled = false;
+                //cinemachineBrain.m_UpdateMethod = CinemachineBrain.UpdateMethod.LateUpdate;
 
-            mainPauseScreen.SetActive(true);
-            creditsScreen.SetActive(false);
-            howToPlayScreen.SetActive(false);
-            optionsScreen.SetActive(false);
-            HUDOverlay.SetActive(false);
-        }
-        else
-        {
-            Time.timeScale = 1;
-            AudioListener.pause = false;
-            pauseMenuUI.SetActive(false);
-            HUDOverlay.SetActive(true);
-            Cursor.lockState = CursorLockMode.Locked;
-            Cursor.visible = false;
-            areaText.enabled = true;
-            //cinemachineBrain.m_UpdateMethod = CinemachineBrain.UpdateMethod.SmartUpdate;
-        }
+                mainPauseScreen.SetActive(true);
+                creditsScreen.SetActive(false);
+                howToPlayScreen.SetActive(false);
+                optionsScreen.SetActive(false);
+                HUDOverlay.SetActive(false);
+            }
+            else
+            {
+                Time.timeScale = 1;
+                AudioListener.pause = false;
+                pauseMenuUI.SetActive(false);
+                HUDOverlay.SetActive(true);
+                Cursor.lockState = CursorLockMode.Locked;
+                Cursor.visible = false;
+                areaText.enabled = true;
+                //cinemachineBrain.m_UpdateMethod = CinemachineBrain.UpdateMethod.SmartUpdate;
+            }
+        }  
     }
 
     // resume game
