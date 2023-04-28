@@ -528,10 +528,10 @@ public class PlayerController : MonoBehaviour
         // VoicelinesController.Instance.PlayVoiceline("StartingVoiceline");
     }
 
-    void OnEscape()
-    {
-        Application.Quit();
-    }
+    // void OnEscape()
+    // {
+    //     Application.Quit();
+    // }
 
     private void FixedUpdate()
     {
@@ -748,10 +748,10 @@ public class PlayerController : MonoBehaviour
         }
 
         // For testing New Escape
-        if (Input.GetKeyDown(";"))
-        {
-            Invoke("EscapeState", 6f);
-        }
+        // if (Input.GetKeyDown(";"))
+        // {
+        //     Invoke("EscapeState", 6f);
+        // }
     }
 
     void CenterText()
